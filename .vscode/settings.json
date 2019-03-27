@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "*.nas": "gas",
+        "vector": "cpp"
+    }
+}
