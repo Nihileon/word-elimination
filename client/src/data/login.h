@@ -7,9 +7,10 @@ class Login{
 private:
     sqlite::database db;
     static Login *_instance;
+
     Login(const string path = "./test.db"):db(path.c_str()){}
  public:
-    static auto instance();
+    static Login& instance();
     static void destroy() ;
     typedef enum{
         DEFAULT_STATUS,
@@ -100,17 +101,6 @@ private:
     }
 };
 
-Login* Login::_instance = nullptr;
 
-auto Login::instance(){
-    if(_instance == nullptr){
-        _instance = new Login();
-    }
-    return _instance;
-}
-
-void Login::destroy(){
-    delete _instance;
-}
 
 #endif // LOGIN_H

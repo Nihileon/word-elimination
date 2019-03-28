@@ -3,20 +3,24 @@
 #include "../ui/LoginDialog_ui.h"
 #include "LoginDialog.h"
 #include "data/login.h"
+#include "registerdialog.h"
 
 LoginDialog::LoginDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::LoginDialogUi)
+    ui(new Ui::LoginDialogUi),reg(new RegisterDialog)
 {
     ui->setupUi(this);
     setFixedSize(this->width(), this->height());
+    connect(ui->registerPushButton, &QPushButton::clicked, this,&LoginDialog::showRegister);
     connect(ui->loginPushBotton,&QPushButton::clicked,this,&LoginDialog::checkPassword);
+
 }
 
 
 LoginDialog::~LoginDialog()
 {
     delete ui;
+    delete reg;
 }
 
 void LoginDialog::checkPassword(){
@@ -34,14 +38,14 @@ void LoginDialog::checkPassword(){
     QVariant user;
     bool isAccept = false;
     if(loginInfo.type == LoginInfo::WORD_BUILDER){
-        auto userPair = Login::instance()->getWordBuilder(loginInfo);
+        auto userPair = Login::instance().getWordBuilder(loginInfo);
         if(userPair.first==Login::DEFAULT_STATUS){
             user.setValue(userPair.second);
             emit sendUser(user);
             isAccept = true;
         }
     }else{
-        auto userPair = Login::instance()->getChallenger(loginInfo);
+        auto userPair = Login::instance().getChallenger(loginInfo);
         if(userPair.first==Login::DEFAULT_STATUS){
             user.setValue(userPair.second);
             emit sendUser(user);
@@ -59,3 +63,8 @@ void LoginDialog::checkPassword(){
     }
 }
 
+
+void LoginDialog::showReg(){
+    this->reject();
+    emit showRegister();
+}

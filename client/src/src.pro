@@ -34,7 +34,8 @@ HEADERS += \
     ui/LeaderboardDialog_ui.h \
     ui/LoginDialog_ui.h \
     ui/MainWindow_ui.h \
-    ui/RegisterDialog_ui.h
+    ui/RegisterDialog_ui.h \
+    widgets/registerdialog.h
 
 
 
@@ -43,7 +44,9 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     data/login.cpp \
-    data/words.cpp
+    data/words.cpp \
+    widgets/registerdialog.cpp \
+    data/loginsingleton.cpp
 
 
 SUBDIRS += \
