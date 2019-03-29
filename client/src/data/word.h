@@ -8,7 +8,6 @@ private:
     sqlite::database db;
     static Word *_instance;
     Word(const string path = "test.db"):db(path.c_str()){}
-    ~Word();
 public:
     static auto instance();
     static void destroy();
@@ -33,22 +32,5 @@ public:
         return wi;
     }
 };
-
-Word* Word::_instance = nullptr;
-
-auto Word::instance(){
-    if(_instance == nullptr){
-        _instance = new Word();
-    }
-    return _instance;
-}
-
-void Word::destroy(){
-    if(_instance != nullptr){
-        delete _instance;
-    }
-    return;
-}
-
 
 #endif // WORD_H

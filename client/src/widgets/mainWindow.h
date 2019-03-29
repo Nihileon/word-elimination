@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "data/login.h"
+#include <QVariant>
 
 namespace Ui {
 class MainWindow;
@@ -14,7 +16,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void setUser(QVariant data ){
 
+    }
 private:
     Ui::MainWindow *ui;
 };

@@ -8,8 +8,9 @@
 using namespace sqlite;
 RegisterDialog::RegisterDialog(QWidget* parent):QDialog (parent), ui(new Ui::RegisterDialogUi) {
     ui->setupUi(this);
-    connect(ui->backPushBotton, &QPushButton::clicked, this, &RegisterDialog::back);
+    //    connect(ui->backPushBotton, &QPushButton::clicked, this, &RegisterDialog::back);
     connect(ui->registerPushButton, &QPushButton::clicked, this, &RegisterDialog::reg);
+    connect(ui->backPushBotton, &QPushButton::clicked, this, &RegisterDialog::backLogin);
 }
 
 
@@ -32,7 +33,7 @@ void RegisterDialog::reg(){
     // \TODO 处理空用户名的问题
     try {
         Login::instance().insert(loginInfo);
-        this->accept();
+        showMainWindow();
 
     } catch (sqlite_exception& e) {
         QMessageBox *msg = new QMessageBox;
@@ -43,7 +44,18 @@ void RegisterDialog::reg(){
     }
 }
 
+void RegisterDialog::showReg(){
+    this->show();
+}
 
-void RegisterDialog::back(){
-    this->reject();
+void RegisterDialog::backLogin(){
+
+    emit toLogin();
+    this->hide();
+}
+
+void RegisterDialog::showMainWindow()
+{
+    this->hide();
+    emit toMainWindow();
 }

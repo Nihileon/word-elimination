@@ -49,4 +49,5 @@ struct WordInfo{
 Q_DECLARE_METATYPE(WordBuilder);
 Q_DECLARE_METATYPE(Challenger);
 Q_DECLARE_METATYPE(WordInfo);
+Q_DECLARE_METATYPE(LoginInfo);
 #endif // BASIC_H

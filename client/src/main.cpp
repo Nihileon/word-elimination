@@ -1,19 +1,11 @@
-#include <QApplication>
-#include "widgets/LoginDialog.h"
-#include "widgets/mainwindow.h"
-#include "widgets/registerdialog.h"
-#include <QObject>
+#include "windowmanager.h"
+
 
 int main(int argc, char* argv[]) {
+#if (QT_VERSION >= QT_VERSION_CHECK(5, 6, 0))
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#endif
     QApplication a(argc, argv);
-    MainWindow w;
-    LoginDialog l;
-    RegisterDialog r;
-    auto status = l.exec();
-    if (status != QDialog::Accepted) {
-        return 1;
-    }
-    w.show();
-
+    Manager::instance().init();
     return a.exec();
 }

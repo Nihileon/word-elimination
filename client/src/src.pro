@@ -26,7 +26,6 @@ FORMS += \
 
 HEADERS += \
     widgets/LoginDialog.h \
-    widgets/mainwindow.h \
     data/basic.h \
     data/login.h \
     data/word.h \
@@ -35,18 +34,20 @@ HEADERS += \
     ui/LoginDialog_ui.h \
     ui/MainWindow_ui.h \
     ui/RegisterDialog_ui.h \
-    widgets/registerdialog.h
+    widgets/registerdialog.h \
+    windowmanager.h \
+    widgets/mainWindow.h
 
 
 
 SOURCES += \
     widgets/LoginDialog.cpp \
     main.cpp \
-    mainwindow.cpp \
     data/login.cpp \
     data/words.cpp \
     widgets/registerdialog.cpp \
-    data/loginsingleton.cpp
+    windowmanager.cpp \
+    widgets/mainWindow.cpp
 
 
 SUBDIRS += \

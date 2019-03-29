@@ -10,11 +10,17 @@ class RegisterDialog: public QDialog{
 public:
     explicit RegisterDialog(QWidget *parent = nullptr);
     ~RegisterDialog();
+    //back to login dialog
+    void backLogin();
+    void showMainWindow();
+
 public slots:
     void reg();
-    void back();
+    void showReg();
 
 signals:
+    void toLogin();
+    void toMainWindow();
 
 public:
 //private:
