@@ -11,7 +11,7 @@ LoginDialog::LoginDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     setFixedSize(this->width(), this->height());
-    connect(ui->registerPushButton, &QPushButton::clicked, this,&LoginDialog::showRegister);
+    connect(ui->registerPushButton, &QPushButton::clicked,reg,&RegisterDialog::exec);
     connect(ui->loginPushBotton,&QPushButton::clicked,this,&LoginDialog::checkPassword);
 
 }

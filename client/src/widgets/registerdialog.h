@@ -8,14 +8,13 @@ namespace Ui {
 class RegisterDialog: public QDialog{
     Q_OBJECT
 public:
-    explicit RegisterDialog(QWidget *parent = 0);
+    explicit RegisterDialog(QWidget *parent = nullptr);
     ~RegisterDialog();
 public slots:
     void reg();
     void back();
 
 signals:
-    void showLogin();
 
 public:
 //private:

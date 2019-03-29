@@ -9,6 +9,7 @@ using namespace sqlite;
 RegisterDialog::RegisterDialog(QWidget* parent):QDialog (parent), ui(new Ui::RegisterDialogUi) {
     ui->setupUi(this);
     connect(ui->backPushBotton, &QPushButton::clicked, this, &RegisterDialog::back);
+    connect(ui->registerPushButton, &QPushButton::clicked, this, &RegisterDialog::reg);
 }
 
 
@@ -45,5 +46,4 @@ void RegisterDialog::reg(){
 
 void RegisterDialog::back(){
     this->reject();
-    emit showLogin();
 }

@@ -20,11 +20,9 @@ public:
 
 public slots:
     void checkPassword();
-    void showReg();
 
 signals:
     void sendUser(QVariant user);
-    void showRegister();
 
 private:
     Ui::LoginDialogUi * ui;
