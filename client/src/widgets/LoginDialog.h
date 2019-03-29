@@ -16,14 +16,13 @@ class LoginDialog: public QDialog{
 
 public:
     explicit LoginDialog(QWidget* parent = nullptr);
-    ~LoginDialog();
     //jump to register dialog
     void showReg();
     void showMainWindow();
+    ~LoginDialog();
 
 public slots:
     void checkPassword();
-    void showLogin();
 
 signals:
     void sendUser(QVariant user);

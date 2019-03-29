@@ -34,17 +34,26 @@ public:
         }
     }
     auto isUser(const LoginInfo &loginInfo){
-        int is_exist = 0;
+
+        bool pass_coor = false;
+        string userType;
         if(loginInfo.type == LoginInfo::WORD_BUILDER){
-            db << "SELECT COUNT(*) FROM WordBuilder WHERE user_login=?;" << loginInfo.usr >> is_exist ;
+            userType = "WordBuilder";
         }else if(loginInfo.type == LoginInfo::CHALLENGER){
-            db << "SELECT COUNT(*) FROM Challenger WHERE user_login=?;" << loginInfo.usr >> is_exist ;
+            userType = "Challenger";
         }
-        if(is_exist != 1)
-            return false;
-        return true;
+        string sqlCheck = "SELECT COUNT(*), user_pass FROM " +userType + " WHERE user_login=?;";
+        db << sqlCheck.c_str() << loginInfo.usr
+           >> [&](int is_exist, string user_pass){
+            if(is_exist == 1 && user_pass == loginInfo.pwd){
+                pass_coor = true;
+            }
+        };
+        return  pass_coor;
     }
-    auto getWordBuilder(const LoginInfo &loginInfo){
+
+    [[deprecated("please use getWordBuilder")]]
+    auto  _getWordBuilder(const LoginInfo &loginInfo){
         WordBuilder wb;
         Status status = DEFAULT_STATUS;
         int is_exist = 0;
@@ -53,7 +62,7 @@ public:
             return std::make_pair(USR_NOT_EXIST, wb);
         }
         wb.usr = loginInfo.usr;
-        db << "SELECT user_pass level, exp, build_word, word_pass, word_fail"
+        db << "SELECT user_pass, level, exp, build_word, word_pass, word_fail"
               " FROM WordBuilder WHERE user_login=?;" << loginInfo.usr
            >>[&](string user_pass, int level, int exp, int build_word, int word_pass, int word_fail){
             if(loginInfo.pwd != user_pass){
@@ -68,7 +77,22 @@ public:
         return std::make_pair(status, wb);
     }
 
-    auto getChallenger(const LoginInfo &loginInfo){
+    auto getWordBuilder(const LoginInfo &loginInfo){
+        WordBuilder wb;
+        db << "SELECT level, exp, build_word, word_pass, word_fail"
+              " FROM WordBuilder WHERE user_login=?;" << loginInfo.usr
+           >>[&](int level, int exp, int build_word, int word_pass, int word_fail){
+            wb.level = level;
+            wb.exp = exp;
+            wb.build_word = build_word;
+            wb.word_pass = word_pass;
+            wb.word_fail = word_fail;
+        };
+        return wb;
+    }
+
+    [[deprecated("please use getChallenger")]]
+    auto _getChallenger(const LoginInfo &loginInfo){
         Challenger c;
         Status status = DEFAULT_STATUS;
         int is_exist = 0;
@@ -91,6 +115,21 @@ public:
             c.word_eliminate = word_eliminate;
         };
         return  std::make_pair(status, c);
+    }
+
+    auto getChallenger(const LoginInfo &loginInfo){
+        Challenger c;
+        db << "SELECT level, exp, card_pass, card_fail, word_eliminate"
+              " FROM Challenger WHERE user_login=?;"
+           << loginInfo.usr
+           >> [&]( int level, int exp, int card_pass, int card_fail, int word_eliminate){
+            c.level = level;
+            c.exp = exp;
+            c.card_pass = card_pass;
+            c.card_fail = card_fail;
+            c.word_eliminate = word_eliminate;
+        };
+        return c;
     }
 
     void updateUser(const WordBuilder &wb){

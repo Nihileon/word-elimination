@@ -44,10 +44,6 @@ void RegisterDialog::reg(){
     }
 }
 
-void RegisterDialog::showReg(){
-    this->show();
-}
-
 void RegisterDialog::backLogin(){
 
     emit toLogin();

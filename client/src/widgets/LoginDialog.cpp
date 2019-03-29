@@ -67,9 +67,6 @@ void LoginDialog::checkPassword(){
 }
 
 
-void LoginDialog::showLogin(){
-    this->show();
-}
 
 
 void LoginDialog::showReg(){

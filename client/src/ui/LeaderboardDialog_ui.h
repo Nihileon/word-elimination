@@ -21,48 +21,48 @@
 
 QT_BEGIN_NAMESPACE
 
-class Ui_LeaderboardDialog
+class Ui_LeaderboardDialogUi
 {
 public:
     QTableView *leaderboardTableView;
     QComboBox *characterComboBox;
     QPushButton *backPushButton;
 
-    void setupUi(QDialog *LeaderboardDialog)
+    void setupUi(QDialog *LeaderboardDialogUi)
     {
-        if (LeaderboardDialog->objectName().isEmpty())
-            LeaderboardDialog->setObjectName(QStringLiteral("LeaderboardDialog"));
-        LeaderboardDialog->resize(400, 300);
-        leaderboardTableView = new QTableView(LeaderboardDialog);
+        if (LeaderboardDialogUi->objectName().isEmpty())
+            LeaderboardDialogUi->setObjectName(QStringLiteral("LeaderboardDialogUi"));
+        LeaderboardDialogUi->resize(400, 300);
+        leaderboardTableView = new QTableView(LeaderboardDialogUi);
         leaderboardTableView->setObjectName(QStringLiteral("leaderboardTableView"));
         leaderboardTableView->setGeometry(QRect(40, 30, 311, 221));
-        characterComboBox = new QComboBox(LeaderboardDialog);
+        characterComboBox = new QComboBox(LeaderboardDialogUi);
         characterComboBox->setObjectName(QStringLiteral("characterComboBox"));
         characterComboBox->setGeometry(QRect(110, 10, 181, 22));
-        backPushButton = new QPushButton(LeaderboardDialog);
+        backPushButton = new QPushButton(LeaderboardDialogUi);
         backPushButton->setObjectName(QStringLiteral("backPushButton"));
         backPushButton->setGeometry(QRect(70, 260, 80, 14));
 
-        retranslateUi(LeaderboardDialog);
+        retranslateUi(LeaderboardDialogUi);
 
-        QMetaObject::connectSlotsByName(LeaderboardDialog);
+        QMetaObject::connectSlotsByName(LeaderboardDialogUi);
     } // setupUi
 
-    void retranslateUi(QDialog *LeaderboardDialog)
+    void retranslateUi(QDialog *LeaderboardDialogUi)
     {
-        LeaderboardDialog->setWindowTitle(QApplication::translate("LeaderboardDialog", "Dialog", Q_NULLPTR));
+        LeaderboardDialogUi->setWindowTitle(QApplication::translate("LeaderboardDialogUi", "Dialog", Q_NULLPTR));
         characterComboBox->clear();
         characterComboBox->insertItems(0, QStringList()
-         << QApplication::translate("LeaderboardDialog", "WordBuilder", Q_NULLPTR)
-         << QApplication::translate("LeaderboardDialog", "Challenger", Q_NULLPTR)
+         << QApplication::translate("LeaderboardDialogUi", "WordBuilder", Q_NULLPTR)
+         << QApplication::translate("LeaderboardDialogUi", "Challenger", Q_NULLPTR)
         );
-        backPushButton->setText(QApplication::translate("LeaderboardDialog", "back", Q_NULLPTR));
+        backPushButton->setText(QApplication::translate("LeaderboardDialogUi", "back", Q_NULLPTR));
     } // retranslateUi
 
 };
 
 namespace Ui {
-    class LeaderboardDialog: public Ui_LeaderboardDialog {};
+    class LeaderboardDialogUi: public Ui_LeaderboardDialogUi {};
 } // namespace Ui
 
 QT_END_NAMESPACE

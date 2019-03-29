@@ -20,7 +20,8 @@ FORMS += \
     ui/leaderboarddialog_ui.ui \
     ui/logindialog_ui.ui \
     ui/mainwindow.ui \
-    ui/registerdialog_ui.ui
+    ui/registerdialog_ui.ui \
+    ui/wordbuildermainwindow.ui
 
 
 
@@ -29,14 +30,15 @@ HEADERS += \
     data/basic.h \
     data/login.h \
     data/word.h \
-    ui/gamedialog_ui.h \
+    ui/GameDialog_ui.h \
     ui/LeaderboardDialog_ui.h \
     ui/LoginDialog_ui.h \
     ui/MainWindow_ui.h \
     ui/RegisterDialog_ui.h \
     widgets/registerdialog.h \
     windowmanager.h \
-    widgets/mainWindow.h
+    widgets/mainWindow.h \
+    widgets/gamedialog.h
 
 
 
@@ -47,7 +49,8 @@ SOURCES += \
     data/words.cpp \
     widgets/registerdialog.cpp \
     windowmanager.cpp \
-    widgets/mainWindow.cpp
+    widgets/mainWindow.cpp \
+    widgets/gamedialog.cpp
 
 
 SUBDIRS += \

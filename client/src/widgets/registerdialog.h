@@ -14,13 +14,14 @@ public:
     void backLogin();
     void showMainWindow();
 
-public slots:
-    void reg();
-    void showReg();
-
 signals:
     void toLogin();
     void toMainWindow();
+
+
+public slots:
+    void reg();
+
 
 public:
 //private:

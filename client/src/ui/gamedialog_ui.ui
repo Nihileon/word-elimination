@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>GameDialog</class>
- <widget class="QDialog" name="GameDialog">
+ <class>GameDialogUi</class>
+ <widget class="QDialog" name="GameDialogUi">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>688</width>
+    <height>666</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,20 +16,20 @@
   <widget class="QLCDNumber" name="countdownLcdNumber">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>0</y>
-     <width>64</width>
-     <height>23</height>
+     <x>400</x>
+     <y>22</y>
+     <width>151</width>
+     <height>41</height>
     </rect>
    </property>
   </widget>
   <widget class="QProgressBar" name="countdownProgressBar">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>0</y>
-     <width>251</width>
-     <height>23</height>
+     <x>100</x>
+     <y>10</y>
+     <width>281</width>
+     <height>61</height>
     </rect>
    </property>
    <property name="value">
@@ -40,17 +40,17 @@
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>60</y>
-     <width>251</width>
-     <height>61</height>
+     <y>110</y>
+     <width>571</width>
+     <height>111</height>
     </rect>
    </property>
   </widget>
   <widget class="QTextBrowser" name="cardTextBrowser">
    <property name="geometry">
     <rect>
-     <x>305</x>
-     <y>221</y>
+     <x>470</x>
+     <y>450</y>
      <width>161</width>
      <height>141</height>
     </rect>
@@ -59,9 +59,9 @@
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>200</y>
-     <width>166</width>
+     <x>70</x>
+     <y>530</y>
+     <width>186</width>
      <height>80</height>
     </rect>
    </property>
@@ -69,14 +69,14 @@
     <item>
      <widget class="QPushButton" name="backPushBotton">
       <property name="text">
-       <string>PushButton</string>
+       <string>back</string>
       </property>
      </widget>
     </item>
     <item>
      <widget class="QPushButton" name="nextPushButton">
       <property name="text">
-       <string>PushButton</string>
+       <string>next</string>
       </property>
      </widget>
     </item>
@@ -85,11 +85,14 @@
   <widget class="QLineEdit" name="wordLineEdit">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>140</y>
+     <x>100</x>
+     <y>340</y>
      <width>113</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="text">
+    <string>123123</string>
    </property>
   </widget>
  </widget>
