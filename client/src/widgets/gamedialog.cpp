@@ -1,6 +1,6 @@
 #include "gamedialog.h"
 #include "ui/GameDialog_ui.h"
-
+#include <cmath>
 
 
 GameDialog::GameDialog(QWidget* parent):
@@ -16,9 +16,7 @@ GameDialog::GameDialog(QWidget* parent):
 
     auto wordBrows = ui->wordTextBrowser;
     wordBrows->setFontPointSize(25);
-    auto cntBar = ui->countdownProgressBar;
-    cntBar->setRange(0, MAX_COUNT_DOWN);
-    cntBar->setValue(MAX_COUNT_DOWN);
+
     auto cntLcd = ui->countdownLcdNumber;
     cntLcd->setDecMode();
     cntLcd->setSegmentStyle(QLCDNumber::Flat);
@@ -32,9 +30,7 @@ GameDialog::GameDialog(QWidget* parent):
 }
 
 void GameDialog::showMain(){
-    QVariant data;
-    data.setValue(challenger);
-    emit sendChallenger(data);
+   setGameOver();
     this->hide();
     emit toMain();
 }
@@ -57,9 +53,9 @@ void GameDialog::setChallenger(QVariant data)
     this->challenger =  data.value<Challenger>();
 }
 
-
 void GameDialog::gameBegin()
 {
+    nextCard();
     this->show();
     ui->nextPushButton->show();
     ui->nextPushButton->setDefault(true);
@@ -71,19 +67,19 @@ void GameDialog::gameBegin()
 void GameDialog::nextWord(){
     ui->wordTextBrowser->show();
     ui->wordLineEdit->clear();
-    const int MAX_COUNT_DOWN = 5;
     wordInfo = Word::instance().getWord(3,10);
     ui->wordTextBrowser->setText(QString::fromStdString(wordInfo.word));
     auto cardBrows = ui->cardTextBrowser;
-    std::string s = "Builder: "+wordInfo.builder +
+    std::string s = "Card: " + std::to_string(card)+
+            "\nWord Builder: "+wordInfo.builder +
             "\nPass time: " + std::to_string(wordInfo.pass_time)+
             "\nFail time: " +std::to_string(wordInfo.fail_time);
     auto qs = QString::fromStdString(s);
     cardBrows->setText(qs);
     auto cntBar = ui->countdownProgressBar;
     auto cntLcd = ui->countdownLcdNumber;
-    cntBar->setValue(MAX_COUNT_DOWN);
-    cntLcd->display(MAX_COUNT_DOWN);
+    cntBar->setValue(cardInfo.wordDisplayTime);
+    cntLcd->display(cardInfo.wordDisplayTime);
     qtimer->start(1000);
 }
 
@@ -97,14 +93,37 @@ void GameDialog::checkCorrect(){
         } catch (sqlite::sqlite_exception &e) {
             std::cout << "check update word" << e.what()<<std::endl;
         }
-
         challenger.word_eliminate++;
-        challenger.exp += 5;
+        cardInfo.cardPassWordNum--;
+        if(cardInfo.cardPassWordNum <= 0){
+            card++;
+            challenger.exp += cardInfo.exp;
+            nextCard();
+        }
         nextWord();
     }else{
         gameOver();
     }
 }
+
+void GameDialog::setGameOver()
+{
+    if(challenger.card_pass < card-1){
+        challenger.card_pass = card-1;
+    }
+    card = 1;
+    setLevel();
+    QVariant data;
+    data.setValue(challenger);
+    emit sendChallenger(data);
+}
+
+void GameDialog::setLevel()
+{
+    challenger.level = static_cast<int>(log(static_cast<double>(challenger.exp)) / log(1.3));
+}
+
+
 
 void GameDialog::gameOver(){
     ui->nextPushButton->hide();
@@ -118,10 +137,7 @@ void GameDialog::gameOver(){
     } catch (sqlite::sqlite_exception &e) {
         std::cout << " gameover update word"<<e.what()<<std::endl;
     }
-
-    QVariant data;
-    data.setValue(challenger);
-    emit sendChallenger(data);
+    setGameOver();
     QMessageBox *msg = new QMessageBox;
     msg->setText("Game Over! Please back to the Main window!");
     msg->setWindowModality(Qt::NonModal);
@@ -130,4 +146,12 @@ void GameDialog::gameOver(){
 
 }
 
+
+
+void GameDialog::nextCard()
+{
+    this->cardInfo =  getCardPassInfo(this->card);
+    auto cntBar = ui->countdownProgressBar;
+    cntBar->setRange(0, cardInfo.wordDisplayTime);
+}
 

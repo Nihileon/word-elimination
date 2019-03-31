@@ -40,7 +40,8 @@ HEADERS += \
     widgets/registerdialog.h \
     windowmanager.h \
     ui/BuildWordDialog_ui.h \
-    widgets/BuildWordDialog.h
+    widgets/BuildWordDialog.h \
+    widgets/LeaderBoardDialog.h
 
 
 
@@ -54,7 +55,8 @@ SOURCES += \
     widgets/registerdialog.cpp \
     main.cpp \
     windowmanager.cpp \
-    widgets/BuildWordDialog.cpp
+    widgets/BuildWordDialog.cpp \
+    widgets/LeaderBoardDialog.cpp
 
 
 SUBDIRS += \
@@ -63,3 +65,5 @@ SUBDIRS += \
 
 unix: CONFIG += link_pkgconfig
 unix: PKGCONFIG += sqlite3
+
+DISTFILES +=

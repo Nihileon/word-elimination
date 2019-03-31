@@ -6,6 +6,7 @@
 #include "widgets/registerdialog.h"
 #include "widgets/gamedialog.h"
 #include "widgets/BuildWordDialog.h"
+#include "widgets/LeaderBoardDialog.h"
 #include <QObject>
 
 class Manager{
@@ -15,9 +16,15 @@ class Manager{
     RegisterDialog* r;
     GameDialog* g;
     BuildWordDialog* b;
+    LeaderboardDialog* lb;
     static Manager *_instance;
 
-    Manager():mw(new MainWindow),l(new LoginDialog), r(new RegisterDialog),g(new GameDialog),b(new BuildWordDialog){}
+    Manager():mw(new MainWindow),
+        l(new LoginDialog),
+        r(new RegisterDialog),
+        g(new GameDialog),
+        b(new BuildWordDialog),
+        lb(new LeaderboardDialog){}
 public:
 
     ~Manager(){
@@ -26,6 +33,7 @@ public:
         delete r;
         delete g;
         delete b;
+        delete lb;
     }
     static Manager& instance();
     static void destroy();

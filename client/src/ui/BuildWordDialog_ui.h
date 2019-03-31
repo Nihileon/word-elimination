@@ -28,7 +28,7 @@ public:
     QLineEdit *newWordLineEdit;
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *horizontalLayout;
-    QPushButton *bakcPushButton;
+    QPushButton *backPushButton;
     QPushButton *confirmPushBotton;
 
     void setupUi(QDialog *BuildWordDialogUi)
@@ -45,10 +45,10 @@ public:
         horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        bakcPushButton = new QPushButton(horizontalLayoutWidget);
-        bakcPushButton->setObjectName(QStringLiteral("bakcPushButton"));
+        backPushButton = new QPushButton(horizontalLayoutWidget);
+        backPushButton->setObjectName(QStringLiteral("bakcPushButton"));
 
-        horizontalLayout->addWidget(bakcPushButton);
+        horizontalLayout->addWidget(backPushButton);
 
         confirmPushBotton = new QPushButton(horizontalLayoutWidget);
         confirmPushBotton->setObjectName(QStringLiteral("confirmPushBotton"));
@@ -64,7 +64,7 @@ public:
     void retranslateUi(QDialog *BuildWordDialogUi)
     {
         BuildWordDialogUi->setWindowTitle(QApplication::translate("BuildWordDialogUi", "Dialog", Q_NULLPTR));
-        bakcPushButton->setText(QApplication::translate("BuildWordDialogUi", "back", Q_NULLPTR));
+        backPushButton->setText(QApplication::translate("BuildWordDialogUi", "back", Q_NULLPTR));
         confirmPushBotton->setText(QApplication::translate("BuildWordDialogUi", "make new word", Q_NULLPTR));
     } // retranslateUi
 

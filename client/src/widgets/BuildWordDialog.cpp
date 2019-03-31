@@ -7,7 +7,7 @@ BuildWordDialog::BuildWordDialog(QWidget* parent):
     ui->setupUi(this);
     setWindowTitle(tr("BuildWord"));
     setFixedSize(this->width(), this->height());
-    connect(ui->bakcPushButton, &QPushButton::clicked, this,&BuildWordDialog::showMain);
+    connect(ui->backPushButton, &QPushButton::clicked, this,&BuildWordDialog::showMain);
     connect(ui->confirmPushBotton, &QPushButton::clicked, this, &BuildWordDialog::addWord);
 }
 

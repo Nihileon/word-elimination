@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "data/login.h"
+#include <QStandardItemModel>
 #include <QVariant>
 namespace Ui {
 class MainWindow;
@@ -34,10 +35,11 @@ public:
         }while (_Timer.msecsTo(_NowTimer)<=msec);
 
     }
-
+    void showLeaderboard();
 signals:
     void toGame();
     void toBuildWord();
+    void toLeader();
     void sendChallenger(QVariant data);
     void sendWordBuilder(QVariant data);
     void sendCloseAll();
@@ -53,6 +55,7 @@ private:
     Challenger challenger;
     LoginInfo loginInfo;
     Ui::MainWindow *ui;
+    QStandardItemModel* model;
 };
 
 #endif // MAINWINDOW_H

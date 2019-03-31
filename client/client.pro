@@ -17,4 +17,4 @@ CONFIG += ordered
 DEFINES += QT_DEPRECATED_WARNINGS
 
 RESOURCES += \
-    assets.qrc \
+#    assets.qrc \
