@@ -1,6 +1,7 @@
 #ifndef REGISTERDIALOG_H
 #define REGISTERDIALOG_H
 #include <QDialog>
+#include <QVariant>
 namespace Ui {
     class RegisterDialogUi;
 }
@@ -17,6 +18,7 @@ public:
 signals:
     void toLogin();
     void toMainWindow();
+    void sendUser(QVariant user);
 
 
 public slots:

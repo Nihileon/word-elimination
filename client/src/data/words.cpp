@@ -1,11 +1,11 @@
 #include "word.h"
 Word* Word::_instance = nullptr;
 
-auto Word::instance(){
+Word& Word::instance(){
     if(_instance == nullptr){
         _instance = new Word();
     }
-    return _instance;
+    return *_instance;
 }
 
 void Word::destroy(){

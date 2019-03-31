@@ -19,16 +19,16 @@
      <rect>
       <x>30</x>
       <y>20</y>
-      <width>151</width>
-      <height>271</height>
+      <width>281</width>
+      <height>431</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="gamePushButton">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>70</y>
+      <x>420</x>
+      <y>90</y>
       <width>221</width>
       <height>41</height>
      </rect>
@@ -40,8 +40,8 @@
    <widget class="QPushButton" name="leaderboardPushBotton">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>130</y>
+      <x>420</x>
+      <y>230</y>
       <width>211</width>
       <height>41</height>
      </rect>
@@ -53,14 +53,27 @@
    <widget class="QPushButton" name="logoutPushBotton">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>210</y>
+      <x>420</x>
+      <y>340</y>
       <width>191</width>
       <height>41</height>
      </rect>
     </property>
     <property name="text">
      <string>logout</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="buildWordPushButton">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>70</y>
+      <width>221</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>build new word</string>
     </property>
    </widget>
   </widget>

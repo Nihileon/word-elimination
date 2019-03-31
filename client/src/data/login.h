@@ -7,7 +7,7 @@ class Login{
 private:
     sqlite::database db;
     static Login *_instance;
-    Login(const string path = "./test.db"):db(path.c_str()){}
+    Login(const string path = "./user.db"):db(path.c_str()){}
 public:
     static Login& instance();
     static void destroy() ;
@@ -79,6 +79,7 @@ public:
 
     auto getWordBuilder(const LoginInfo &loginInfo){
         WordBuilder wb;
+        wb.usr = loginInfo.usr;
         db << "SELECT level, exp, build_word, word_pass, word_fail"
               " FROM WordBuilder WHERE user_login=?;" << loginInfo.usr
            >>[&](int level, int exp, int build_word, int word_pass, int word_fail){
@@ -119,6 +120,7 @@ public:
 
     auto getChallenger(const LoginInfo &loginInfo){
         Challenger c;
+        c.usr = loginInfo.usr;
         db << "SELECT level, exp, card_pass, card_fail, word_eliminate"
               " FROM Challenger WHERE user_login=?;"
            << loginInfo.usr

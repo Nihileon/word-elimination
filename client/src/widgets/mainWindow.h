@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include "data/login.h"
 #include <QVariant>
-
 namespace Ui {
 class MainWindow;
 }
@@ -16,28 +15,42 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void setUser(QVariant data ){
-        loginInfo = data.value<LoginInfo>();
-        if(loginInfo.type == LoginInfo::WORD_BUILDER){
-            wb = Login::instance().getWordBuilder(loginInfo);
-        }else if(loginInfo.type == LoginInfo::CHALLENGER){
-            c = Login::instance().getChallenger(loginInfo);
-        }
-    }
+    void setUser(QVariant data );
 
-    void init(){
+    void refreshWordBuilderWindow();
+    void refreshChallengerWindow();
+    void initWordBuilderWindow();
+    void initChallengerWindow();
+    void initWindow();
+    void showBuildWord();
+    void Delay_MSec_Suspend(int msec)
+    {
+
+        QTime _Timer = QTime::currentTime();
+
+        QTime _NowTimer;
+        do{
+            _NowTimer=QTime::currentTime();
+        }while (_Timer.msecsTo(_NowTimer)<=msec);
 
     }
 
 signals:
     void toGame();
+    void toBuildWord();
+    void sendChallenger(QVariant data);
+    void sendWordBuilder(QVariant data);
+    void sendCloseAll();
 
 public slots:
     void showGame();
+    void setChallenger(QVariant data);
+    void setWordBuilder(QVariant data);
+    void closeAll();
 
 private:
-    WordBuilder wb;
-    Challenger c;
+    WordBuilder wordBuilder;
+    Challenger challenger;
     LoginInfo loginInfo;
     Ui::MainWindow *ui;
 };

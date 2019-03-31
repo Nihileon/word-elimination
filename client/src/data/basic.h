@@ -2,6 +2,8 @@
 #define BASIC_H
 #include <string>
 #include <QMetaType>
+#include <QTime>
+
 using std::string;
 
 
@@ -45,6 +47,7 @@ struct WordInfo{
     int pass_time;
     int len;
 };
+
 
 Q_DECLARE_METATYPE(WordBuilder);
 Q_DECLARE_METATYPE(Challenger);

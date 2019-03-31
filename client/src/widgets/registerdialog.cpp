@@ -33,6 +33,9 @@ void RegisterDialog::reg(){
     // \TODO 处理空用户名的问题
     try {
         Login::instance().insert(loginInfo);
+        QVariant user;
+        user.setValue(loginInfo);
+        emit sendUser(user);
         showMainWindow();
 
     } catch (sqlite_exception& e) {

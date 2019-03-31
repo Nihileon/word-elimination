@@ -10,3 +10,4 @@ UPDATE Word
     SET fail_time=?, pass_time=?
         WHERE word=?
 
+

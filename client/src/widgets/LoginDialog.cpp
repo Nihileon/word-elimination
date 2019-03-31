@@ -11,6 +11,9 @@ LoginDialog::LoginDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     setFixedSize(this->width(), this->height());
+    ui->userComboBox->setCurrentIndex(1);
+    ui->loginPushBotton->setShortcut(Qt::Key_Enter);
+    ui->loginPushBotton->setDefault(true);
     connect(ui->loginPushBotton,&QPushButton::clicked,this,&LoginDialog::checkPassword);
     connect(ui->registerPushButton,&QPushButton::clicked, this, &LoginDialog::showReg);
 
@@ -35,7 +38,7 @@ void LoginDialog::checkPassword(){
     }
     loginInfo.usr = ui->usernameLineEdit->text().toStdString();
     loginInfo.pwd = ui->passwordLineEdit->text().toStdString();
-    QVariant user;
+
 //    bool isAccept = false;
 //    if(loginInfo.type == LoginInfo::WORD_BUILDER){
 //        auto userPair = Login::instance().getWordBuilder(loginInfo);
@@ -54,6 +57,7 @@ void LoginDialog::checkPassword(){
 //    }
     auto isAccept= Login::instance().isUser(loginInfo);
     if(isAccept == true){
+        QVariant user;
         user.setValue(loginInfo);
         emit sendUser(user);
         showMainWindow();

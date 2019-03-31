@@ -31,6 +31,7 @@ public:
     QPushButton *gamePushButton;
     QPushButton *leaderboardPushBotton;
     QPushButton *logoutPushBotton;
+    QPushButton *buildWordPushButton;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -43,20 +44,23 @@ public:
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         personalInfoTableView = new QTableView(centralwidget);
         personalInfoTableView->setObjectName(QStringLiteral("personalInfoTableView"));
-        personalInfoTableView->setGeometry(QRect(30, 20, 151, 271));
+        personalInfoTableView->setGeometry(QRect(30, 20, 281, 431));
         gamePushButton = new QPushButton(centralwidget);
         gamePushButton->setObjectName(QStringLiteral("gamePushButton"));
-        gamePushButton->setGeometry(QRect(260, 70, 221, 41));
+        gamePushButton->setGeometry(QRect(420, 90, 221, 41));
         leaderboardPushBotton = new QPushButton(centralwidget);
         leaderboardPushBotton->setObjectName(QStringLiteral("leaderboardPushBotton"));
-        leaderboardPushBotton->setGeometry(QRect(260, 130, 211, 41));
+        leaderboardPushBotton->setGeometry(QRect(420, 230, 211, 41));
         logoutPushBotton = new QPushButton(centralwidget);
         logoutPushBotton->setObjectName(QStringLiteral("logoutPushBotton"));
-        logoutPushBotton->setGeometry(QRect(260, 280, 191, 41));
+        logoutPushBotton->setGeometry(QRect(420, 340, 191, 41));
+        buildWordPushButton = new QPushButton(centralwidget);
+        buildWordPushButton->setObjectName(QStringLiteral("buildWordPushButton"));
+        buildWordPushButton->setGeometry(QRect(420, 70, 221, 41));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 21));
+        menubar->setGeometry(QRect(0, 0, 800, 28));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QStringLiteral("statusbar"));
@@ -73,6 +77,7 @@ public:
         gamePushButton->setText(QApplication::translate("MainWindow", "enter game", Q_NULLPTR));
         leaderboardPushBotton->setText(QApplication::translate("MainWindow", "leaderboard", Q_NULLPTR));
         logoutPushBotton->setText(QApplication::translate("MainWindow", "logout", Q_NULLPTR));
+        buildWordPushButton->setText(QApplication::translate("MainWindow", "build new word", Q_NULLPTR));
     } // retranslateUi
 
 };
