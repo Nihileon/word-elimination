@@ -16,27 +16,28 @@
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QLineEdit>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
+#include <qtmaterialflatbutton.h>
+#include <qtmaterialtextfield.h>
 
 QT_BEGIN_NAMESPACE
 
 class Ui_BuildWordDialogUi
 {
 public:
-    QLineEdit *newWordLineEdit;
+    QtMaterialTextField *newWordLineEdit;
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *horizontalLayout;
-    QPushButton *backPushButton;
-    QPushButton *confirmPushBotton;
+    QtMaterialFlatButton *backPushButton;
+    QtMaterialFlatButton *confirmPushBotton;
 
     void setupUi(QDialog *BuildWordDialogUi)
     {
         if (BuildWordDialogUi->objectName().isEmpty())
             BuildWordDialogUi->setObjectName(QStringLiteral("BuildWordDialogUi"));
-        BuildWordDialogUi->resize(567, 439);
-        newWordLineEdit = new QLineEdit(BuildWordDialogUi);
+        BuildWordDialogUi->resize(500, 400);
+        BuildWordDialogUi->setSizeGripEnabled(false);
+        newWordLineEdit = new QtMaterialTextField(BuildWordDialogUi);
         newWordLineEdit->setObjectName(QStringLiteral("newWordLineEdit"));
         newWordLineEdit->setGeometry(QRect(160, 130, 211, 61));
         horizontalLayoutWidget = new QWidget(BuildWordDialogUi);
@@ -45,12 +46,12 @@ public:
         horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        backPushButton = new QPushButton(horizontalLayoutWidget);
-        backPushButton->setObjectName(QStringLiteral("bakcPushButton"));
+        backPushButton = new QtMaterialFlatButton(horizontalLayoutWidget);
+        backPushButton->setObjectName(QStringLiteral("backPushButton"));
 
         horizontalLayout->addWidget(backPushButton);
 
-        confirmPushBotton = new QPushButton(horizontalLayoutWidget);
+        confirmPushBotton = new QtMaterialFlatButton(horizontalLayoutWidget);
         confirmPushBotton->setObjectName(QStringLiteral("confirmPushBotton"));
 
         horizontalLayout->addWidget(confirmPushBotton);

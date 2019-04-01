@@ -11,12 +11,18 @@ LoginDialog::LoginDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     setFixedSize(this->width(), this->height());
-    ui->userComboBox->setCurrentIndex(1);
+    QPalette palette(this->palette());
+    palette.setColor(QPalette::Background, Qt::white);
+    this->setPalette(palette);
+    ui->challengerRadioButton->setChecked(true);
     ui->loginPushBotton->setShortcut(Qt::Key_Enter);
     ui->loginPushBotton->setDefault(true);
+    ui->loginPushBotton->setBackgroundMode(Qt::OpaqueMode);
+    ui->passwordLineEdit->setLabel("Password");
+    ui->usernameLineEdit->setLabel("Username");
+    ui->registerPushButton->setBackgroundMode(Qt::OpaqueMode);
     connect(ui->loginPushBotton,&QPushButton::clicked,this,&LoginDialog::checkPassword);
     connect(ui->registerPushButton,&QPushButton::clicked, this, &LoginDialog::showReg);
-
 }
 
 
@@ -28,14 +34,19 @@ LoginDialog::~LoginDialog()
 
 void LoginDialog::checkPassword(){
     LoginInfo loginInfo;
-    switch (ui->userComboBox->currentIndex()) {
-    case 0:
-        loginInfo.type = LoginInfo::WORD_BUILDER;
-        break;
-    case 1:
+    if(ui->challengerRadioButton->isChecked()){
         loginInfo.type = LoginInfo::CHALLENGER;
-        break;
+    }else if(ui->wordRadioButton->isChecked()){
+        loginInfo.type = LoginInfo::WORD_BUILDER;
     }
+//    switch (ui->userComboBox->currentIndex()) {
+//    case 0:
+//        loginInfo.type = LoginInfo::WORD_BUILDER;
+//        break;
+//    case 1:
+//        loginInfo.type = LoginInfo::CHALLENGER;
+//        break;
+//    }
     loginInfo.usr = ui->usernameLineEdit->text().toStdString();
     loginInfo.pwd = ui->passwordLineEdit->text().toStdString();
 

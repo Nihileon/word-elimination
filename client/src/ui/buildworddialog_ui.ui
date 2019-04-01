@@ -6,14 +6,17 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>567</width>
-    <height>439</height>
+    <width>500</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QLineEdit" name="newWordLineEdit">
+  <property name="sizeGripEnabled">
+   <bool>false</bool>
+  </property>
+  <widget class="QtMaterialTextField" name="newWordLineEdit">
    <property name="geometry">
     <rect>
      <x>160</x>
@@ -34,14 +37,14 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QPushButton" name="backPushButton">
+     <widget class="QtMaterialFlatButton" name="backPushButton">
       <property name="text">
        <string>back</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="confirmPushBotton">
+     <widget class="QtMaterialFlatButton" name="confirmPushBotton">
       <property name="text">
        <string>make new word</string>
       </property>
@@ -50,6 +53,18 @@
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QtMaterialFlatButton</class>
+   <extends>QPushButton</extends>
+   <header location="global">qtmaterialflatbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QtMaterialTextField</class>
+   <extends>QLineEdit</extends>
+   <header location="global">qtmaterialtextfield.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

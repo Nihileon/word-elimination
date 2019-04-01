@@ -16,10 +16,10 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableView>
 #include <QtWidgets/QWidget>
+#include <qtmaterialflatbutton.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -28,10 +28,10 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QTableView *personalInfoTableView;
-    QPushButton *gamePushButton;
-    QPushButton *leaderboardPushBotton;
-    QPushButton *logoutPushBotton;
-    QPushButton *buildWordPushButton;
+    QtMaterialFlatButton *gamePushButton;
+    QtMaterialFlatButton *leaderboardPushBotton;
+    QtMaterialFlatButton *logoutPushBotton;
+    QtMaterialFlatButton *buildWordPushButton;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -44,19 +44,23 @@ public:
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         personalInfoTableView = new QTableView(centralwidget);
         personalInfoTableView->setObjectName(QStringLiteral("personalInfoTableView"));
-        personalInfoTableView->setGeometry(QRect(30, 20, 281, 431));
-        gamePushButton = new QPushButton(centralwidget);
+        personalInfoTableView->setGeometry(QRect(30, 60, 281, 431));
+        personalInfoTableView->setFrameShadow(QFrame::Plain);
+        personalInfoTableView->setGridStyle(Qt::DotLine);
+        gamePushButton = new QtMaterialFlatButton(centralwidget);
         gamePushButton->setObjectName(QStringLiteral("gamePushButton"));
-        gamePushButton->setGeometry(QRect(420, 90, 221, 41));
-        leaderboardPushBotton = new QPushButton(centralwidget);
+        gamePushButton->setGeometry(QRect(410, 140, 220, 40));
+        leaderboardPushBotton = new QtMaterialFlatButton(centralwidget);
         leaderboardPushBotton->setObjectName(QStringLiteral("leaderboardPushBotton"));
-        leaderboardPushBotton->setGeometry(QRect(420, 230, 211, 41));
-        logoutPushBotton = new QPushButton(centralwidget);
+        leaderboardPushBotton->setGeometry(QRect(410, 230, 220, 40));
+        leaderboardPushBotton->setCheckable(false);
+        leaderboardPushBotton->setFlat(false);
+        logoutPushBotton = new QtMaterialFlatButton(centralwidget);
         logoutPushBotton->setObjectName(QStringLiteral("logoutPushBotton"));
-        logoutPushBotton->setGeometry(QRect(420, 340, 191, 41));
-        buildWordPushButton = new QPushButton(centralwidget);
+        logoutPushBotton->setGeometry(QRect(410, 320, 220, 40));
+        buildWordPushButton = new QtMaterialFlatButton(centralwidget);
         buildWordPushButton->setObjectName(QStringLiteral("buildWordPushButton"));
-        buildWordPushButton->setGeometry(QRect(420, 70, 221, 41));
+        buildWordPushButton->setGeometry(QRect(410, 140, 220, 40));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));

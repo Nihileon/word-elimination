@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>501</width>
+    <height>322</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,42 +18,39 @@
     <rect>
      <x>140</x>
      <y>110</y>
-     <width>204</width>
-     <height>71</height>
+     <width>244</width>
+     <height>114</height>
     </rect>
    </property>
    <layout class="QFormLayout" name="formLayout">
-    <item row="0" column="0">
-     <widget class="QLabel" name="usernameLabel">
-      <property name="text">
-       <string>username</string>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="1">
-     <widget class="QLineEdit" name="usernameLineEdit"/>
+     <widget class="QtMaterialTextField" name="usernameLineEdit"/>
     </item>
-    <item row="1" column="0">
+    <item row="2" column="0">
      <widget class="QLabel" name="passwordLabel">
       <property name="text">
        <string>password</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="passwordLineEdit"/>
-    </item>
     <item row="2" column="1">
+     <widget class="QtMaterialTextField" name="passwordLineEdit">
+      <property name="toolTip">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;123&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPushButton" name="backPushBotton">
+       <widget class="QtMaterialFlatButton" name="backPushBotton">
         <property name="text">
          <string>Back</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="registerPushButton">
+       <widget class="QtMaterialFlatButton" name="registerPushButton">
         <property name="text">
          <string>Register</string>
         </property>
@@ -61,13 +58,20 @@
       </item>
      </layout>
     </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="usernameLabel">
+      <property name="text">
+       <string>username</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QComboBox" name="characterComboBox">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>20</y>
+     <x>140</x>
+     <y>30</y>
      <width>191</width>
      <height>22</height>
     </rect>
@@ -84,6 +88,18 @@
    </item>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QtMaterialFlatButton</class>
+   <extends>QPushButton</extends>
+   <header location="global">qtmaterialflatbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QtMaterialTextField</class>
+   <extends>QLineEdit</extends>
+   <header location="global">qtmaterialtextfield.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

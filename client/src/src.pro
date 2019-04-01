@@ -6,14 +6,15 @@ TARGET = client
 
 LIBS += \
     #../../libs/modern-sqlite/libsqlite3.a \
-    #../../libs/qt-material-widgets/components/$(OBJECTS_DIR)/libcomponents.a
+    ../../libs/qt-material-widgets/components/$(OBJECTS_DIR)/libcomponents.a
 
 INCLUDEPATH += \
     $$top_srcdir/components/ \
     ../../libs/modern-sqlite \
+../../libs/qt-material-widgets/components
 
 PRE_TARGETDEPS = \
-    #../../libs/qt-material-widgets/components/$(OBJECTS_DIR)/libcomponents.a
+    ../../libs/qt-material-widgets/components/$(OBJECTS_DIR)/libcomponents.a
 
 FORMS += \
     ui/gamedialog_ui.ui \
@@ -60,8 +61,10 @@ SOURCES += \
 
 
 SUBDIRS += \
-    src.pro \
-    ../../libs/qt-material-widgets/components/resources.qrc \
+    src.pro
+
+RESOURCES += \
+    ../../libs/qt-material-widgets/components/resources.qrc
 
 unix: CONFIG += link_pkgconfig
 unix: PKGCONFIG += sqlite3
