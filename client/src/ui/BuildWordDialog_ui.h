@@ -17,7 +17,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QWidget>
-#include <qtmaterialflatbutton.h>
+#include <qtmaterialraisedbutton.h>
 #include <qtmaterialtextfield.h>
 
 QT_BEGIN_NAMESPACE
@@ -28,8 +28,8 @@ public:
     QtMaterialTextField *newWordLineEdit;
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *horizontalLayout;
-    QtMaterialFlatButton *backPushButton;
-    QtMaterialFlatButton *confirmPushBotton;
+    QtMaterialRaisedButton *backPushButton;
+    QtMaterialRaisedButton *confirmPushBotton;
 
     void setupUi(QDialog *BuildWordDialogUi)
     {
@@ -46,12 +46,12 @@ public:
         horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        backPushButton = new QtMaterialFlatButton(horizontalLayoutWidget);
+        backPushButton = new QtMaterialRaisedButton(horizontalLayoutWidget);
         backPushButton->setObjectName(QStringLiteral("backPushButton"));
 
         horizontalLayout->addWidget(backPushButton);
 
-        confirmPushBotton = new QtMaterialFlatButton(horizontalLayoutWidget);
+        confirmPushBotton = new QtMaterialRaisedButton(horizontalLayoutWidget);
         confirmPushBotton->setObjectName(QStringLiteral("confirmPushBotton"));
 
         horizontalLayout->addWidget(confirmPushBotton);

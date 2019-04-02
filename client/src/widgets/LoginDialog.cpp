@@ -17,7 +17,6 @@ LoginDialog::LoginDialog(QWidget *parent) :
     ui->challengerRadioButton->setChecked(true);
     ui->loginPushBotton->setShortcut(Qt::Key_Enter);
     ui->loginPushBotton->setDefault(true);
-    ui->loginPushBotton->setBackgroundMode(Qt::OpaqueMode);
     ui->passwordLineEdit->setLabel("Password");
     ui->usernameLineEdit->setLabel("Username");
     ui->registerPushButton->setBackgroundMode(Qt::OpaqueMode);

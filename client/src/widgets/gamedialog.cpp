@@ -13,10 +13,13 @@ GameDialog::GameDialog(QWidget* parent):
     ui->setupUi(this);
     setWindowTitle(tr("GameBoard"));
     setFixedSize(this->width(), this->height());
+    QPalette palette(this->palette());
+    palette.setColor(QPalette::Background, Qt::white);
+    this->setPalette(palette);
 
     auto wordBrows = ui->wordTextBrowser;
     wordBrows->setFontPointSize(25);
-
+    wordBrows->setAlignment(Qt::AlignCenter);
     auto cntLcd = ui->countdownLcdNumber;
     cntLcd->setDecMode();
     cntLcd->setSegmentStyle(QLCDNumber::Flat);

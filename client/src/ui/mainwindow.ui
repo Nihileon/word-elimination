@@ -30,7 +30,7 @@
      <enum>Qt::DotLine</enum>
     </property>
    </widget>
-   <widget class="QtMaterialFlatButton" name="gamePushButton">
+   <widget class="QtMaterialRaisedButton" name="gamePushButton">
     <property name="geometry">
      <rect>
       <x>410</x>
@@ -43,7 +43,7 @@
      <string>enter game</string>
     </property>
    </widget>
-   <widget class="QtMaterialFlatButton" name="leaderboardPushBotton">
+   <widget class="QtMaterialRaisedButton" name="leaderboardPushBotton">
     <property name="geometry">
      <rect>
       <x>410</x>
@@ -62,7 +62,7 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QtMaterialFlatButton" name="logoutPushBotton">
+   <widget class="QtMaterialRaisedButton" name="logoutPushBotton">
     <property name="geometry">
      <rect>
       <x>410</x>
@@ -75,7 +75,7 @@
      <string>logout</string>
     </property>
    </widget>
-   <widget class="QtMaterialFlatButton" name="buildWordPushButton">
+   <widget class="QtMaterialRaisedButton" name="buildWordPushButton">
     <property name="geometry">
      <rect>
       <x>410</x>
@@ -103,9 +103,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QtMaterialFlatButton</class>
+   <class>QtMaterialRaisedButton</class>
    <extends>QPushButton</extends>
-   <header location="global">qtmaterialflatbutton.h</header>
+   <header location="global">qtmaterialraisedbutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

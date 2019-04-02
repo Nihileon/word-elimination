@@ -7,6 +7,9 @@ BuildWordDialog::BuildWordDialog(QWidget* parent):
     ui->setupUi(this);
     setWindowTitle(tr("BuildWord"));
     setFixedSize(this->width(), this->height());
+    QPalette palette(this->palette());
+    palette.setColor(QPalette::Background, Qt::white);
+    this->setPalette(palette);
     connect(ui->backPushButton, &QPushButton::clicked, this,&BuildWordDialog::showMain);
     connect(ui->confirmPushBotton, &QPushButton::clicked, this, &BuildWordDialog::addWord);
 }

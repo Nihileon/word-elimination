@@ -6,51 +6,46 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>501</width>
-    <height>322</height>
+    <width>500</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="formLayoutWidget">
+  <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>140</x>
-     <y>110</y>
-     <width>244</width>
-     <height>114</height>
+     <x>100</x>
+     <y>100</y>
+     <width>311</width>
+     <height>231</height>
     </rect>
    </property>
-   <layout class="QFormLayout" name="formLayout">
-    <item row="0" column="1">
-     <widget class="QtMaterialTextField" name="usernameLineEdit"/>
-    </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="passwordLabel">
-      <property name="text">
-       <string>password</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QtMaterialTextField" name="passwordLineEdit">
-      <property name="toolTip">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;123&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1">
-     <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="4" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
-       <widget class="QtMaterialFlatButton" name="backPushBotton">
+       <widget class="QtMaterialRaisedButton" name="backPushBotton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
         <property name="text">
-         <string>Back</string>
+         <string>back</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QtMaterialFlatButton" name="registerPushButton">
+       <widget class="QtMaterialRaisedButton" name="registerPushButton">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>40</height>
+         </size>
+        </property>
         <property name="text">
          <string>Register</string>
         </property>
@@ -58,46 +53,77 @@
       </item>
      </layout>
     </item>
-    <item row="0" column="0">
-     <widget class="QLabel" name="usernameLabel">
-      <property name="text">
-       <string>username</string>
+    <item row="2" column="0">
+     <widget class="QtMaterialTextField" name="passwordLineEdit">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QtMaterialRadioButton" name="wordRadioButton">
+        <property name="text">
+         <string>word builder</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QtMaterialRadioButton" name="challengerRadioButton">
+        <property name="text">
+         <string>challenger</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="0">
+     <widget class="QtMaterialTextField" name="usernameLineEdit">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+        <horstretch>29</horstretch>
+        <verstretch>29</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>4</width>
+        <height>50</height>
+       </size>
       </property>
      </widget>
     </item>
    </layout>
   </widget>
-  <widget class="QComboBox" name="characterComboBox">
-   <property name="geometry">
-    <rect>
-     <x>140</x>
-     <y>30</y>
-     <width>191</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <item>
-    <property name="text">
-     <string>WordBuilder</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>Challenger</string>
-    </property>
-   </item>
-  </widget>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QtMaterialFlatButton</class>
-   <extends>QPushButton</extends>
-   <header location="global">qtmaterialflatbutton.h</header>
+   <class>QtMaterialRadioButton</class>
+   <extends>QRadioButton</extends>
+   <header location="global">qtmaterialradiobutton.h</header>
   </customwidget>
   <customwidget>
    <class>QtMaterialTextField</class>
    <extends>QLineEdit</extends>
    <header location="global">qtmaterialtextfield.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QtMaterialRaisedButton</class>
+   <extends>QPushButton</extends>
+   <header location="global">qtmaterialraisedbutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

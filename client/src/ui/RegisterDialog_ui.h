@@ -1,5 +1,5 @@
 /********************************************************************************
-** Form generated from reading UI file 'RegisterDialog_ui.ui'
+** Form generated from reading UI file 'registerdialog_ui.ui'
 **
 ** Created by: Qt User Interface Compiler version 5.9.7
 **
@@ -13,81 +13,97 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialog>
-#include <QtWidgets/QFormLayout>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
+#include <qtmaterialradiobutton.h>
+#include <qtmaterialraisedbutton.h>
+#include <qtmaterialtextfield.h>
 
 QT_BEGIN_NAMESPACE
 
 class Ui_RegisterDialogUi
 {
 public:
-    QWidget *formLayoutWidget;
-    QFormLayout *formLayout;
-    QLabel *usernameLabel;
-    QLineEdit *usernameLineEdit;
-    QLabel *passwordLabel;
-    QLineEdit *passwordLineEdit;
-    QHBoxLayout *horizontalLayout;
-    QPushButton *backPushBotton;
-    QPushButton *registerPushButton;
-    QComboBox *characterComboBox;
+    QWidget *gridLayoutWidget;
+    QGridLayout *gridLayout;
+    QHBoxLayout *horizontalLayout_4;
+    QtMaterialRaisedButton *backPushBotton;
+    QtMaterialRaisedButton *registerPushButton;
+    QtMaterialTextField *passwordLineEdit;
+    QHBoxLayout *horizontalLayout_3;
+    QtMaterialRadioButton *wordRadioButton;
+    QtMaterialRadioButton *challengerRadioButton;
+    QtMaterialTextField *usernameLineEdit;
 
     void setupUi(QDialog *RegisterDialogUi)
     {
         if (RegisterDialogUi->objectName().isEmpty())
             RegisterDialogUi->setObjectName(QStringLiteral("RegisterDialogUi"));
-        RegisterDialogUi->resize(400, 300);
-        formLayoutWidget = new QWidget(RegisterDialogUi);
-        formLayoutWidget->setObjectName(QStringLiteral("formLayoutWidget"));
-        formLayoutWidget->setGeometry(QRect(140, 110, 204, 71));
-        formLayout = new QFormLayout(formLayoutWidget);
-        formLayout->setObjectName(QStringLiteral("formLayout"));
-        formLayout->setContentsMargins(0, 0, 0, 0);
-        usernameLabel = new QLabel(formLayoutWidget);
-        usernameLabel->setObjectName(QStringLiteral("usernameLabel"));
-
-        formLayout->setWidget(0, QFormLayout::LabelRole, usernameLabel);
-
-        usernameLineEdit = new QLineEdit(formLayoutWidget);
-        usernameLineEdit->setObjectName(QStringLiteral("usernameLineEdit"));
-
-        formLayout->setWidget(0, QFormLayout::FieldRole, usernameLineEdit);
-
-        passwordLabel = new QLabel(formLayoutWidget);
-        passwordLabel->setObjectName(QStringLiteral("passwordLabel"));
-
-        formLayout->setWidget(1, QFormLayout::LabelRole, passwordLabel);
-
-        passwordLineEdit = new QLineEdit(formLayoutWidget);
-        passwordLineEdit->setObjectName(QStringLiteral("passwordLineEdit"));
-
-        formLayout->setWidget(1, QFormLayout::FieldRole, passwordLineEdit);
-
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        backPushBotton = new QPushButton(formLayoutWidget);
+        RegisterDialogUi->resize(500, 400);
+        gridLayoutWidget = new QWidget(RegisterDialogUi);
+        gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
+        gridLayoutWidget->setGeometry(QRect(100, 100, 311, 231));
+        gridLayout = new QGridLayout(gridLayoutWidget);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        gridLayout->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        backPushBotton = new QtMaterialRaisedButton(gridLayoutWidget);
         backPushBotton->setObjectName(QStringLiteral("backPushBotton"));
+        backPushBotton->setMinimumSize(QSize(0, 40));
 
-        horizontalLayout->addWidget(backPushBotton);
+        horizontalLayout_4->addWidget(backPushBotton);
 
-        registerPushButton = new QPushButton(formLayoutWidget);
+        registerPushButton = new QtMaterialRaisedButton(gridLayoutWidget);
         registerPushButton->setObjectName(QStringLiteral("registerPushButton"));
+        registerPushButton->setMinimumSize(QSize(0, 40));
 
-        horizontalLayout->addWidget(registerPushButton);
+        horizontalLayout_4->addWidget(registerPushButton);
 
 
-        formLayout->setLayout(2, QFormLayout::FieldRole, horizontalLayout);
+        gridLayout->addLayout(horizontalLayout_4, 4, 0, 1, 1);
 
-        characterComboBox = new QComboBox(RegisterDialogUi);
-        characterComboBox->setObjectName(QStringLiteral("characterComboBox"));
-        characterComboBox->setGeometry(QRect(120, 20, 191, 22));
+        passwordLineEdit = new QtMaterialTextField(gridLayoutWidget);
+        passwordLineEdit->setObjectName(QStringLiteral("passwordLineEdit"));
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(passwordLineEdit->sizePolicy().hasHeightForWidth());
+        passwordLineEdit->setSizePolicy(sizePolicy);
+        passwordLineEdit->setMinimumSize(QSize(0, 50));
+        passwordLineEdit->setAutoFillBackground(true);
+
+        gridLayout->addWidget(passwordLineEdit, 2, 0, 1, 1);
+
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        wordRadioButton = new QtMaterialRadioButton(gridLayoutWidget);
+        wordRadioButton->setObjectName(QStringLiteral("wordRadioButton"));
+
+        horizontalLayout_3->addWidget(wordRadioButton);
+
+        challengerRadioButton = new QtMaterialRadioButton(gridLayoutWidget);
+        challengerRadioButton->setObjectName(QStringLiteral("challengerRadioButton"));
+
+        horizontalLayout_3->addWidget(challengerRadioButton);
+
+
+        gridLayout->addLayout(horizontalLayout_3, 3, 0, 1, 1);
+
+        usernameLineEdit = new QtMaterialTextField(gridLayoutWidget);
+        usernameLineEdit->setObjectName(QStringLiteral("usernameLineEdit"));
+        QSizePolicy sizePolicy1(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(29);
+        sizePolicy1.setVerticalStretch(29);
+        sizePolicy1.setHeightForWidth(usernameLineEdit->sizePolicy().hasHeightForWidth());
+        usernameLineEdit->setSizePolicy(sizePolicy1);
+        usernameLineEdit->setMinimumSize(QSize(4, 50));
+
+        gridLayout->addWidget(usernameLineEdit, 1, 0, 1, 1);
+
 
         retranslateUi(RegisterDialogUi);
 
@@ -97,15 +113,10 @@ public:
     void retranslateUi(QDialog *RegisterDialogUi)
     {
         RegisterDialogUi->setWindowTitle(QApplication::translate("RegisterDialogUi", "Dialog", Q_NULLPTR));
-        usernameLabel->setText(QApplication::translate("RegisterDialogUi", "username", Q_NULLPTR));
-        passwordLabel->setText(QApplication::translate("RegisterDialogUi", "password", Q_NULLPTR));
-        backPushBotton->setText(QApplication::translate("RegisterDialogUi", "Back", Q_NULLPTR));
+        backPushBotton->setText(QApplication::translate("RegisterDialogUi", "back", Q_NULLPTR));
         registerPushButton->setText(QApplication::translate("RegisterDialogUi", "Register", Q_NULLPTR));
-        characterComboBox->clear();
-        characterComboBox->insertItems(0, QStringList()
-         << QApplication::translate("RegisterDialogUi", "WordBuilder", Q_NULLPTR)
-         << QApplication::translate("RegisterDialogUi", "Challenger", Q_NULLPTR)
-        );
+        wordRadioButton->setText(QApplication::translate("RegisterDialogUi", "word builder", Q_NULLPTR));
+        challengerRadioButton->setText(QApplication::translate("RegisterDialogUi", "challenger", Q_NULLPTR));
     } // retranslateUi
 
 };

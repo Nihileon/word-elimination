@@ -31,9 +31,9 @@
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>98</x>
-     <y>100</y>
-     <width>311</width>
+     <x>60</x>
+     <y>120</y>
+     <width>393</width>
      <height>231</height>
     </rect>
    </property>
@@ -53,24 +53,6 @@
        </size>
       </property>
      </widget>
-    </item>
-    <item row="3" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QtMaterialRadioButton" name="wordRadioButton">
-        <property name="text">
-         <string>word builder</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QtMaterialRadioButton" name="challengerRadioButton">
-        <property name="text">
-         <string>challenger</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </item>
     <item row="2" column="0">
      <widget class="QtMaterialTextField" name="passwordLineEdit">
@@ -94,7 +76,7 @@
     <item row="4" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QtMaterialFlatButton" name="loginPushBotton">
+       <widget class="QtMaterialRaisedButton" name="loginPushBotton">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -107,7 +89,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QtMaterialFlatButton" name="registerPushButton">
+       <widget class="QtMaterialRaisedButton" name="registerPushButton">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -121,15 +103,28 @@
       </item>
      </layout>
     </item>
+    <item row="3" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QtMaterialRadioButton" name="wordRadioButton">
+        <property name="text">
+         <string>word builder</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QtMaterialRadioButton" name="challengerRadioButton">
+        <property name="text">
+         <string>challenger</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
    </layout>
   </widget>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>QtMaterialFlatButton</class>
-   <extends>QPushButton</extends>
-   <header location="global">qtmaterialflatbutton.h</header>
-  </customwidget>
   <customwidget>
    <class>QtMaterialRadioButton</class>
    <extends>QRadioButton</extends>
@@ -139,6 +134,11 @@
    <class>QtMaterialTextField</class>
    <extends>QLineEdit</extends>
    <header location="global">qtmaterialtextfield.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QtMaterialRaisedButton</class>
+   <extends>QPushButton</extends>
+   <header location="global">qtmaterialraisedbutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

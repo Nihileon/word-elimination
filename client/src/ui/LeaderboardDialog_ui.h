@@ -13,11 +13,13 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialog>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QTableView>
+#include <QtWidgets/QWidget>
+#include <qtmaterialradiobutton.h>
+#include <qtmaterialraisedbutton.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -25,23 +27,39 @@ class Ui_LeaderboardDialogUi
 {
 public:
     QTableView *leaderboardTableView;
-    QComboBox *characterComboBox;
-    QPushButton *backPushButton;
+    QtMaterialRaisedButton *backPushButton;
+    QWidget *layoutWidget;
+    QHBoxLayout *horizontalLayout;
+    QtMaterialRadioButton *challengerRadioButton;
+    QtMaterialRadioButton *wordRadioButton;
 
     void setupUi(QDialog *LeaderboardDialogUi)
     {
         if (LeaderboardDialogUi->objectName().isEmpty())
             LeaderboardDialogUi->setObjectName(QStringLiteral("LeaderboardDialogUi"));
-        LeaderboardDialogUi->resize(400, 300);
+        LeaderboardDialogUi->resize(572, 507);
         leaderboardTableView = new QTableView(LeaderboardDialogUi);
         leaderboardTableView->setObjectName(QStringLiteral("leaderboardTableView"));
-        leaderboardTableView->setGeometry(QRect(40, 30, 311, 221));
-        characterComboBox = new QComboBox(LeaderboardDialogUi);
-        characterComboBox->setObjectName(QStringLiteral("characterComboBox"));
-        characterComboBox->setGeometry(QRect(110, 10, 181, 22));
-        backPushButton = new QPushButton(LeaderboardDialogUi);
+        leaderboardTableView->setGeometry(QRect(100, 90, 311, 221));
+        backPushButton = new QtMaterialRaisedButton(LeaderboardDialogUi);
         backPushButton->setObjectName(QStringLiteral("backPushButton"));
-        backPushButton->setGeometry(QRect(70, 260, 80, 14));
+        backPushButton->setGeometry(QRect(100, 380, 101, 41));
+        layoutWidget = new QWidget(LeaderboardDialogUi);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(100, 320, 309, 56));
+        horizontalLayout = new QHBoxLayout(layoutWidget);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        challengerRadioButton = new QtMaterialRadioButton(layoutWidget);
+        challengerRadioButton->setObjectName(QStringLiteral("challengerRadioButton"));
+
+        horizontalLayout->addWidget(challengerRadioButton);
+
+        wordRadioButton = new QtMaterialRadioButton(layoutWidget);
+        wordRadioButton->setObjectName(QStringLiteral("wordRadioButton"));
+
+        horizontalLayout->addWidget(wordRadioButton);
+
 
         retranslateUi(LeaderboardDialogUi);
 
@@ -51,12 +69,9 @@ public:
     void retranslateUi(QDialog *LeaderboardDialogUi)
     {
         LeaderboardDialogUi->setWindowTitle(QApplication::translate("LeaderboardDialogUi", "Dialog", Q_NULLPTR));
-        characterComboBox->clear();
-        characterComboBox->insertItems(0, QStringList()
-         << QApplication::translate("LeaderboardDialogUi", "WordBuilder", Q_NULLPTR)
-         << QApplication::translate("LeaderboardDialogUi", "Challenger", Q_NULLPTR)
-        );
         backPushButton->setText(QApplication::translate("LeaderboardDialogUi", "back", Q_NULLPTR));
+        challengerRadioButton->setText(QApplication::translate("LeaderboardDialogUi", "challenger", Q_NULLPTR));
+        wordRadioButton->setText(QApplication::translate("LeaderboardDialogUi", "word builder", Q_NULLPTR));
     } // retranslateUi
 
 };

@@ -37,14 +37,14 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QtMaterialFlatButton" name="backPushButton">
+     <widget class="QtMaterialRaisedButton" name="backPushButton">
       <property name="text">
        <string>back</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QtMaterialFlatButton" name="confirmPushBotton">
+     <widget class="QtMaterialRaisedButton" name="confirmPushBotton">
       <property name="text">
        <string>make new word</string>
       </property>
@@ -55,14 +55,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QtMaterialFlatButton</class>
-   <extends>QPushButton</extends>
-   <header location="global">qtmaterialflatbutton.h</header>
-  </customwidget>
-  <customwidget>
    <class>QtMaterialTextField</class>
    <extends>QLineEdit</extends>
    <header location="global">qtmaterialtextfield.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QtMaterialRaisedButton</class>
+   <extends>QPushButton</extends>
+   <header location="global">qtmaterialraisedbutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

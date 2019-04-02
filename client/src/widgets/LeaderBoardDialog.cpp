@@ -7,6 +7,9 @@ LeaderboardDialog::LeaderboardDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     setFixedSize(this->width(), this->height());
+    QPalette palette(this->palette());
+    palette.setColor(QPalette::Background, Qt::white);
+    this->setPalette(palette);
     connect(ui->backPushButton, &QPushButton::clicked, this,&LeaderboardDialog::showMain);
 }
 

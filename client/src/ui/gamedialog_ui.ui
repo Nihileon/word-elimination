@@ -40,7 +40,7 @@
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>110</y>
+     <y>140</y>
      <width>571</width>
      <height>111</height>
     </rect>
@@ -59,22 +59,22 @@
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>530</y>
+     <x>130</x>
+     <y>470</y>
      <width>186</width>
      <height>80</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QPushButton" name="backPushBotton">
+     <widget class="QtMaterialRaisedButton" name="backPushBotton">
       <property name="text">
        <string>back</string>
       </property>
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="nextPushButton">
+     <widget class="QtMaterialRaisedButton" name="nextPushButton">
       <property name="text">
        <string>next</string>
       </property>
@@ -82,13 +82,13 @@
     </item>
    </layout>
   </widget>
-  <widget class="QLineEdit" name="wordLineEdit">
+  <widget class="QtMaterialTextField" name="wordLineEdit">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>340</y>
-     <width>113</width>
-     <height>20</height>
+     <x>110</x>
+     <y>320</y>
+     <width>351</width>
+     <height>71</height>
     </rect>
    </property>
    <property name="text">
@@ -96,6 +96,18 @@
    </property>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QtMaterialTextField</class>
+   <extends>QLineEdit</extends>
+   <header location="global">qtmaterialtextfield.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QtMaterialRaisedButton</class>
+   <extends>QPushButton</extends>
+   <header location="global">qtmaterialraisedbutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -19,7 +19,7 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTableView>
 #include <QtWidgets/QWidget>
-#include <qtmaterialflatbutton.h>
+#include <qtmaterialraisedbutton.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -28,10 +28,10 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QTableView *personalInfoTableView;
-    QtMaterialFlatButton *gamePushButton;
-    QtMaterialFlatButton *leaderboardPushBotton;
-    QtMaterialFlatButton *logoutPushBotton;
-    QtMaterialFlatButton *buildWordPushButton;
+    QtMaterialRaisedButton *gamePushButton;
+    QtMaterialRaisedButton *leaderboardPushBotton;
+    QtMaterialRaisedButton *logoutPushBotton;
+    QtMaterialRaisedButton *buildWordPushButton;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -47,18 +47,18 @@ public:
         personalInfoTableView->setGeometry(QRect(30, 60, 281, 431));
         personalInfoTableView->setFrameShadow(QFrame::Plain);
         personalInfoTableView->setGridStyle(Qt::DotLine);
-        gamePushButton = new QtMaterialFlatButton(centralwidget);
+        gamePushButton = new QtMaterialRaisedButton(centralwidget);
         gamePushButton->setObjectName(QStringLiteral("gamePushButton"));
         gamePushButton->setGeometry(QRect(410, 140, 220, 40));
-        leaderboardPushBotton = new QtMaterialFlatButton(centralwidget);
+        leaderboardPushBotton = new QtMaterialRaisedButton(centralwidget);
         leaderboardPushBotton->setObjectName(QStringLiteral("leaderboardPushBotton"));
         leaderboardPushBotton->setGeometry(QRect(410, 230, 220, 40));
         leaderboardPushBotton->setCheckable(false);
         leaderboardPushBotton->setFlat(false);
-        logoutPushBotton = new QtMaterialFlatButton(centralwidget);
+        logoutPushBotton = new QtMaterialRaisedButton(centralwidget);
         logoutPushBotton->setObjectName(QStringLiteral("logoutPushBotton"));
         logoutPushBotton->setGeometry(QRect(410, 320, 220, 40));
-        buildWordPushButton = new QtMaterialFlatButton(centralwidget);
+        buildWordPushButton = new QtMaterialRaisedButton(centralwidget);
         buildWordPushButton->setObjectName(QStringLiteral("buildWordPushButton"));
         buildWordPushButton->setGeometry(QRect(410, 140, 220, 40));
         MainWindow->setCentralWidget(centralwidget);

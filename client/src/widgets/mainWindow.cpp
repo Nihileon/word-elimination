@@ -10,12 +10,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow),
       model(new QStandardItemModel)
 {
-    ui->setupUi(this);
-    setFixedSize(this->width(), this->height());
+    initWindow();
     connect(ui->gamePushButton, &QPushButton::clicked, this, &MainWindow::showGame);
     connect(ui->buildWordPushButton, &QPushButton::clicked, this, &MainWindow::showBuildWord);
     connect(ui->logoutPushBotton, &QPushButton::clicked, this, &MainWindow::closeAll);
     connect(ui->leaderboardPushBotton, &QPushButton::clicked, this, &MainWindow::showLeaderboard);
+
 }
 
 MainWindow::~MainWindow(){
@@ -24,7 +24,7 @@ MainWindow::~MainWindow(){
 }
 
 void MainWindow::setUser(QVariant data){
-    initWindow();
+//    initWindow();
     loginInfo = data.value<LoginInfo>();
     if(loginInfo.type == LoginInfo::WORD_BUILDER){
         wordBuilder = Login::instance().getWordBuilder(loginInfo);
@@ -109,15 +109,20 @@ void MainWindow::closeAll()
 void MainWindow::initWindow(){
     //    QStringList labels = QObject::trUtf8("频率,功率,误差").simplified().split(",");
     //    QStringList labels = QObject::trUtf8("personal info,value").split(",");
+    ui->setupUi(this);
+    setFixedSize(this->width(), this->height());
+    QPalette palette(this->palette());
+    palette.setColor(QPalette::Background, Qt::white);
+    this->setPalette(palette);
     model->setColumnCount(2);
     model->setHeaderData(0,Qt::Horizontal,QString::fromLocal8Bit("Info"));
     model->setHeaderData(1,Qt::Horizontal,QString::fromLocal8Bit("Value"));
 //        model->item(0,0)->setForeground(QBrush(QColor(255, 0, 0)));
 //        model->item(i,0) ->setTextAlignment(Qt::AlignCenter);
-        auto personalTable = ui->personalInfoTableView;
+    auto personalTable = ui->personalInfoTableView;
     personalTable->setModel(model);
     personalTable->horizontalHeader()->setDefaultAlignment(Qt::AlignCenter);
-    personalTable->setSortingEnabled(true);
+//    personalTable->setSortingEnabled(true);
 
 
 }
