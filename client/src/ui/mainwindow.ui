@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>532</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,14 +17,23 @@
    <widget class="QTableView" name="personalInfoTableView">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>60</y>
-      <width>281</width>
-      <height>431</height>
+      <x>60</x>
+      <y>120</y>
+      <width>231</width>
+      <height>221</height>
      </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="frameShadow">
      <enum>QFrame::Plain</enum>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
+    <property name="showGrid">
+     <bool>false</bool>
     </property>
     <property name="gridStyle">
      <enum>Qt::DotLine</enum>
@@ -33,9 +42,9 @@
    <widget class="QtMaterialRaisedButton" name="gamePushButton">
     <property name="geometry">
      <rect>
-      <x>410</x>
-      <y>140</y>
-      <width>220</width>
+      <x>300</x>
+      <y>70</y>
+      <width>211</width>
       <height>40</height>
      </rect>
     </property>
@@ -46,9 +55,9 @@
    <widget class="QtMaterialRaisedButton" name="leaderboardPushBotton">
     <property name="geometry">
      <rect>
-      <x>410</x>
-      <y>230</y>
-      <width>220</width>
+      <x>300</x>
+      <y>170</y>
+      <width>211</width>
       <height>40</height>
      </rect>
     </property>
@@ -65,9 +74,9 @@
    <widget class="QtMaterialRaisedButton" name="logoutPushBotton">
     <property name="geometry">
      <rect>
-      <x>410</x>
-      <y>320</y>
-      <width>220</width>
+      <x>300</x>
+      <y>260</y>
+      <width>211</width>
       <height>40</height>
      </rect>
     </property>
@@ -78,9 +87,9 @@
    <widget class="QtMaterialRaisedButton" name="buildWordPushButton">
     <property name="geometry">
      <rect>
-      <x>410</x>
-      <y>140</y>
-      <width>220</width>
+      <x>300</x>
+      <y>70</y>
+      <width>211</width>
       <height>40</height>
      </rect>
     </property>
@@ -94,7 +103,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>532</width>
      <height>28</height>
     </rect>
    </property>

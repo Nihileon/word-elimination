@@ -5,6 +5,10 @@
 #include "ui/RegisterDialog_ui.h"
 #include "registerdialog.h"
 #include "LoginDialog.h"
+#include <qtmaterialdialog.h>
+#include <QVBoxLayout>
+#include <QColorDialog>
+#include <QLabel>
 using namespace sqlite;
 RegisterDialog::RegisterDialog(QWidget* parent):QDialog (parent), ui(new Ui::RegisterDialogUi) {
     ui->setupUi(this);
@@ -51,12 +55,32 @@ void RegisterDialog::reg(){
         emit sendUser(user);
         showMainWindow();
 
-    } catch (sqlite_exception& e) {
-        QMessageBox *msg = new QMessageBox;
-        msg->setText(QString("your uesrname has been used, please login or change your username: %1").arg(e.what()));
-        msg->setWindowModality(Qt::NonModal);
-        msg->setStandardButtons(QMessageBox::Close);
-        msg->exec();
+    } catch (QSqlError& e) {
+        QtMaterialDialog *msg = new QtMaterialDialog;
+        msg->setParent(this);
+        QWidget *dialogWidget = new QWidget;
+        QVBoxLayout *dialogWidgetLayout = new QVBoxLayout;
+        dialogWidget->setLayout(dialogWidgetLayout);
+        QtMaterialFlatButton *closeButton = new QtMaterialFlatButton("Close");
+        QLabel* ql = new QLabel;
+        QFont ft;
+        ft.setPointSize(14);
+        ql->setFont(ft);
+        ql->setText("Your username has been used!\n"
+                    "Please login or change your username.");
+        dialogWidgetLayout->addWidget(ql);
+        dialogWidgetLayout->setAlignment(ql, Qt::AlignBottom| Qt::AlignCenter);
+        dialogWidgetLayout->addWidget(closeButton);
+        dialogWidgetLayout->setAlignment(closeButton, Qt::AlignBottom| Qt::AlignCenter);
+        closeButton->setMaximumWidth(150);
+        QVBoxLayout *dialogLayout = new QVBoxLayout;
+        msg->setWindowLayout(dialogLayout);
+        dialogWidget->setMinimumHeight(150);
+        dialogWidget->setMinimumWidth(300);
+        dialogLayout->addWidget(dialogWidget);
+        connect(closeButton, SIGNAL(pressed()), msg, SLOT(hideDialog()));
+        msg->showDialog();
+        msg->show();
     }
 }
 

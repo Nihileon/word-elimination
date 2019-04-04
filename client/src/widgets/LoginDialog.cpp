@@ -1,10 +1,13 @@
+#include <QLabel>
 #include <QMessageBox>
 #include <QObject>
 #include "ui/LoginDialog_ui.h"
 #include "LoginDialog.h"
 #include "data/login.h"
 #include "registerdialog.h"
-
+#include <qtmaterialdialog.h>
+#include <QVBoxLayout>
+#include <QColorDialog>
 LoginDialog::LoginDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::LoginDialogUi)/*,reg(new RegisterDialog)*/
@@ -38,33 +41,10 @@ void LoginDialog::checkPassword(){
     }else if(ui->wordRadioButton->isChecked()){
         loginInfo.type = LoginInfo::WORD_BUILDER;
     }
-//    switch (ui->userComboBox->currentIndex()) {
-//    case 0:
-//        loginInfo.type = LoginInfo::WORD_BUILDER;
-//        break;
-//    case 1:
-//        loginInfo.type = LoginInfo::CHALLENGER;
-//        break;
-//    }
+
     loginInfo.usr = ui->usernameLineEdit->text().toStdString();
     loginInfo.pwd = ui->passwordLineEdit->text().toStdString();
 
-//    bool isAccept = false;
-//    if(loginInfo.type == LoginInfo::WORD_BUILDER){
-//        auto userPair = Login::instance().getWordBuilder(loginInfo);
-//        if(userPair.first==Login::DEFAULT_STATUS){
-//            user.setValue(userPair.second);
-//            emit sendUser(user);
-//            isAccept = true;
-//        }
-//    }else{
-//        auto userPair = Login::instance().getChallenger(loginInfo);
-//        if(userPair.first==Login::DEFAULT_STATUS){
-//            user.setValue(userPair.second);
-//            emit sendUser(user);
-//            isAccept = true;
-//        }
-//    }
     auto isAccept= Login::instance().isUser(loginInfo);
     if(isAccept == true){
         QVariant user;
@@ -72,11 +52,32 @@ void LoginDialog::checkPassword(){
         emit sendUser(user);
         showMainWindow();
     }else{
-        QMessageBox *msg = new QMessageBox;
-        msg->setText("login failed, please check your password or user type");
-        msg->setWindowModality(Qt::NonModal);
-        msg->setStandardButtons(QMessageBox::Close);
-        msg->exec();
+
+        //\TODO: move this code to _ui.h
+        QtMaterialDialog *msg = new QtMaterialDialog;
+        msg->setParent(this);
+        QWidget *dialogWidget = new QWidget;
+        QVBoxLayout *dialogWidgetLayout = new QVBoxLayout;
+        dialogWidget->setLayout(dialogWidgetLayout);
+        QtMaterialFlatButton *closeButton = new QtMaterialFlatButton("Close");
+        QLabel* ql = new QLabel;
+        QFont ft;
+        ft.setPointSize(14);
+        ql->setFont(ft);
+        ql->setText("Login failed! \nPlease check your password or user type.");
+        dialogWidgetLayout->addWidget(ql);
+        dialogWidgetLayout->setAlignment(ql, Qt::AlignBottom| Qt::AlignCenter);
+        dialogWidgetLayout->addWidget(closeButton);
+        dialogWidgetLayout->setAlignment(closeButton, Qt::AlignBottom| Qt::AlignCenter);
+        closeButton->setMaximumWidth(150);
+        QVBoxLayout *dialogLayout = new QVBoxLayout;
+        msg->setWindowLayout(dialogLayout);
+        dialogWidget->setMinimumHeight(150);
+        dialogWidget->setMinimumWidth(300);
+        dialogLayout->addWidget(dialogWidget);
+        connect(closeButton, SIGNAL(pressed()), msg, SLOT(hideDialog()));
+        msg->showDialog();
+        msg->show();
     }
 }
 

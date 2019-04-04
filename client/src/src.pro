@@ -1,4 +1,4 @@
-QT += core gui widgets
+QT += core gui widgets sql
 TEMPLATE = app
 CONFIG += c++17
 
@@ -11,7 +11,8 @@ LIBS += \
 INCLUDEPATH += \
     $$top_srcdir/components/ \
     ../../libs/modern-sqlite \
-../../libs/qt-material-widgets/components
+    ../../libs/qt-material-widgets/components \
+    ./ui
 
 PRE_TARGETDEPS = \
     ../../libs/qt-material-widgets/components/$(OBJECTS_DIR)/libcomponents.a
@@ -42,7 +43,8 @@ HEADERS += \
     windowmanager.h \
     ui/BuildWordDialog_ui.h \
     widgets/BuildWordDialog.h \
-    widgets/LeaderBoardDialog.h
+    widgets/LeaderBoardDialog.h \
+    ui/radiusprogressbar.h
 
 
 
@@ -57,14 +59,16 @@ SOURCES += \
     main.cpp \
     windowmanager.cpp \
     widgets/BuildWordDialog.cpp \
-    widgets/LeaderBoardDialog.cpp
+    widgets/LeaderBoardDialog.cpp \
+    ui/radiusprogressbar.cpp
 
 
 SUBDIRS += \
-    src.pro
+    resource
 
 RESOURCES += \
-    ../../libs/qt-material-widgets/components/resources.qrc
+    ../../libs/qt-material-widgets/components/resources.qrc \
+    ./customprogressbar.qrc
 
 unix: CONFIG += link_pkgconfig
 unix: PKGCONFIG += sqlite3

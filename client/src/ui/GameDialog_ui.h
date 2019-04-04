@@ -17,11 +17,11 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLCDNumber>
-#include <QtWidgets/QProgressBar>
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QWidget>
 #include <qtmaterialraisedbutton.h>
 #include <qtmaterialtextfield.h>
+#include <ui/radiusprogressbar.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -29,7 +29,7 @@ class Ui_GameDialogUi
 {
 public:
     QLCDNumber *countdownLcdNumber;
-    QProgressBar *countdownProgressBar;
+    RadiusProgressBar *countdownProgressBar;
     QTextBrowser *wordTextBrowser;
     QTextBrowser *cardTextBrowser;
     QWidget *horizontalLayoutWidget;
@@ -42,39 +42,41 @@ public:
     {
         if (GameDialogUi->objectName().isEmpty())
             GameDialogUi->setObjectName(QStringLiteral("GameDialogUi"));
-        GameDialogUi->resize(688, 666);
+        GameDialogUi->resize(600, 500);
         countdownLcdNumber = new QLCDNumber(GameDialogUi);
         countdownLcdNumber->setObjectName(QStringLiteral("countdownLcdNumber"));
-        countdownLcdNumber->setGeometry(QRect(400, 22, 151, 41));
-        countdownProgressBar = new QProgressBar(GameDialogUi);
+        countdownLcdNumber->setGeometry(QRect(260, 110, 151, 41));
+        countdownProgressBar = new RadiusProgressBar(GameDialogUi);
         countdownProgressBar->setObjectName(QStringLiteral("countdownProgressBar"));
-        countdownProgressBar->setGeometry(QRect(100, 10, 281, 61));
+        countdownProgressBar->setGeometry(QRect(200, 150, 201, 41));
         countdownProgressBar->setValue(24);
         wordTextBrowser = new QTextBrowser(GameDialogUi);
         wordTextBrowser->setObjectName(QStringLiteral("wordTextBrowser"));
-        wordTextBrowser->setGeometry(QRect(50, 140, 571, 111));
+        wordTextBrowser->setGeometry(QRect(140, 200, 331, 61));
         cardTextBrowser = new QTextBrowser(GameDialogUi);
         cardTextBrowser->setObjectName(QStringLiteral("cardTextBrowser"));
-        cardTextBrowser->setGeometry(QRect(470, 450, 161, 141));
+        cardTextBrowser->setGeometry(QRect(90, 30, 421, 71));
         horizontalLayoutWidget = new QWidget(GameDialogUi);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(130, 470, 186, 80));
+        horizontalLayoutWidget->setGeometry(QRect(130, 380, 351, 80));
         horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
         backPushBotton = new QtMaterialRaisedButton(horizontalLayoutWidget);
         backPushBotton->setObjectName(QStringLiteral("backPushBotton"));
+        backPushBotton->setMinimumSize(QSize(0, 40));
 
         horizontalLayout->addWidget(backPushBotton);
 
         nextPushButton = new QtMaterialRaisedButton(horizontalLayoutWidget);
         nextPushButton->setObjectName(QStringLiteral("nextPushButton"));
+        nextPushButton->setMinimumSize(QSize(40, 40));
 
         horizontalLayout->addWidget(nextPushButton);
 
         wordLineEdit = new QtMaterialTextField(GameDialogUi);
         wordLineEdit->setObjectName(QStringLiteral("wordLineEdit"));
-        wordLineEdit->setGeometry(QRect(110, 320, 351, 71));
+        wordLineEdit->setGeometry(QRect(130, 280, 351, 71));
 
         retranslateUi(GameDialogUi);
 
@@ -86,7 +88,7 @@ public:
         GameDialogUi->setWindowTitle(QApplication::translate("GameDialogUi", "Dialog", Q_NULLPTR));
         backPushBotton->setText(QApplication::translate("GameDialogUi", "back", Q_NULLPTR));
         nextPushButton->setText(QApplication::translate("GameDialogUi", "next", Q_NULLPTR));
-        wordLineEdit->setText(QApplication::translate("GameDialogUi", "123123", Q_NULLPTR));
+        wordLineEdit->setText(QString());
     } // retranslateUi
 
 };

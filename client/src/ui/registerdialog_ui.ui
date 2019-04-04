@@ -111,11 +111,6 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QtMaterialRadioButton</class>
-   <extends>QRadioButton</extends>
-   <header location="global">qtmaterialradiobutton.h</header>
-  </customwidget>
-  <customwidget>
    <class>QtMaterialTextField</class>
    <extends>QLineEdit</extends>
    <header location="global">qtmaterialtextfield.h</header>
@@ -124,6 +119,11 @@
    <class>QtMaterialRaisedButton</class>
    <extends>QPushButton</extends>
    <header location="global">qtmaterialraisedbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QtMaterialRadioButton</class>
+   <extends>QRadioButton</extends>
+   <header location="global">qtmaterialradiobutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -4,17 +4,38 @@
 #include "widgets/LoginDialog.h"
 #include "widgets/LeaderBoardDialog.h"
 #include <QObject>
+#include <QDesktopWidget>
 #include <QStandardItemModel>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-      model(new QStandardItemModel)
+    model(new QStandardItemModel)
 {
     initWindow();
-    connect(ui->gamePushButton, &QPushButton::clicked, this, &MainWindow::showGame);
+    setFixedSize(this->width(), this->height());
+    QDesktopWidget* desktop = QApplication::desktop();
+    move((desktop->width()- this->width())/2, (desktop->height() - this->height())/2);
+
+    ui->personalInfoTableView->setStyleSheet("QTableCornerButton::section{border: none;background:white;}"
+                                             "QHeaderView{ border: none; background:white; }"
+                                             "border: none;background:white;"
+                                             );
+    ui->personalInfoTableView->horizontalHeader()->setStyleSheet("QHeaderView::section {"
+                                                                 " border: none;background-color:#ffffff;}");
+    ui->personalInfoTableView->verticalHeader()->setStyleSheet("QHeaderView::section {"
+                                                               " border: none;background-color:#ffffff;}");
+    ui->personalInfoTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    ui->personalInfoTableView->verticalHeader()->hide();
+    ui->personalInfoTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->personalInfoTableView->setSelectionMode(QAbstractItemView::NoSelection);
+    ui->personalInfoTableView->setDragDropMode(QAbstractItemView::NoDragDrop);
+
+    ui->personalInfoTableView->
+            connect(ui->gamePushButton, &QPushButton::clicked, this, &MainWindow::showGame);
     connect(ui->buildWordPushButton, &QPushButton::clicked, this, &MainWindow::showBuildWord);
     connect(ui->logoutPushBotton, &QPushButton::clicked, this, &MainWindow::closeAll);
     connect(ui->leaderboardPushBotton, &QPushButton::clicked, this, &MainWindow::showLeaderboard);
+
 
 }
 
@@ -24,7 +45,7 @@ MainWindow::~MainWindow(){
 }
 
 void MainWindow::setUser(QVariant data){
-//    initWindow();
+    //    initWindow();
     loginInfo = data.value<LoginInfo>();
     if(loginInfo.type == LoginInfo::WORD_BUILDER){
         wordBuilder = Login::instance().getWordBuilder(loginInfo);
@@ -38,17 +59,23 @@ void MainWindow::setUser(QVariant data){
 void MainWindow::refreshWordBuilderWindow()
 {
     using std::to_string;
-    model->setItem(1,1,new QStandardItem(QString::fromStdString(to_string(wordBuilder.level))));
-    model->setItem(2,1,new QStandardItem(QString::fromStdString(to_string(wordBuilder.exp))));
-    model->setItem(3,1,new QStandardItem(QString::fromStdString(to_string(wordBuilder.build_word))));
+    model->item(1,1)->setFont(QFont(QString::fromStdString(to_string(wordBuilder.level)),14));
+//    model->setItem(1,1,new QStandardItem(QString::fromStdString(to_string(wordBuilder.level))));
+    model->item(1,1)->setFont(QFont(QString::fromStdString(to_string(wordBuilder.exp)),14));
+//    model->setItem(2,1,new QStandardItem(QString::fromStdString(to_string(wordBuilder.exp))));
+    model->item(1,1)->setFont(QFont(QString::fromStdString(to_string(wordBuilder.build_word)),14));
+//    model->setItem(3,1,new QStandardItem(QString::fromStdString(to_string(wordBuilder.build_word))));
 }
 
 void MainWindow::refreshChallengerWindow()
 {
     using std::to_string;
-    model->setItem(1,1,new QStandardItem(QString::fromStdString(to_string(challenger.level))));
-    model->setItem(2,1,new QStandardItem(QString::fromStdString(to_string(challenger.exp))));
-    model->setItem(3,1,new QStandardItem(QString::fromStdString(to_string(challenger.card_pass))));
+    model->item(1,1)->setFont(QFont(QString::fromStdString(to_string(challenger.level)),14));
+//    model->setItem(1,1,new QStandardItem(QString::fromStdString(to_string(challenger.level))));
+    model->item(2,1)->setFont(QFont(QString::fromStdString(to_string(challenger.exp)),14));
+//    model->setItem(2,1,new QStandardItem(QString::fromStdString(to_string(challenger.exp))));
+        model->item(2,1)->setFont(QFont(QString::fromStdString(to_string(challenger.card_pass)),14));
+//    model->setItem(3,1,new QStandardItem(QString::fromStdString(to_string(challenger.card_pass))));
 }
 
 void MainWindow::showGame(){
@@ -82,8 +109,8 @@ void MainWindow::setChallenger(QVariant data)
         Login::instance().updateUser(this->challenger);
 
 
-    } catch (sqlite::sqlite_exception &e) {
-        std::cout << "set Challenger:" << e.what()<<std::endl;
+    } catch (QSqlError &e) {
+        std::cout << "set Challenger:" << e.text().toStdString()<<std::endl;
     }
 
 }
@@ -95,8 +122,8 @@ void MainWindow::setWordBuilder(QVariant data)
     try {
         Delay_MSec_Suspend(50);
         Login::instance().updateUser(this->wordBuilder);
-    } catch (sqlite::sqlite_exception &e) {
-        std::cout << "set WordBuilder:" << e.what()<<std::endl;
+    } catch (QSqlError &e) {
+        std::cout << "set WordBuilder:" << e.text().toStdString()<<std::endl;
     }
 
 }
@@ -117,12 +144,12 @@ void MainWindow::initWindow(){
     model->setColumnCount(2);
     model->setHeaderData(0,Qt::Horizontal,QString::fromLocal8Bit("Info"));
     model->setHeaderData(1,Qt::Horizontal,QString::fromLocal8Bit("Value"));
-//        model->item(0,0)->setForeground(QBrush(QColor(255, 0, 0)));
-//        model->item(i,0) ->setTextAlignment(Qt::AlignCenter);
+    //        model->item(0,0)->setForeground(QBrush(QColor(255, 0, 0)));
+    //        model->item(i,0) ->setTextAlignment(Qt::AlignCenter);
     auto personalTable = ui->personalInfoTableView;
     personalTable->setModel(model);
     personalTable->horizontalHeader()->setDefaultAlignment(Qt::AlignCenter);
-//    personalTable->setSortingEnabled(true);
+    //    personalTable->setSortingEnabled(true);
 
 
 }
@@ -138,11 +165,15 @@ void MainWindow::initWordBuilderWindow()
     model->setItem(1,1,new QStandardItem(QString::fromStdString(to_string(wordBuilder.level))));
     model->setItem(2,0, new QStandardItem("exp"));
     model->setItem(2,1,new QStandardItem(QString::fromStdString(to_string(wordBuilder.exp))));
-    model->setItem(3,0, new QStandardItem("word build num"));
+    model->setItem(3,0, new QStandardItem("num of build"));
     model->setItem(3,1,new QStandardItem(QString::fromStdString(to_string(wordBuilder.build_word))));
+    QFont ft;
+    ft.setPointSize(14);
     for(int i=0;i<4;i++){
         model->item(i,0) ->setTextAlignment(Qt::AlignCenter);
         model->item(i,1) ->setTextAlignment(Qt::AlignCenter);
+        model->item(i,0)->setFont(ft);
+        model->item(i,1)->setFont(ft);
     }
     ui->gamePushButton->hide();
     ui->buildWordPushButton->setDefault(true);
@@ -163,11 +194,16 @@ void MainWindow::initChallengerWindow()
     model->setItem(1,1,new QStandardItem(QString::fromStdString(to_string(challenger.level))));
     model->setItem(2,0, new QStandardItem("exp"));
     model->setItem(2,1,new QStandardItem(QString::fromStdString(to_string(challenger.exp))));
-    model->setItem(3,0, new QStandardItem("card pass max"));
+    model->setItem(3,0, new QStandardItem("max card"));
     model->setItem(3,1,new QStandardItem(QString::fromStdString(to_string(challenger.card_pass))));
+    QFont ft;
+    ft.setPointSize(14);
     for(int i=0;i<4;i++){
+
         model->item(i,0) ->setTextAlignment(Qt::AlignCenter);
         model->item(i,1) ->setTextAlignment(Qt::AlignCenter);
+        model->item(i,0)->setFont(ft);
+        model->item(i,1)->setFont(ft);
     }
     ui->buildWordPushButton->hide();
     ui->gamePushButton->setDefault(true);

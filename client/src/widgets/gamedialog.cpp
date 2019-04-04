@@ -1,6 +1,8 @@
 #include "gamedialog.h"
 #include "ui/GameDialog_ui.h"
+#include <QLabel>
 #include <cmath>
+#include <qtmaterialdialog.h>
 
 
 GameDialog::GameDialog(QWidget* parent):
@@ -16,7 +18,11 @@ GameDialog::GameDialog(QWidget* parent):
     QPalette palette(this->palette());
     palette.setColor(QPalette::Background, Qt::white);
     this->setPalette(palette);
-
+    ui->cardTextBrowser->setStyleSheet("border:0px");
+    ui->wordTextBrowser->setStyleSheet("border:0px");
+    ui->wordLineEdit->setLabel("input what you see.");
+    ui->countdownProgressBar->setStyleSheet("border:1px solid grey;border-radius:2px;text-align:center;background-color:#ffffff;");
+    ui->countdownLcdNumber->hide();
     auto wordBrows = ui->wordTextBrowser;
     wordBrows->setFontPointSize(25);
     wordBrows->setAlignment(Qt::AlignCenter);
@@ -71,12 +77,14 @@ void GameDialog::nextWord(){
     ui->wordTextBrowser->show();
     ui->wordLineEdit->clear();
     wordInfo = Word::instance().getWord(3,10);
-    ui->wordTextBrowser->setText(QString::fromStdString(wordInfo.word));
+    string tr = "<center><big><font size=14>"+wordInfo.word+"</big></font></center>";
+    QObject::tr(tr.c_str());
+    ui->wordTextBrowser->setText(QObject::tr(tr.c_str()));
     auto cardBrows = ui->cardTextBrowser;
     std::string s = "Card: " + std::to_string(card)+
-            "\nWord Builder: "+wordInfo.builder +
+            "\t\t\tWord Builder: "+wordInfo.builder +
             "\nPass time: " + std::to_string(wordInfo.pass_time)+
-            "\nFail time: " +std::to_string(wordInfo.fail_time);
+            "\t\tFail time: " +std::to_string(wordInfo.fail_time);
     auto qs = QString::fromStdString(s);
     cardBrows->setText(qs);
     auto cntBar = ui->countdownProgressBar;
@@ -93,8 +101,8 @@ void GameDialog::checkCorrect(){
         try {
             Delay_MSec_Suspend(50);
             Word::instance().updateWord(wordInfo);
-        } catch (sqlite::sqlite_exception &e) {
-            std::cout << "check update word" << e.what()<<std::endl;
+        } catch (QSqlError &e) {
+            std::cout << "check update word" << e.text().toStdString()<<std::endl;
         }
         challenger.word_eliminate++;
         cardInfo.cardPassWordNum--;
@@ -130,22 +138,44 @@ void GameDialog::setLevel()
 
 void GameDialog::gameOver(){
     ui->nextPushButton->hide();
-    ui->backPushBotton->setDefault(true);
+    ui->nextPushButton->setDefault(false);
     wordInfo.fail_time++;
     try {
         for(int i=0;i<2;i++){
             Word::instance().updateWord(wordInfo);
             Delay_MSec_Suspend(50);
         }
-    } catch (sqlite::sqlite_exception &e) {
-        std::cout << " gameover update word"<<e.what()<<std::endl;
+    } catch (QSqlError &e) {
+        std::cout << " gameover update word"<<e.text().toStdString()<<std::endl;
     }
     setGameOver();
-    QMessageBox *msg = new QMessageBox;
-    msg->setText("Game Over! Please back to the Main window!");
-    msg->setWindowModality(Qt::NonModal);
-    msg->setStandardButtons(QMessageBox::Close);
-    msg->exec();
+    //\TODO: move this code to _ui.h
+    QtMaterialDialog *msg = new QtMaterialDialog;
+    msg->setParent(this);
+    QWidget *dialogWidget = new QWidget;
+    QVBoxLayout *dialogWidgetLayout = new QVBoxLayout;
+    dialogWidget->setLayout(dialogWidgetLayout);
+    QtMaterialFlatButton *closeButton = new QtMaterialFlatButton("Close");
+    QLabel* ql = new QLabel;
+    QFont ft;
+    ft.setPointSize(14);
+    ql->setFont(ft);
+    ql->setText("Game over! Please go back to the menu.");
+    closeButton->setShortcut(Qt::Key_Enter);
+    closeButton->setDefault(true);
+    dialogWidgetLayout->addWidget(ql);
+    dialogWidgetLayout->setAlignment(ql, Qt::AlignBottom| Qt::AlignCenter);
+    dialogWidgetLayout->addWidget(closeButton);
+    dialogWidgetLayout->setAlignment(closeButton, Qt::AlignBottom| Qt::AlignCenter);
+    closeButton->setMaximumWidth(150);
+    QVBoxLayout *dialogLayout = new QVBoxLayout;
+    msg->setWindowLayout(dialogLayout);
+    dialogWidget->setMinimumHeight(150);
+    dialogWidget->setMinimumWidth(300);
+    dialogLayout->addWidget(dialogWidget);
+    connect(closeButton, SIGNAL(pressed()), msg, SLOT(hideDialog()));
+    msg->showDialog();
+    msg->show();
 
 }
 
