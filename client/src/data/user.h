@@ -1,7 +1,6 @@
 #ifndef LOGIN_H
 #define LOGIN_H
 #include "basic.h"
-#include <sqlite_modern_cpp.h>
 #include <QtSql>
 #include <QVariant>
 #include <QString>
@@ -10,13 +9,14 @@
 class Login{
 private:
 
-    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    QSqlDatabase db;
 
     static Login *_instance;
-    //    sqlite::database db;
-    //    Login(const string path = "./user.db"):db(path.c_str()){}
     Login(const string path = "/home/nihileon/word-elimination/build-client-Desktop_Qt_5_12_1_GCC_64bit-Debug/src/user.db"){
-
+        if (QSqlDatabase::contains("qt_sql_default_connection"))
+          db = QSqlDatabase::database("qt_sql_default_connection");
+        else
+          db = QSqlDatabase::addDatabase("QSQLITE");
         db.setDatabaseName(path.c_str());
         if(!db.open()){
             throw db.lastError();
@@ -48,8 +48,6 @@ public:
             if(!sqlQuery.exec()){
                 throw sqlQuery.lastError();
             }
-            //            db<< "INSERT INTO WordBuilder (user_login, user_pass) VALUES (?,?);"
-            //              <<li.usr << li.pwd;
             break;
         }
         case LoginInfo::CHALLENGER:{
@@ -61,8 +59,6 @@ public:
             if(!sqlQuery.exec()){
                 throw sqlQuery.lastError();
             }
-            //            db<<"INSERT INTO Challenger (user_login, user_pass) VALUES (?,?);"
-            //             <<li.usr <<li.pwd;
             break;
         }
         }
@@ -91,40 +87,8 @@ public:
                 }
             }
         return false;
-        //        string sqlCheck = "SELECT COUNT(*), user_pass FROM " +userType + " WHERE user_login=?;";
-        //        db << sqlCheck.c_str() << loginInfo.usr
-        //           >> [&](int is_exist, string user_p ass){
-        //            if(is_exist == 1 && user_pass == loginInfo.pwd){
-        //                pass_coor = true;
-        //            }
-        //        };
-        //     return pass_coor;
     }
 
-    //    [[deprecated("please use getWordBuilder")]]
-    //    auto  _getWordBuilder(const LoginInfo &loginInfo){
-    //        WordBuilder wb;
-    //        Status status = DEFAULT_STATUS;
-    //        int is_exist = 0;
-    //        db << "SELECT COUNT(*) FROM WordBuilder WHERE user_login=?;" << loginInfo.usr >> is_exist ;
-    //        if(is_exist != 1){
-    //            return std::make_pair(USR_NOT_EXIST, wb);
-    //        }
-    //        wb.usr = loginInfo.usr;
-    //        db << "SELECT user_pass, level, exp, build_word, word_pass, word_fail"
-    //              " FROM WordBuilder WHERE user_login=?;" << loginInfo.usr
-    //           >>[&](string user_pass, int level, int exp, int build_word, int word_pass, int word_fail){
-    //            if(loginInfo.pwd != user_pass){
-    //                status = PWD_WRONG;
-    //            }
-    //            wb.level = level;
-    //            wb.exp = exp;
-    //            wb.build_word = build_word;
-    //            wb.word_pass = word_pass;
-    //            wb.word_fail = word_fail;
-    //        };
-    //        return std::make_pair(status, wb);
-    //    }
 
     auto getWordBuilder(const LoginInfo &loginInfo){
         WordBuilder wb;
@@ -142,44 +106,32 @@ public:
                 wb.word_pass = sqlQuery.value(3).toInt();
                 wb.word_fail = sqlQuery.value(4).toInt();
             }
+        }else{
+            throw sqlQuery.lastError();
         }
-        //        db << "SELECT level, exp, build_word, word_pass, word_fail"
-        //              " FROM WordBuilder WHERE user_login=?;" << loginInfo.usr
-        //           >>[&](int level, int exp, int build_word, int word_pass, int word_fail){
-        //            wb.level = level;
-        //            wb.exp = exp;
-        //            wb.build_word = build_word;
-        //            wb.word_pass = word_pass;
-        //            wb.word_fail = word_fail;
-        //        };
         return wb;
     }
 
-    //    [[deprecated("please use getChallenger")]]
-    //    auto _getChallenger(const LoginInfo &loginInfo){
-    //        Challenger c;
-    //        Status status = DEFAULT_STATUS;
-    //        int is_exist = 0;
-    //        db << "SELECT COUNT(*) FROM Challenger WHERE user_login=?;" << loginInfo.usr >> is_exist ;
-    //        if(is_exist != 1){
-    //            return std::make_pair(USR_NOT_EXIST, c);
-    //        }
-    //        c.usr = loginInfo.usr;
-    //        db << "SELECT user_pass, level, exp, card_pass, card_fail, word_eliminate"
-    //              " FROM Challenger WHERE user_login=?;"
-    //           << loginInfo.usr
-    //           >> [&](string user_pass, int level, int exp, int card_pass, int card_fail, int word_eliminate){
-    //            if(loginInfo.pwd != user_pass){
-    //                status = PWD_WRONG;
-    //            }
-    //            c.level = level;
-    //            c.exp = exp;
-    //            c.card_pass = card_pass;
-    //            c.card_fail = card_fail;
-    //            c.word_eliminate = word_eliminate;
-    //        };
-    //        return  std::make_pair(status, c);
-    //    }
+    void getChallengerMakeTable(QSqlQueryModel* model){
+        model->setQuery("SELECT user_pass, level, exp, card_pass, word_eliminate "
+                        "FROM Challenger ORDER BY exp DESC;",db);
+        model->setHeaderData(0, Qt::Horizontal, "Username");
+        model->setHeaderData(1, Qt::Horizontal, "Level");
+        model->setHeaderData(2, Qt::Horizontal, "Exp");
+        model->setHeaderData(3, Qt::Horizontal, "Max Passed");
+//        model->setHeaderData(4, Qt::Horizontal, "Card_fail");
+        model->setHeaderData(4, Qt::Horizontal, "Eliminated");
+
+    }
+
+    void getWordBuilderMakeTable(QSqlQueryModel* model){
+        model->setQuery("SELECT user_pass, level, exp, build_word "
+                        "FROM WordBuilder ORDER BY build_word DESC;");
+        model->setHeaderData(0, Qt::Horizontal, "Username");
+        model->setHeaderData(1, Qt::Horizontal, "Level");
+        model->setHeaderData(2, Qt::Horizontal, "Exp");
+        model->setHeaderData(3, Qt::Horizontal, "Word Built");
+    }
 
     auto getChallenger(const LoginInfo &loginInfo){
         Challenger c;
@@ -197,17 +149,9 @@ public:
                 c.card_fail = sqlQuery.value(3).toInt();
                 c.word_eliminate = sqlQuery.value(4).toInt();
             }
+        }else{
+            throw sqlQuery.lastError();
         }
-        //        db << "SELECT level, exp, card_pass, card_fail, word_eliminate"
-        //              " FROM Challenger WHERE user_login=?;"
-        //           << loginInfo.usr
-        //           >> [&]( int level, int exp, int card_pass, int card_fail, int word_eliminate){
-        //            c.level = level;
-        //            c.exp = exp;
-        //            c.card_pass = card_pass;
-        //            c.card_fail = card_fail;
-        //            c.word_eliminate = word_eliminate;
-        //        };
         return c;
     }
 
@@ -221,12 +165,9 @@ public:
                 .arg(QString::fromStdString(wb.usr));
         QSqlQuery sqlQuery;
         sqlQuery.prepare(query);
-        sqlQuery.exec();
-        //        db << "UPDATE WordBuilder"
-        //              " SET level=?, exp=?, build_word=?"
-        //              " WHERE user_login = ?"
-        //           << wb.level << wb.exp << wb.build_word
-        //           << wb.usr;
+        if(!sqlQuery.exec()){
+            throw sqlQuery.lastError();
+        }
     }
 
     void updateUser(const Challenger &c){
@@ -241,20 +182,10 @@ public:
                 .arg(QString::fromStdString(c.usr));
         QSqlQuery sqlQuery;
         sqlQuery.prepare(query);
-        sqlQuery.exec();
-
-        //        db << "UPDATE Challenger"
-        //              " SET level=?, exp=?, card_pass=?, card_fail=?,word_eliminate=?"
-        //              " WHERE user_login=?"
-        //           << c.level << c.exp << c.card_pass << c.card_fail << c.word_eliminate
-        //           << c.usr;
+        if(!sqlQuery.exec()){
+            throw sqlQuery.lastError();
+        }
     }
-
-    //    auto  getWordBuilderLeader(const string orderType = "exp" ){
-    //        db << "SELECT user_login, level, exp, card_pass, word_eliminate"
-    //              " FROM Challenger ORDER BY ? desc limit 4;" << orderType
-    //           >>[&](int user_login, level, exp, card_pass, word_eliminate)
-    //    }
 };
 
 

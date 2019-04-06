@@ -9,7 +9,7 @@
 #include <QMessageBox>
 #include <cmath>
 #include "data/word.h"
-#include "data/login.h"
+#include "data/user.h"
 namespace Ui {
 class GameDialogUi;
 }

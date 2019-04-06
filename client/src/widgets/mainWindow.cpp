@@ -29,9 +29,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->personalInfoTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->personalInfoTableView->setSelectionMode(QAbstractItemView::NoSelection);
     ui->personalInfoTableView->setDragDropMode(QAbstractItemView::NoDragDrop);
-
-    ui->personalInfoTableView->
-            connect(ui->gamePushButton, &QPushButton::clicked, this, &MainWindow::showGame);
+    ui->personalInfoTableView->setUpdatesEnabled(true);
+    connect(ui->gamePushButton, &QPushButton::clicked, this, &MainWindow::showGame);
     connect(ui->buildWordPushButton, &QPushButton::clicked, this, &MainWindow::showBuildWord);
     connect(ui->logoutPushBotton, &QPushButton::clicked, this, &MainWindow::closeAll);
     connect(ui->leaderboardPushBotton, &QPushButton::clicked, this, &MainWindow::showLeaderboard);
@@ -59,23 +58,23 @@ void MainWindow::setUser(QVariant data){
 void MainWindow::refreshWordBuilderWindow()
 {
     using std::to_string;
-    model->item(1,1)->setFont(QFont(QString::fromStdString(to_string(wordBuilder.level)),14));
-//    model->setItem(1,1,new QStandardItem(QString::fromStdString(to_string(wordBuilder.level))));
-    model->item(1,1)->setFont(QFont(QString::fromStdString(to_string(wordBuilder.exp)),14));
-//    model->setItem(2,1,new QStandardItem(QString::fromStdString(to_string(wordBuilder.exp))));
-    model->item(1,1)->setFont(QFont(QString::fromStdString(to_string(wordBuilder.build_word)),14));
-//    model->setItem(3,1,new QStandardItem(QString::fromStdString(to_string(wordBuilder.build_word))));
+    model->item(1,1)->setText(QString::number(wordBuilder.level));
+    //    model->setItem(1,1,new QStandardItem(QString::fromStdString(to_string(wordBuilder.level))));
+    model->item(2,1)->setText(QString::number(wordBuilder.exp));
+    //    model->setItem(2,1,new QStandardItem(QString::fromStdString(to_string(wordBuilder.exp))));
+    model->item(3,1)->setText(QString::number(wordBuilder.build_word));
+    //    model->setItem(3,1,new QStandardItem(QString::fromStdString(to_string(wordBuilder.build_word))));
 }
 
 void MainWindow::refreshChallengerWindow()
 {
     using std::to_string;
-    model->item(1,1)->setFont(QFont(QString::fromStdString(to_string(challenger.level)),14));
-//    model->setItem(1,1,new QStandardItem(QString::fromStdString(to_string(challenger.level))));
-    model->item(2,1)->setFont(QFont(QString::fromStdString(to_string(challenger.exp)),14));
-//    model->setItem(2,1,new QStandardItem(QString::fromStdString(to_string(challenger.exp))));
-        model->item(2,1)->setFont(QFont(QString::fromStdString(to_string(challenger.card_pass)),14));
-//    model->setItem(3,1,new QStandardItem(QString::fromStdString(to_string(challenger.card_pass))));
+    model->item(1,1)->setText(QString::number(challenger.level));
+    //    model->setItem(1,1,new QStandardItem(QString::fromStdString(to_string(challenger.level))));
+    model->item(2,1)->setText(QString::number(challenger.exp));
+    //    model->setItem(2,1,new QStandardItem(QString::fromStdString(to_string(challenger.exp))));
+    model->item(3,1)->setText(QString::number(challenger.card_pass));
+    //    model->setItem(3,1,new QStandardItem(QString::fromStdString(to_string(challenger.card_pass))));
 }
 
 void MainWindow::showGame(){

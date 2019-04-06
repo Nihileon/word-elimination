@@ -29,7 +29,6 @@ FORMS += \
 
 HEADERS += \
     data/basic.h \
-    data/login.h \
     data/word.h \
     ui/GameDialog_ui.h \
     ui/LeaderboardDialog_ui.h \
@@ -44,12 +43,12 @@ HEADERS += \
     ui/BuildWordDialog_ui.h \
     widgets/BuildWordDialog.h \
     widgets/LeaderBoardDialog.h \
-    ui/radiusprogressbar.h
+    ui/radiusprogressbar.h \
+    data/user.h
 
 
 
 SOURCES += \
-    data/login.cpp \
     data/loginsingleton.cpp \
     data/words.cpp \
     widgets/gamedialog.cpp \
@@ -60,7 +59,8 @@ SOURCES += \
     windowmanager.cpp \
     widgets/BuildWordDialog.cpp \
     widgets/LeaderBoardDialog.cpp \
-    ui/radiusprogressbar.cpp
+    ui/radiusprogressbar.cpp \
+    data/user.cpp
 
 
 SUBDIRS += \

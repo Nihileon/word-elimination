@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "data/login.h"
+#include "data/user.h"
 #include <QStandardItemModel>
 #include <QVariant>
 namespace Ui {

@@ -1,7 +1,7 @@
 #include <QMessageBox>
 #include <QAbstractAnimation>
 #include <exception>
-#include "data/login.h"
+#include "data/user.h"
 #include "ui/RegisterDialog_ui.h"
 #include "registerdialog.h"
 #include "LoginDialog.h"
@@ -9,7 +9,6 @@
 #include <QVBoxLayout>
 #include <QColorDialog>
 #include <QLabel>
-using namespace sqlite;
 RegisterDialog::RegisterDialog(QWidget* parent):QDialog (parent), ui(new Ui::RegisterDialogUi) {
     ui->setupUi(this);
     QPalette palette(this->palette());

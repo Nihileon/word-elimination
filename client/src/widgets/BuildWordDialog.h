@@ -1,6 +1,6 @@
 #ifndef BUILDWORDDIALOG_H
 #define BUILDWORDDIALOG_H
-#include "data/login.h"
+#include "data/user.h"
 #include "data/word.h"
 #include <QDialog>
 #include <QVariant>

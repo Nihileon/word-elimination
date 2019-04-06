@@ -37,16 +37,18 @@ public:
     {
         if (LeaderboardDialogUi->objectName().isEmpty())
             LeaderboardDialogUi->setObjectName(QStringLiteral("LeaderboardDialogUi"));
-        LeaderboardDialogUi->resize(572, 507);
+        LeaderboardDialogUi->resize(733, 576);
         leaderboardTableView = new QTableView(LeaderboardDialogUi);
         leaderboardTableView->setObjectName(QStringLiteral("leaderboardTableView"));
-        leaderboardTableView->setGeometry(QRect(100, 90, 311, 221));
+        leaderboardTableView->setGeometry(QRect(70, 70, 591, 421));
+        leaderboardTableView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        leaderboardTableView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         backPushButton = new QtMaterialRaisedButton(LeaderboardDialogUi);
         backPushButton->setObjectName(QStringLiteral("backPushButton"));
-        backPushButton->setGeometry(QRect(100, 380, 101, 41));
+        backPushButton->setGeometry(QRect(170, 510, 391, 41));
         layoutWidget = new QWidget(LeaderboardDialogUi);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(100, 320, 309, 56));
+        layoutWidget->setGeometry(QRect(200, 10, 309, 56));
         horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
