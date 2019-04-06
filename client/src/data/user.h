@@ -105,6 +105,8 @@ public:
                 wb.build_word = sqlQuery.value(2).toInt();
                 wb.word_pass = sqlQuery.value(3).toInt();
                 wb.word_fail = sqlQuery.value(4).toInt();
+            }else{
+                throw sqlQuery.lastError();
             }
         }else{
             throw sqlQuery.lastError();
@@ -148,6 +150,8 @@ public:
                 c.card_pass = sqlQuery.value(2).toInt();
                 c.card_fail = sqlQuery.value(3).toInt();
                 c.word_eliminate = sqlQuery.value(4).toInt();
+            }else{
+                throw sqlQuery.lastError();
             }
         }else{
             throw sqlQuery.lastError();

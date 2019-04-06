@@ -3,6 +3,8 @@
 #include <QStandardItemModel>
 #include <QObject>
 #include <QDesktopWidget>
+#include <qtmaterialdialog.h>
+#include <qlabel.h>
 SearchDialog::SearchDialog(QWidget* parent):QDialog (parent), ui(new Ui::SearchDialogUi),model(new QStandardItemModel) {
     ui->setupUi(this);
     QPalette palette(this->palette());
@@ -21,7 +23,7 @@ SearchDialog::SearchDialog(QWidget* parent):QDialog (parent), ui(new Ui::SearchD
                                                          " border: none;background-color:#ffffff;}");
     ui->userTableView->verticalHeader()->setStyleSheet("QHeaderView::section {"
                                                        " border: none;background-color:#ffffff;}");
-//    ui->userTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    //    ui->userTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->userTableView->verticalHeader()->hide();
     ui->userTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->userTableView->setSelectionMode(QAbstractItemView::NoSelection);
@@ -58,7 +60,36 @@ void SearchDialog::showMainWindow()
 void SearchDialog::searchWordBuilder(){
     LoginInfo li;
     li.usr = ui->userLineEdit->text().toStdString();
-    auto wordBuilder = User::instance().getWordBuilder(li);
+    WordBuilder wordBuilder;
+    try{
+        wordBuilder = User::instance().getWordBuilder(li);
+    }catch(QSqlError &e){
+        QtMaterialDialog *msg = new QtMaterialDialog;
+        msg->setParent(this);
+        QWidget *dialogWidget = new QWidget;
+        QVBoxLayout *dialogWidgetLayout = new QVBoxLayout;
+        dialogWidget->setLayout(dialogWidgetLayout);
+        QtMaterialFlatButton *closeButton = new QtMaterialFlatButton("Close");
+        QLabel* ql = new QLabel;
+        QFont ft;
+        ft.setPointSize(14);
+        ql->setFont(ft);
+        ql->setText("Not Found");
+        dialogWidgetLayout->addWidget(ql);
+        dialogWidgetLayout->setAlignment(ql, Qt::AlignBottom| Qt::AlignCenter);
+        dialogWidgetLayout->addWidget(closeButton);
+        dialogWidgetLayout->setAlignment(closeButton, Qt::AlignBottom| Qt::AlignCenter);
+        closeButton->setMaximumWidth(150);
+        QVBoxLayout *dialogLayout = new QVBoxLayout;
+        msg->setWindowLayout(dialogLayout);
+        dialogWidget->setMinimumHeight(150);
+        dialogWidget->setMinimumWidth(300);
+        dialogLayout->addWidget(dialogWidget);
+        connect(closeButton, SIGNAL(pressed()), msg, SLOT(hideDialog()));
+        msg->showDialog();
+        msg->show();
+        return;
+    }
     model->item(0,0)->setText("Username");
     model->item(0,1)->setText(QString::fromStdString(wordBuilder.usr));
     //level, exp, build_word
@@ -72,7 +103,36 @@ void SearchDialog::searchWordBuilder(){
 void SearchDialog::searchChallenger(){
     LoginInfo li;
     li.usr = ui->userLineEdit->text().toStdString();
-    auto challenger = User::instance().getChallenger(li);
+    Challenger challenger;
+    try {
+        challenger  = User::instance().getChallenger(li);
+    } catch (QSqlError &e) {
+        QtMaterialDialog *msg = new QtMaterialDialog;
+        msg->setParent(this);
+        QWidget *dialogWidget = new QWidget;
+        QVBoxLayout *dialogWidgetLayout = new QVBoxLayout;
+        dialogWidget->setLayout(dialogWidgetLayout);
+        QtMaterialFlatButton *closeButton = new QtMaterialFlatButton("Close");
+        QLabel* ql = new QLabel;
+        QFont ft;
+        ft.setPointSize(14);
+        ql->setFont(ft);
+        ql->setText("Not Found");
+        dialogWidgetLayout->addWidget(ql);
+        dialogWidgetLayout->setAlignment(ql, Qt::AlignBottom| Qt::AlignCenter);
+        dialogWidgetLayout->addWidget(closeButton);
+        dialogWidgetLayout->setAlignment(closeButton, Qt::AlignBottom| Qt::AlignCenter);
+        closeButton->setMaximumWidth(150);
+        QVBoxLayout *dialogLayout = new QVBoxLayout;
+        msg->setWindowLayout(dialogLayout);
+        dialogWidget->setMinimumHeight(150);
+        dialogWidget->setMinimumWidth(300);
+        dialogLayout->addWidget(dialogWidget);
+        connect(closeButton, SIGNAL(pressed()), msg, SLOT(hideDialog()));
+        msg->showDialog();
+        msg->show();
+        return;
+    }
     model->item(0,0)->setText("Username");
     model->item(0,1)->setText(QString::fromStdString(challenger.usr));
     //level, exp, card_pass, card_fail, word_eliminate
