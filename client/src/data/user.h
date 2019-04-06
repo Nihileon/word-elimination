@@ -116,7 +116,7 @@ public:
     }
 
     void getChallengerMakeTable(QSqlQueryModel* model){
-        model->setQuery("SELECT user_pass, level, exp, card_pass, word_eliminate "
+        model->setQuery("SELECT user_login, level, exp, card_pass, word_eliminate "
                         "FROM Challenger ORDER BY exp DESC;",db);
         model->setHeaderData(0, Qt::Horizontal, "Username");
         model->setHeaderData(1, Qt::Horizontal, "Level");
@@ -128,7 +128,7 @@ public:
     }
 
     void getWordBuilderMakeTable(QSqlQueryModel* model){
-        model->setQuery("SELECT user_pass, level, exp, build_word "
+        model->setQuery("SELECT user_login, level, exp, build_word "
                         "FROM WordBuilder ORDER BY build_word DESC;");
         model->setHeaderData(0, Qt::Horizontal, "Username");
         model->setHeaderData(1, Qt::Horizontal, "Level");

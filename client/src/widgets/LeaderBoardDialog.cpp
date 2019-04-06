@@ -1,8 +1,9 @@
-    #include "ui/LeaderboardDialog_ui.h"
-#include "LeaderBoardDialog.h"
 #include <QRadioButton>
 #include <qtmaterialradiobutton.h>
 #include <qtmaterialraisedbutton.h>
+#include "ui/LeaderboardDialog_ui.h"
+#include "LeaderBoardDialog.h"
+
 LeaderboardDialog::LeaderboardDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::LeaderboardDialogUi),/*,reg(new RegisterDialog)*/
@@ -13,9 +14,7 @@ LeaderboardDialog::LeaderboardDialog(QWidget *parent) :
     QPalette palette(this->palette());
     palette.setColor(QPalette::Background, Qt::white);
     this->setPalette(palette);
-    connect(ui->backPushButton, &QPushButton::clicked, this,&LeaderboardDialog::showMain);
-    connect(ui->challengerRadioButton, &QtMaterialRaisedButton::toggled, this, &LeaderboardDialog::refreshChallenger);
-    connect(ui->wordRadioButton, &QtMaterialRaisedButton::toggled, this, &LeaderboardDialog::refreshWordBuilder);
+
     ui->leaderboardTableView->setStyleSheet("border: none;background:white;"
                                             "QTableCornerButton::section{border: none;background:white;}"
                                             "QHeaderView{ border: none; background:white; }"
@@ -38,6 +37,11 @@ LeaderboardDialog::LeaderboardDialog(QWidget *parent) :
     QSortFilterProxyModel* proxy = new QSortFilterProxyModel(this);
     proxy->setSourceModel(model);
     ui->leaderboardTableView->setModel(proxy);
+
+    connect(ui->backPushButton, &QPushButton::clicked, this,&LeaderboardDialog::showMain);
+    connect(ui->challengerRadioButton, &QtMaterialRaisedButton::toggled, this, &LeaderboardDialog::refreshChallenger);
+    connect(ui->wordRadioButton, &QtMaterialRaisedButton::toggled, this, &LeaderboardDialog::refreshWordBuilder);
+
 }
 
 LeaderboardDialog::~LeaderboardDialog(){
@@ -45,8 +49,7 @@ LeaderboardDialog::~LeaderboardDialog(){
     delete model;
 }
 
-void LeaderboardDialog::showMain()
-{
+void LeaderboardDialog::showMain(){
     this->hide();
     emit toMain();
 }
@@ -56,8 +59,7 @@ void LeaderboardDialog::showThis(){
     this->show();
 }
 
-void LeaderboardDialog::refreshLeaderboard()
-{
+void LeaderboardDialog::refreshLeaderboard(){
     if(userType == CHALLENGER){
         User::instance().getChallengerMakeTable(model);
     }else if(userType == WORD_BUILDER){

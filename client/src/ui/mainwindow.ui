@@ -23,6 +23,11 @@
       <height>221</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;background:white;
+QTableCornerButton::section{border: none;background:white;}
+QHeaderView{ border: none; background:white; }</string>
+    </property>
     <property name="frameShape">
      <enum>QFrame::NoFrame</enum>
     </property>

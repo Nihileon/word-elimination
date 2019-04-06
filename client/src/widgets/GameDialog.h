@@ -52,7 +52,6 @@ private:
 
     CardInfo getCardPassInfo(int card);
     void setLevel();
-    void init();
     void gameOver();
     //when pass k words, go to the next card
     void nextCard();

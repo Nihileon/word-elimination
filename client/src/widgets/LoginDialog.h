@@ -35,7 +35,6 @@ private slots:
 private:
     Ui::LoginDialogUi * ui;
     RegisterDialog* reg;
-
 };
 
 #endif // LOGINDIALOG_H

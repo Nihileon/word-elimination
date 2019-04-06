@@ -39,20 +39,22 @@ public:
         BuildWordDialogUi->setSizeGripEnabled(false);
         newWordLineEdit = new QtMaterialTextField(BuildWordDialogUi);
         newWordLineEdit->setObjectName(QStringLiteral("newWordLineEdit"));
-        newWordLineEdit->setGeometry(QRect(160, 130, 211, 61));
+        newWordLineEdit->setGeometry(QRect(120, 150, 261, 51));
         horizontalLayoutWidget = new QWidget(BuildWordDialogUi);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(150, 220, 261, 80));
+        horizontalLayoutWidget->setGeometry(QRect(90, 229, 321, 91));
         horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
         backPushButton = new QtMaterialRaisedButton(horizontalLayoutWidget);
         backPushButton->setObjectName(QStringLiteral("backPushButton"));
+        backPushButton->setMinimumSize(QSize(40, 40));
 
         horizontalLayout->addWidget(backPushButton);
 
         confirmPushBotton = new QtMaterialRaisedButton(horizontalLayoutWidget);
         confirmPushBotton->setObjectName(QStringLiteral("confirmPushBotton"));
+        confirmPushBotton->setMinimumSize(QSize(0, 40));
 
         horizontalLayout->addWidget(confirmPushBotton);
 

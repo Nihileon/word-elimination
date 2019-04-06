@@ -1,8 +1,9 @@
-#include "BuildWordDialog.h"
-#include "ui/BuildWordDialog_ui.h"
-
 #include <QLabel>
 #include <qtmaterialdialog.h>
+#include "ui/BuildWordDialog_ui.h"
+#include "ui/materialmessagebox.h"
+#include "BuildWordDialog.h"
+
 BuildWordDialog::BuildWordDialog(QWidget* parent):
     QDialog (parent),
     ui(new Ui::BuildWordDialogUi)
@@ -13,6 +14,9 @@ BuildWordDialog::BuildWordDialog(QWidget* parent):
     QPalette palette(this->palette());
     palette.setColor(QPalette::Background, Qt::white);
     this->setPalette(palette);
+
+    ui->newWordLineEdit->setLabel("Please input your word.");
+
     connect(ui->backPushButton, &QPushButton::clicked, this,&BuildWordDialog::showMain);
     connect(ui->confirmPushBotton, &QPushButton::clicked, this, &BuildWordDialog::addWord);
 }
@@ -41,56 +45,12 @@ void BuildWordDialog::addWord(){
     try {
         Word::instance().insert(w);
         wordBuilder.build_word++;
-        //\TODO: move this code to _ui.h
-        QtMaterialDialog *msg = new QtMaterialDialog;
-        msg->setParent(this);
-        QWidget *dialogWidget = new QWidget;
-        QVBoxLayout *dialogWidgetLayout = new QVBoxLayout;
-        dialogWidget->setLayout(dialogWidgetLayout);
-        QtMaterialFlatButton *closeButton = new QtMaterialFlatButton("Close");
-        QLabel* ql = new QLabel;
-        QFont ft;
-        ft.setPointSize(14);
-        ql->setFont(ft);
-        ql->setText("Your have successfully add a word.");
-        dialogWidgetLayout->addWidget(ql);
-        dialogWidgetLayout->setAlignment(ql, Qt::AlignBottom| Qt::AlignCenter);
-        dialogWidgetLayout->addWidget(closeButton);
-        dialogWidgetLayout->setAlignment(closeButton, Qt::AlignBottom| Qt::AlignCenter);
-        closeButton->setMaximumWidth(150);
-        QVBoxLayout *dialogLayout = new QVBoxLayout;
-        msg->setWindowLayout(dialogLayout);
-        dialogWidget->setMinimumHeight(150);
-        dialogWidget->setMinimumWidth(300);
-        dialogLayout->addWidget(dialogWidget);
-        connect(closeButton, SIGNAL(pressed()), msg, SLOT(hideDialog()));
-        msg->showDialog();
+        MaterialMessageBox *msg = new MaterialMessageBox(this);
+        msg->setText("Your have successfully add a word.");
         msg->show();
     } catch (QSqlError &e) {
-        //\TODO: move this code to _ui.h
-        QtMaterialDialog *msg = new QtMaterialDialog;
-        msg->setParent(this);
-        QWidget *dialogWidget = new QWidget;
-        QVBoxLayout *dialogWidgetLayout = new QVBoxLayout;
-        dialogWidget->setLayout(dialogWidgetLayout);
-        QtMaterialFlatButton *closeButton = new QtMaterialFlatButton("Close");
-        QLabel* ql = new QLabel;
-        QFont ft;
-        ft.setPointSize(14);
-        ql->setFont(ft);
-        ql->setText("Your word is exist. Please input another one.");
-        dialogWidgetLayout->addWidget(ql);
-        dialogWidgetLayout->setAlignment(ql, Qt::AlignBottom| Qt::AlignCenter);
-        dialogWidgetLayout->addWidget(closeButton);
-        dialogWidgetLayout->setAlignment(closeButton, Qt::AlignBottom| Qt::AlignCenter);
-        closeButton->setMaximumWidth(150);
-        QVBoxLayout *dialogLayout = new QVBoxLayout;
-        msg->setWindowLayout(dialogLayout);
-        dialogWidget->setMinimumHeight(150);
-        dialogWidget->setMinimumWidth(300);
-        dialogLayout->addWidget(dialogWidget);
-        connect(closeButton, SIGNAL(pressed()), msg, SLOT(hideDialog()));
-        msg->showDialog();
+        MaterialMessageBox *msg = new MaterialMessageBox(this);
+        msg->setText("Your Word is exist! \nPlease input another one.");
         msg->show();
     }
 }

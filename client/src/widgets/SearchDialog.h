@@ -7,7 +7,7 @@
 #include "data/user.h"
 
 namespace Ui {
-    class SearchDialogUi;
+class SearchDialogUi;
 }
 
 class SearchDialog: public QDialog{
@@ -25,7 +25,7 @@ private slots:
     //back to login dialog
     void showMainWindow();
 
-//public:
+    //public:
 private:
     Ui::SearchDialogUi* ui;
     QStandardItemModel *model;
@@ -33,6 +33,7 @@ private:
         CHALLENGER, WORD_BUILDER
     }userType;
 
+    void initDialog();
     void searchChallenger();
     void searchWordBuilder();
     void search();

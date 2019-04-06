@@ -7,7 +7,6 @@
 #include "data/user.h"
 #include "data/word.h"
 
-
 namespace Ui {
 class  BuildWordDialogUi;
 }
@@ -29,11 +28,9 @@ public slots:
     void addWord();
     void setWordBuilder(QVariant data);
 
-
 private:
     WordBuilder wordBuilder;
     Ui::BuildWordDialogUi *ui;
-
 };
 
 #endif // BUILDWORDDIALOG_H

@@ -47,7 +47,8 @@ HEADERS += \
     widgets/GameDialog.h \
     widgets/RegisterDialog.h \
     widgets/MainWindow.h \
-    ui/radiusprogressbar.h
+    ui/radiusprogressbar.h \
+    ui/materialmessagebox.h
 
 
 
@@ -58,7 +59,6 @@ SOURCES += \
     windowmanager.cpp \
     widgets/BuildWordDialog.cpp \
     widgets/LeaderBoardDialog.cpp \
-    ui/radiusprogressbar.cpp \
     data/user.cpp \
     widgets/SearchDialog.cpp \
     widgets/GameDialog.cpp \

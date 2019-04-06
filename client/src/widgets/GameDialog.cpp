@@ -1,23 +1,22 @@
-#include "GameDialog.h"
-#include "ui/GameDialog_ui.h"
-#include <QLabel>
 #include <cmath>
+#include <QLabel>
 #include <qtmaterialdialog.h>
-
+#include "ui/materialmessagebox.h"
+#include "ui/GameDialog_ui.h"
+#include "GameDialog.h"
 
 GameDialog::GameDialog(QWidget* parent):
     QDialog (parent),
     ui(new Ui::GameDialogUi),
-    qtimer(new QTimer(this))
-{
-    const int MAX_COUNT_DOWN = 5;
-
+    qtimer(new QTimer(this)){
     ui->setupUi(this);
     setWindowTitle(tr("GameBoard"));
     setFixedSize(this->width(), this->height());
     QPalette palette(this->palette());
     palette.setColor(QPalette::Background, Qt::white);
     this->setPalette(palette);
+
+    const int MAX_COUNT_DOWN = 5;
     ui->cardTextBrowser->setStyleSheet("border:0px");
     ui->wordTextBrowser->setStyleSheet("border:0px");
     ui->wordLineEdit->setLabel("input what you see.");
@@ -30,12 +29,10 @@ GameDialog::GameDialog(QWidget* parent):
     cntLcd->setDecMode();
     cntLcd->setSegmentStyle(QLCDNumber::Flat);
     cntLcd->display(MAX_COUNT_DOWN);
-    auto backPush = ui->backPushBotton;
-    connect(backPush, &QPushButton::clicked, this, &GameDialog::showMain);
-    connect(qtimer, &QTimer::timeout, this, &GameDialog::countDown);
-    auto nextPush = ui->nextPushButton;
-    connect(nextPush, &QPushButton::clicked, this, &GameDialog::checkCorrect);
 
+    connect(ui->backPushBotton, &QPushButton::clicked, this, &GameDialog::showMain);
+    connect(ui->nextPushButton, &QPushButton::clicked, this, &GameDialog::checkCorrect);
+    connect(qtimer, &QTimer::timeout, this, &GameDialog::countDown);
 }
 
 GameDialog::~GameDialog(){
@@ -43,15 +40,12 @@ GameDialog::~GameDialog(){
     delete qtimer;
 }
 
-void GameDialog::delayMsecSuspend(int msec)
-{
+void GameDialog::delayMsecSuspend(int msec){
     QTime _Timer = QTime::currentTime();
-
     QTime _NowTimer;
     do{
         _NowTimer=QTime::currentTime();
     }while (_Timer.msecsTo(_NowTimer)<=msec);
-
 }
 
 void GameDialog::showMain(){
@@ -75,13 +69,11 @@ void GameDialog::countDown(){
     }
 }
 
-void GameDialog::setChallenger(QVariant data)
-{
+void GameDialog::setChallenger(QVariant data){
     this->challenger =  data.value<Challenger>();
 }
 
-void GameDialog::gameBegin()
-{
+void GameDialog::gameBegin(){
     nextCard();
     this->show();
     ui->nextPushButton->show();
@@ -95,10 +87,12 @@ void GameDialog::nextWord(){
     ui->wordTextBrowser->show();
     ui->wordLineEdit->clear();
     ui->wordLineEdit->setDisabled(true);
+
     wordInfo = Word::instance().getWord(3,10);
     string tr = "<center><big><font size=14>"+wordInfo.word+"</big></font></center>";
     QObject::tr(tr.c_str());
     ui->wordTextBrowser->setText(QObject::tr(tr.c_str()));
+
     auto cardBrows = ui->cardTextBrowser;
     std::string s = "Card: " + std::to_string(card)+
             "\t\t\tWord Builder: "+wordInfo.builder +
@@ -112,7 +106,6 @@ void GameDialog::nextWord(){
     cntLcd->display(cardInfo.wordDisplayTime);
     qtimer->start(1000);
 }
-
 
 void GameDialog::checkCorrect(){
     if(wordInfo.word == ui->wordLineEdit->text().toStdString()){
@@ -152,13 +145,11 @@ GameDialog::CardInfo GameDialog::getCardPassInfo(int card){
     return ci;
 }
 
-void GameDialog::setLevel()
-{
+void GameDialog::setLevel(){
     challenger.level = static_cast<int>(log(static_cast<double>(challenger.exp)) / log(1.3));
 }
 
-void GameDialog::setGameOver()
-{
+void GameDialog::setGameOver(){
     if(challenger.card_pass < card-1){
         challenger.card_pass = card-1;
     }
@@ -168,10 +159,6 @@ void GameDialog::setGameOver()
     data.setValue(challenger);
     emit sendChallenger(data);
 }
-
-
-
-
 
 void GameDialog::gameOver(){
     ui->nextPushButton->hide();
@@ -186,40 +173,12 @@ void GameDialog::gameOver(){
         std::cout << " gameover update word"<<e.text().toStdString()<<std::endl;
     }
     setGameOver();
-    //\TODO: move this code to _ui.h
-    QtMaterialDialog *msg = new QtMaterialDialog;
-    msg->setParent(this);
-    QWidget *dialogWidget = new QWidget;
-    QVBoxLayout *dialogWidgetLayout = new QVBoxLayout;
-    dialogWidget->setLayout(dialogWidgetLayout);
-    QtMaterialFlatButton *closeButton = new QtMaterialFlatButton("Close");
-    QLabel* ql = new QLabel;
-    QFont ft;
-    ft.setPointSize(14);
-    ql->setFont(ft);
-    ql->setText("Game over! Please go back to the menu.");
-    closeButton->setShortcut(Qt::Key_Enter);
-    closeButton->setDefault(true);
-    dialogWidgetLayout->addWidget(ql);
-    dialogWidgetLayout->setAlignment(ql, Qt::AlignBottom| Qt::AlignCenter);
-    dialogWidgetLayout->addWidget(closeButton);
-    dialogWidgetLayout->setAlignment(closeButton, Qt::AlignBottom| Qt::AlignCenter);
-    closeButton->setMaximumWidth(150);
-    QVBoxLayout *dialogLayout = new QVBoxLayout;
-    msg->setWindowLayout(dialogLayout);
-    dialogWidget->setMinimumHeight(150);
-    dialogWidget->setMinimumWidth(300);
-    dialogLayout->addWidget(dialogWidget);
-    connect(closeButton, SIGNAL(pressed()), msg, SLOT(hideDialog()));
-    msg->showDialog();
+    MaterialMessageBox *msg = new MaterialMessageBox(this);
+    msg->setText("Game over! Please go back to the menu.");
     msg->show();
-
 }
 
-
-
-void GameDialog::nextCard()
-{
+void GameDialog::nextCard(){
     this->cardInfo =  getCardPassInfo(this->card);
     auto cntBar = ui->countdownProgressBar;
     cntBar->setRange(0, cardInfo.wordDisplayTime);

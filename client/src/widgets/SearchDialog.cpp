@@ -1,20 +1,28 @@
-#include "SearchDialog.h"
-#include "ui/SearchDialog_ui.h"
 #include <QStandardItemModel>
 #include <QObject>
 #include <QDesktopWidget>
 #include <qtmaterialdialog.h>
-#include <qlabel.h>
+#include <QLabel>
+#include "ui/SearchDialog_ui.h"
+#include "ui/materialmessagebox.h"
+#include "SearchDialog.h"
+
 SearchDialog::SearchDialog(QWidget* parent):QDialog (parent), ui(new Ui::SearchDialogUi),model(new QStandardItemModel) {
+    initDialog();
+    connect(ui->backPushButton, &QPushButton::clicked, this, &SearchDialog::showMainWindow);
+    connect(ui->searchPushButton, &QPushButton::clicked,this, &SearchDialog::search);
+}
+
+void SearchDialog::initDialog(){
     ui->setupUi(this);
     QPalette palette(this->palette());
     palette.setColor(QPalette::Background, Qt::white);
     this->setPalette(palette);
     QDesktopWidget* desktop = QApplication::desktop();
     move((desktop->width()- this->width())/2, (desktop->height() - this->height())/2);
+
     ui->userLineEdit->setLabel("username");
     ui->challengerRadioButton->setChecked(true);
-    connect(ui->backPushButton, &QPushButton::clicked, this, &SearchDialog::showMainWindow);
     ui->userTableView->setStyleSheet("border: none;background:white;"
                                      "QTableCornerButton::section{border: none;background:white;}"
                                      "QHeaderView{ border: none; background:white; }"
@@ -23,20 +31,19 @@ SearchDialog::SearchDialog(QWidget* parent):QDialog (parent), ui(new Ui::SearchD
                                                          " border: none;background-color:#ffffff;}");
     ui->userTableView->verticalHeader()->setStyleSheet("QHeaderView::section {"
                                                        " border: none;background-color:#ffffff;}");
-    //    ui->userTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->userTableView->verticalHeader()->hide();
+    ui->userTableView->horizontalHeader()->setDefaultSectionSize(140);
+    ui->userTableView->verticalHeader()->setDefaultSectionSize(40);
     ui->userTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->userTableView->setSelectionMode(QAbstractItemView::NoSelection);
     ui->userTableView->setDragDropMode(QAbstractItemView::NoDragDrop);
     ui->userTableView->setUpdatesEnabled(true);
     ui->userTableView->setShowGrid(false);
+    ui->userTableView->setModel(model);
     userType = CHALLENGER;
-
-    for(int i=0;i<4;i++){
-        for(int j=0;j<2;j++){
+    for(int i=0;i<4;i++)
+        for(int j=0;j<2;j++)
             model->setItem(i,j, new QStandardItem());
-        }
-    }
     QFont ft;
     ft.setPointSize(14);
     for(int i=0;i<4;i++){
@@ -45,11 +52,6 @@ SearchDialog::SearchDialog(QWidget* parent):QDialog (parent), ui(new Ui::SearchD
         model->item(i,0)->setFont(ft);
         model->item(i,1)->setFont(ft);
     }
-    connect(ui->searchPushButton, &QPushButton::clicked,this, &SearchDialog::search);
-    ui->userTableView->horizontalHeader()->setDefaultSectionSize(140);
-    ui->userTableView->verticalHeader()->setDefaultSectionSize(40);
-    ui->userTableView->setModel(model);
-
 }
 
 SearchDialog::~SearchDialog(){
@@ -69,29 +71,8 @@ void SearchDialog::searchWordBuilder(){
     try{
         wordBuilder = User::instance().getWordBuilder(li);
     }catch(QSqlError &e){
-        QtMaterialDialog *msg = new QtMaterialDialog;
-        msg->setParent(this);
-        QWidget *dialogWidget = new QWidget;
-        QVBoxLayout *dialogWidgetLayout = new QVBoxLayout;
-        dialogWidget->setLayout(dialogWidgetLayout);
-        QtMaterialFlatButton *closeButton = new QtMaterialFlatButton("Close");
-        QLabel* ql = new QLabel;
-        QFont ft;
-        ft.setPointSize(14);
-        ql->setFont(ft);
-        ql->setText("Not Found");
-        dialogWidgetLayout->addWidget(ql);
-        dialogWidgetLayout->setAlignment(ql, Qt::AlignBottom| Qt::AlignCenter);
-        dialogWidgetLayout->addWidget(closeButton);
-        dialogWidgetLayout->setAlignment(closeButton, Qt::AlignBottom| Qt::AlignCenter);
-        closeButton->setMaximumWidth(150);
-        QVBoxLayout *dialogLayout = new QVBoxLayout;
-        msg->setWindowLayout(dialogLayout);
-        dialogWidget->setMinimumHeight(150);
-        dialogWidget->setMinimumWidth(300);
-        dialogLayout->addWidget(dialogWidget);
-        connect(closeButton, SIGNAL(pressed()), msg, SLOT(hideDialog()));
-        msg->showDialog();
+        MaterialMessageBox *msg = new MaterialMessageBox(this);
+        msg->setText("Not Found");
         msg->show();
         return;
     }
@@ -112,29 +93,8 @@ void SearchDialog::searchChallenger(){
     try {
         challenger  = User::instance().getChallenger(li);
     } catch (QSqlError &e) {
-        QtMaterialDialog *msg = new QtMaterialDialog;
-        msg->setParent(this);
-        QWidget *dialogWidget = new QWidget;
-        QVBoxLayout *dialogWidgetLayout = new QVBoxLayout;
-        dialogWidget->setLayout(dialogWidgetLayout);
-        QtMaterialFlatButton *closeButton = new QtMaterialFlatButton("Close");
-        QLabel* ql = new QLabel;
-        QFont ft;
-        ft.setPointSize(14);
-        ql->setFont(ft);
-        ql->setText("Not Found");
-        dialogWidgetLayout->addWidget(ql);
-        dialogWidgetLayout->setAlignment(ql, Qt::AlignBottom| Qt::AlignCenter);
-        dialogWidgetLayout->addWidget(closeButton);
-        dialogWidgetLayout->setAlignment(closeButton, Qt::AlignBottom| Qt::AlignCenter);
-        closeButton->setMaximumWidth(150);
-        QVBoxLayout *dialogLayout = new QVBoxLayout;
-        msg->setWindowLayout(dialogLayout);
-        dialogWidget->setMinimumHeight(150);
-        dialogWidget->setMinimumWidth(300);
-        dialogLayout->addWidget(dialogWidget);
-        connect(closeButton, SIGNAL(pressed()), msg, SLOT(hideDialog()));
-        msg->showDialog();
+        MaterialMessageBox *msg = new MaterialMessageBox(this);
+        msg->setText("Not Found");
         msg->show();
         return;
     }

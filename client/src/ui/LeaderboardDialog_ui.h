@@ -41,6 +41,9 @@ public:
         leaderboardTableView = new QTableView(LeaderboardDialogUi);
         leaderboardTableView->setObjectName(QStringLiteral("leaderboardTableView"));
         leaderboardTableView->setGeometry(QRect(70, 70, 591, 421));
+        leaderboardTableView->setStyleSheet(QLatin1String("border: none;background:white;\n"
+"QTableCornerButton::section{border: none;background:white;}\n"
+"QHeaderView{ border: none; background:white; }"));
         leaderboardTableView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         leaderboardTableView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         backPushButton = new QtMaterialRaisedButton(LeaderboardDialogUi);

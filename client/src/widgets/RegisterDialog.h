@@ -5,7 +5,7 @@
 #include <QVariant>
 
 namespace Ui {
-    class RegisterDialogUi;
+class RegisterDialogUi;
 }
 
 class RegisterDialog: public QDialog{
@@ -27,7 +27,7 @@ private slots:
     void backLogin();
     void showMainWindow();
 
-//public:
+    //public:
 private:
     Ui::RegisterDialogUi* ui;
 };
