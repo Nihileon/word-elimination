@@ -1,9 +1,9 @@
 #ifndef WORD_H
 #define WORD_H
-#include "basic.h"
-//#include <sqlite_modern_cpp.h>
+
 #include <fstream>
 #include <QtSql>
+#include "basic.h"
 
 class Word{
 private:

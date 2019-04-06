@@ -17,6 +17,10 @@ BuildWordDialog::BuildWordDialog(QWidget* parent):
     connect(ui->confirmPushBotton, &QPushButton::clicked, this, &BuildWordDialog::addWord);
 }
 
+BuildWordDialog::~BuildWordDialog(){
+    delete ui;
+}
+
 void BuildWordDialog::setWordBuilder(QVariant data){
     this->wordBuilder = data.value<WordBuilder>();
 }

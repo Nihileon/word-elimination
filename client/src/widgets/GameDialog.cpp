@@ -1,4 +1,4 @@
-#include "gamedialog.h"
+#include "GameDialog.h"
 #include "ui/GameDialog_ui.h"
 #include <QLabel>
 #include <cmath>
@@ -38,8 +38,24 @@ GameDialog::GameDialog(QWidget* parent):
 
 }
 
+GameDialog::~GameDialog(){
+    delete  ui;
+    delete qtimer;
+}
+
+void GameDialog::delayMsecSuspend(int msec)
+{
+    QTime _Timer = QTime::currentTime();
+
+    QTime _NowTimer;
+    do{
+        _NowTimer=QTime::currentTime();
+    }while (_Timer.msecsTo(_NowTimer)<=msec);
+
+}
+
 void GameDialog::showMain(){
-   setGameOver();
+    setGameOver();
     this->hide();
     emit toMain();
 }
@@ -102,7 +118,7 @@ void GameDialog::checkCorrect(){
     if(wordInfo.word == ui->wordLineEdit->text().toStdString()){
         wordInfo.pass_time++;
         try {
-            Delay_MSec_Suspend(50);
+            delayMsecSuspend(50);
             Word::instance().updateWord(wordInfo);
         } catch (QSqlError &e) {
             std::cout << "check update word" << e.text().toStdString()<<std::endl;
@@ -120,6 +136,27 @@ void GameDialog::checkCorrect(){
     }
 }
 
+GameDialog::CardInfo GameDialog::getCardPassInfo(int card){
+    CardInfo ci;
+    auto passWordNum = [&](int card){double temp=1.2; for(int i=1;i<card;i++) temp*=1.2; return static_cast<int>(temp);};
+    ci.cardPassWordNum = passWordNum(card);
+    auto time = [&](int card){
+        if(card < 3) return 5;
+        else if(card<6) return 4;
+        else if(card<9) return 3;
+        else if(card<11) return 2;
+        else return 1;};
+    ci.wordDisplayTime = time(card);
+    auto exp = [&](int card){double temp=1.7; for(int i=1;i<card;i++) temp*=1.7; return static_cast<int>(temp);};
+    ci.exp = exp(card);
+    return ci;
+}
+
+void GameDialog::setLevel()
+{
+    challenger.level = static_cast<int>(log(static_cast<double>(challenger.exp)) / log(1.3));
+}
+
 void GameDialog::setGameOver()
 {
     if(challenger.card_pass < card-1){
@@ -132,10 +169,7 @@ void GameDialog::setGameOver()
     emit sendChallenger(data);
 }
 
-void GameDialog::setLevel()
-{
-    challenger.level = static_cast<int>(log(static_cast<double>(challenger.exp)) / log(1.3));
-}
+
 
 
 
@@ -146,7 +180,7 @@ void GameDialog::gameOver(){
     try {
         for(int i=0;i<2;i++){
             Word::instance().updateWord(wordInfo);
-            Delay_MSec_Suspend(50);
+            delayMsecSuspend(50);
         }
     } catch (QSqlError &e) {
         std::cout << " gameover update word"<<e.text().toStdString()<<std::endl;

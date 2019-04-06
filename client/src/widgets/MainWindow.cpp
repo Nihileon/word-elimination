@@ -1,6 +1,6 @@
-#include "widgets/mainWindow.h"
+#include "widgets/MainWindow.h"
 #include "ui/MainWindow_ui.h"
-#include "widgets/registerdialog.h"
+#include "widgets/RegisterDialog.h"
 #include "widgets/LoginDialog.h"
 #include "widgets/LeaderBoardDialog.h"
 #include <QObject>
@@ -107,7 +107,7 @@ void MainWindow::setChallenger(QVariant data)
     this->challenger = data.value<Challenger>();
     refreshChallengerWindow();
     try {
-        Delay_MSec_Suspend(50);
+        delayMsecSuspend(50);
         User::instance().updateUser(this->challenger);
 
 
@@ -122,7 +122,7 @@ void MainWindow::setWordBuilder(QVariant data)
     this->wordBuilder = data.value<WordBuilder>();
     refreshWordBuilderWindow();
     try {
-        Delay_MSec_Suspend(50);
+        delayMsecSuspend(50);
         User::instance().updateUser(this->wordBuilder);
     } catch (QSqlError &e) {
         std::cout << "set WordBuilder:" << e.text().toStdString()<<std::endl;
@@ -154,6 +154,15 @@ void MainWindow::initWindow(){
     //    personalTable->setSortingEnabled(true);
 
 
+}
+
+void MainWindow::delayMsecSuspend(int msec)
+{
+    QTime _Timer = QTime::currentTime();
+    QTime _NowTimer;
+    do{
+        _NowTimer=QTime::currentTime();
+    }while (_Timer.msecsTo(_NowTimer)<=msec);
 }
 
 void MainWindow::initWordBuilderWindow()

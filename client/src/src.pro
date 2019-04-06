@@ -36,35 +36,34 @@ HEADERS += \
     ui/LoginDialog_ui.h \
     ui/MainWindow_ui.h \
     ui/RegisterDialog_ui.h \
-    widgets/gamedialog.h \
     widgets/LoginDialog.h \
-    widgets/mainWindow.h \
-    widgets/registerdialog.h \
     windowmanager.h \
     ui/BuildWordDialog_ui.h \
     widgets/BuildWordDialog.h \
     widgets/LeaderBoardDialog.h \
-    ui/radiusprogressbar.h \
     data/user.h \
     ui/SearchDialog_ui.h \
-    widgets/SearchDialog.h
+    widgets/SearchDialog.h \
+    widgets/GameDialog.h \
+    widgets/RegisterDialog.h \
+    widgets/MainWindow.h \
+    ui/radiusprogressbar.h
 
 
 
 SOURCES += \
-    data/loginsingleton.cpp \
     data/words.cpp \
-    widgets/gamedialog.cpp \
     widgets/LoginDialog.cpp \
-    widgets/mainWindow.cpp \
-    widgets/registerdialog.cpp \
     main.cpp \
     windowmanager.cpp \
     widgets/BuildWordDialog.cpp \
     widgets/LeaderBoardDialog.cpp \
     ui/radiusprogressbar.cpp \
     data/user.cpp \
-    widgets/SearchDialog.cpp
+    widgets/SearchDialog.cpp \
+    widgets/GameDialog.cpp \
+    widgets/MainWindow.cpp \
+    widgets/RegisterDialog.cpp
 
 
 SUBDIRS += \

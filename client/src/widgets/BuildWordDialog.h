@@ -1,10 +1,13 @@
 #ifndef BUILDWORDDIALOG_H
 #define BUILDWORDDIALOG_H
-#include "data/user.h"
-#include "data/word.h"
+
 #include <QDialog>
 #include <QVariant>
 #include <QMessageBox>
+#include "data/user.h"
+#include "data/word.h"
+
+
 namespace Ui {
 class  BuildWordDialogUi;
 }
@@ -12,17 +15,20 @@ class  BuildWordDialogUi;
 class BuildWordDialog: public QDialog
 {
     Q_OBJECT
+
 public:
     explicit BuildWordDialog(QWidget* parent = nullptr);
-    void showMain();
-    void addWord();
+    ~BuildWordDialog();
 
 signals:
     void toMain();
     void sendWordBuilder(QVariant data);
 
 public slots:
+    void showMain();
+    void addWord();
     void setWordBuilder(QVariant data);
+
 
 private:
     WordBuilder wordBuilder;

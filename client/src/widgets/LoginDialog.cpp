@@ -4,7 +4,7 @@
 #include "ui/LoginDialog_ui.h"
 #include "LoginDialog.h"
 #include "data/user.h"
-#include "registerdialog.h"
+#include "RegisterDialog.h"
 #include <qtmaterialdialog.h>
 #include <QVBoxLayout>
 #include <QColorDialog>

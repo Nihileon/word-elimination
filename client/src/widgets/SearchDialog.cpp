@@ -51,6 +51,11 @@ SearchDialog::SearchDialog(QWidget* parent):QDialog (parent), ui(new Ui::SearchD
     ui->userTableView->setModel(model);
 
 }
+
+SearchDialog::~SearchDialog(){
+    delete ui;
+    delete model;
+}
 void SearchDialog::showMainWindow()
 {
     this->hide();

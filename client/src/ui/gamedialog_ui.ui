@@ -110,14 +110,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QtMaterialTextField</class>
-   <extends>QLineEdit</extends>
-   <header location="global">qtmaterialtextfield.h</header>
-  </customwidget>
-  <customwidget>
    <class>QtMaterialRaisedButton</class>
    <extends>QPushButton</extends>
    <header location="global">qtmaterialraisedbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QtMaterialTextField</class>
+   <extends>QLineEdit</extends>
+   <header location="global">qtmaterialtextfield.h</header>
   </customwidget>
   <customwidget>
    <class>RadiusProgressBar</class>

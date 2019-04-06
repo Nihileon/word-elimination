@@ -9,5 +9,8 @@ User& User::instance(){
 }
 
 void User::destroy(){
-    delete _instance;
+    if(_instance != nullptr){
+        delete _instance;
+    }
+    return;
 }

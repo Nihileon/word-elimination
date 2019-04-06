@@ -40,10 +40,20 @@ LeaderboardDialog::LeaderboardDialog(QWidget *parent) :
     ui->leaderboardTableView->setModel(proxy);
 }
 
+LeaderboardDialog::~LeaderboardDialog(){
+    delete  ui;
+    delete model;
+}
+
 void LeaderboardDialog::showMain()
 {
     this->hide();
     emit toMain();
+}
+
+void LeaderboardDialog::showThis(){
+    refreshLeaderboard();
+    this->show();
 }
 
 void LeaderboardDialog::refreshLeaderboard()
@@ -54,5 +64,15 @@ void LeaderboardDialog::refreshLeaderboard()
         User::instance().getWordBuilderMakeTable(model);
     }
 
+}
+
+void LeaderboardDialog::refreshChallenger(){
+    userType = CHALLENGER;
+    refreshLeaderboard();
+}
+
+void LeaderboardDialog::refreshWordBuilder(){
+    userType = WORD_BUILDER;
+    refreshLeaderboard();
 }
 

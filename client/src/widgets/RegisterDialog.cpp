@@ -3,7 +3,7 @@
 #include <exception>
 #include "data/user.h"
 #include "ui/RegisterDialog_ui.h"
-#include "registerdialog.h"
+#include "RegisterDialog.h"
 #include "LoginDialog.h"
 #include <qtmaterialdialog.h>
 #include <QVBoxLayout>

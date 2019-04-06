@@ -1,7 +1,9 @@
 #ifndef REGISTERDIALOG_H
 #define REGISTERDIALOG_H
+
 #include <QDialog>
 #include <QVariant>
+
 namespace Ui {
     class RegisterDialogUi;
 }
@@ -11,19 +13,19 @@ class RegisterDialog: public QDialog{
 public:
     explicit RegisterDialog(QWidget *parent = nullptr);
     ~RegisterDialog();
-    //back to login dialog
-    void backLogin();
-    void showMainWindow();
 
 signals:
     void toLogin();
     void toMainWindow();
     void sendUser(QVariant user);
 
-
 public slots:
-    void reg();
 
+private slots:
+    void reg();
+    //back to login dialog
+    void backLogin();
+    void showMainWindow();
 
 //public:
 private:

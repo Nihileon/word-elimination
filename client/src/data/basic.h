@@ -1,5 +1,6 @@
 #ifndef BASIC_H
 #define BASIC_H
+
 #include <string>
 #include <QMetaType>
 #include <QTime>
