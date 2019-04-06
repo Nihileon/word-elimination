@@ -2,11 +2,15 @@
 #include "ui/SearchDialog_ui.h"
 #include <QStandardItemModel>
 #include <QObject>
+#include <QDesktopWidget>
 SearchDialog::SearchDialog(QWidget* parent):QDialog (parent), ui(new Ui::SearchDialogUi),model(new QStandardItemModel) {
     ui->setupUi(this);
     QPalette palette(this->palette());
     palette.setColor(QPalette::Background, Qt::white);
     this->setPalette(palette);
+    QDesktopWidget* desktop = QApplication::desktop();
+    move((desktop->width()- this->width())/2, (desktop->height() - this->height())/2);
+    ui->userLineEdit->setLabel("username");
     ui->challengerRadioButton->setChecked(true);
     connect(ui->backPushButton, &QPushButton::clicked, this, &SearchDialog::showMainWindow);
     ui->userTableView->setStyleSheet("border: none;background:white;"
@@ -40,8 +44,8 @@ SearchDialog::SearchDialog(QWidget* parent):QDialog (parent), ui(new Ui::SearchD
         model->item(i,1)->setFont(ft);
     }
     connect(ui->searchPushButton, &QPushButton::clicked,this, &SearchDialog::search);
-ui->userTableView->horizontalHeader()->setDefaultSectionSize(140);
-ui->userTableView->verticalHeader()->setDefaultSectionSize(40);
+    ui->userTableView->horizontalHeader()->setDefaultSectionSize(140);
+    ui->userTableView->verticalHeader()->setDefaultSectionSize(40);
     ui->userTableView->setModel(model);
 
 }

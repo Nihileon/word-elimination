@@ -24,12 +24,14 @@ MainWindow::MainWindow(QWidget *parent) :
                                                                  " border: none;background-color:#ffffff;}");
     ui->personalInfoTableView->verticalHeader()->setStyleSheet("QHeaderView::section {"
                                                                " border: none;background-color:#ffffff;}");
-    ui->personalInfoTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+//    ui->personalInfoTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->personalInfoTableView->verticalHeader()->hide();
     ui->personalInfoTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->personalInfoTableView->setSelectionMode(QAbstractItemView::NoSelection);
     ui->personalInfoTableView->setDragDropMode(QAbstractItemView::NoDragDrop);
     ui->personalInfoTableView->setUpdatesEnabled(true);
+    ui->personalInfoTableView->horizontalHeader()->setDefaultSectionSize(140);
+    ui->personalInfoTableView->verticalHeader()->setDefaultSectionSize(50);
     connect(ui->gamePushButton, &QPushButton::clicked, this, &MainWindow::showGame);
     connect(ui->buildWordPushButton, &QPushButton::clicked, this, &MainWindow::showBuildWord);
     connect(ui->logoutPushBotton, &QPushButton::clicked, this, &MainWindow::closeAll);
