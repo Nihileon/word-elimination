@@ -27,9 +27,11 @@ void Manager::init(){
     QObject::connect(mw, &MainWindow::sendWordBuilder, b, &BuildWordDialog::setWordBuilder);
     QObject::connect(mw, &MainWindow::toBuildWord, b, &BuildWordDialog::show);
     QObject::connect(mw, &MainWindow::toLeader, lb,&LeaderboardDialog::showThis);
+    QObject::connect(mw, &MainWindow::toSearch, s, &SearchDialog::show);
     QObject::connect(g, &GameDialog::toMain, mw, &MainWindow::show);
     QObject::connect(g,&GameDialog::sendChallenger,mw, &MainWindow::setChallenger);
     QObject::connect(b, &BuildWordDialog::sendWordBuilder, mw, &MainWindow::setWordBuilder);
     QObject::connect(b, &BuildWordDialog::toMain, mw, &MainWindow::show);
     QObject::connect(lb, &LeaderboardDialog::toMain, mw, &MainWindow::show);
+    QObject::connect(s, &SearchDialog::toMainWindow,mw, &MainWindow::show);
 }

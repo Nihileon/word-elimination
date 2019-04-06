@@ -40,12 +40,14 @@ signals:
     void toGame();
     void toBuildWord();
     void toLeader();
+    void toSearch();
     void sendChallenger(QVariant data);
     void sendWordBuilder(QVariant data);
     void sendCloseAll();
 
 public slots:
     void showGame();
+    void showSearch();
     void setChallenger(QVariant data);
     void setWordBuilder(QVariant data);
     void closeAll();

@@ -1,13 +1,13 @@
 #include "user.h"
-Login* Login::_instance = nullptr;
+User* User::_instance = nullptr;
 
-Login& Login::instance(){
+User& User::instance(){
     if(_instance == nullptr){
-        _instance = new Login();
+        _instance = new User();
     }
     return *_instance;
 }
 
-void Login::destroy(){
+void User::destroy(){
     delete _instance;
 }

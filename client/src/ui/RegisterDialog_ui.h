@@ -29,14 +29,14 @@ class Ui_RegisterDialogUi
 public:
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
-    QHBoxLayout *horizontalLayout_4;
-    QtMaterialRaisedButton *backPushBotton;
-    QtMaterialRaisedButton *registerPushButton;
+    QtMaterialTextField *usernameLineEdit;
     QtMaterialTextField *passwordLineEdit;
-    QHBoxLayout *horizontalLayout_3;
+    QHBoxLayout *horizontalLayout_2;
+    QtMaterialRaisedButton *backPushButton;
+    QtMaterialRaisedButton *registerPushButton;
+    QHBoxLayout *horizontalLayout;
     QtMaterialRadioButton *wordRadioButton;
     QtMaterialRadioButton *challengerRadioButton;
-    QtMaterialTextField *usernameLineEdit;
 
     void setupUi(QDialog *RegisterDialogUi)
     {
@@ -45,64 +45,64 @@ public:
         RegisterDialogUi->resize(500, 400);
         gridLayoutWidget = new QWidget(RegisterDialogUi);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(100, 100, 311, 231));
+        gridLayoutWidget->setGeometry(QRect(60, 120, 393, 231));
         gridLayout = new QGridLayout(gridLayoutWidget);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        horizontalLayout_4 = new QHBoxLayout();
-        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        backPushBotton = new QtMaterialRaisedButton(gridLayoutWidget);
-        backPushBotton->setObjectName(QStringLiteral("backPushBotton"));
-        backPushBotton->setMinimumSize(QSize(0, 40));
+        usernameLineEdit = new QtMaterialTextField(gridLayoutWidget);
+        usernameLineEdit->setObjectName(QStringLiteral("usernameLineEdit"));
+        QSizePolicy sizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(29);
+        sizePolicy.setVerticalStretch(29);
+        sizePolicy.setHeightForWidth(usernameLineEdit->sizePolicy().hasHeightForWidth());
+        usernameLineEdit->setSizePolicy(sizePolicy);
+        usernameLineEdit->setMinimumSize(QSize(4, 50));
 
-        horizontalLayout_4->addWidget(backPushBotton);
-
-        registerPushButton = new QtMaterialRaisedButton(gridLayoutWidget);
-        registerPushButton->setObjectName(QStringLiteral("registerPushButton"));
-        registerPushButton->setMinimumSize(QSize(0, 40));
-
-        horizontalLayout_4->addWidget(registerPushButton);
-
-
-        gridLayout->addLayout(horizontalLayout_4, 4, 0, 1, 1);
+        gridLayout->addWidget(usernameLineEdit, 1, 0, 1, 1);
 
         passwordLineEdit = new QtMaterialTextField(gridLayoutWidget);
         passwordLineEdit->setObjectName(QStringLiteral("passwordLineEdit"));
-        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(passwordLineEdit->sizePolicy().hasHeightForWidth());
-        passwordLineEdit->setSizePolicy(sizePolicy);
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Maximum);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(passwordLineEdit->sizePolicy().hasHeightForWidth());
+        passwordLineEdit->setSizePolicy(sizePolicy1);
         passwordLineEdit->setMinimumSize(QSize(0, 50));
         passwordLineEdit->setAutoFillBackground(true);
 
         gridLayout->addWidget(passwordLineEdit, 2, 0, 1, 1);
 
-        horizontalLayout_3 = new QHBoxLayout();
-        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        backPushButton = new QtMaterialRaisedButton(gridLayoutWidget);
+        backPushButton->setObjectName(QStringLiteral("backPushButton"));
+        backPushButton->setMinimumSize(QSize(0, 40));
+
+        horizontalLayout_2->addWidget(backPushButton);
+
+        registerPushButton = new QtMaterialRaisedButton(gridLayoutWidget);
+        registerPushButton->setObjectName(QStringLiteral("registerPushButton"));
+        registerPushButton->setMinimumSize(QSize(0, 40));
+
+        horizontalLayout_2->addWidget(registerPushButton);
+
+
+        gridLayout->addLayout(horizontalLayout_2, 4, 0, 1, 1);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         wordRadioButton = new QtMaterialRadioButton(gridLayoutWidget);
         wordRadioButton->setObjectName(QStringLiteral("wordRadioButton"));
 
-        horizontalLayout_3->addWidget(wordRadioButton);
+        horizontalLayout->addWidget(wordRadioButton);
 
         challengerRadioButton = new QtMaterialRadioButton(gridLayoutWidget);
         challengerRadioButton->setObjectName(QStringLiteral("challengerRadioButton"));
 
-        horizontalLayout_3->addWidget(challengerRadioButton);
+        horizontalLayout->addWidget(challengerRadioButton);
 
 
-        gridLayout->addLayout(horizontalLayout_3, 3, 0, 1, 1);
-
-        usernameLineEdit = new QtMaterialTextField(gridLayoutWidget);
-        usernameLineEdit->setObjectName(QStringLiteral("usernameLineEdit"));
-        QSizePolicy sizePolicy1(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(29);
-        sizePolicy1.setVerticalStretch(29);
-        sizePolicy1.setHeightForWidth(usernameLineEdit->sizePolicy().hasHeightForWidth());
-        usernameLineEdit->setSizePolicy(sizePolicy1);
-        usernameLineEdit->setMinimumSize(QSize(4, 50));
-
-        gridLayout->addWidget(usernameLineEdit, 1, 0, 1, 1);
+        gridLayout->addLayout(horizontalLayout, 3, 0, 1, 1);
 
 
         retranslateUi(RegisterDialogUi);
@@ -113,7 +113,7 @@ public:
     void retranslateUi(QDialog *RegisterDialogUi)
     {
         RegisterDialogUi->setWindowTitle(QApplication::translate("RegisterDialogUi", "Dialog", Q_NULLPTR));
-        backPushBotton->setText(QApplication::translate("RegisterDialogUi", "back", Q_NULLPTR));
+        backPushButton->setText(QApplication::translate("RegisterDialogUi", "Back", Q_NULLPTR));
         registerPushButton->setText(QApplication::translate("RegisterDialogUi", "Register", Q_NULLPTR));
         wordRadioButton->setText(QApplication::translate("RegisterDialogUi", "word builder", Q_NULLPTR));
         challengerRadioButton->setText(QApplication::translate("RegisterDialogUi", "challenger", Q_NULLPTR));

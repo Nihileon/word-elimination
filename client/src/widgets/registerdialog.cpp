@@ -21,7 +21,7 @@ RegisterDialog::RegisterDialog(QWidget* parent):QDialog (parent), ui(new Ui::Reg
     ui->usernameLineEdit->setLabel("Username");
     //    connect(ui->backPushBotton, &QPushButton::clicked, this, &RegisterDialog::back);
     connect(ui->registerPushButton, &QPushButton::clicked, this, &RegisterDialog::reg);
-    connect(ui->backPushBotton, &QPushButton::clicked, this, &RegisterDialog::backLogin);
+    connect(ui->backPushButton, &QPushButton::clicked, this, &RegisterDialog::backLogin);
 }
 
 
@@ -48,7 +48,7 @@ void RegisterDialog::reg(){
     loginInfo.pwd = ui->usernameLineEdit->text().toStdString();
     // \TODO 处理空用户名的问题
     try {
-        Login::instance().insert(loginInfo);
+        User::instance().insert(loginInfo);
         QVariant user;
         user.setValue(loginInfo);
         emit sendUser(user);

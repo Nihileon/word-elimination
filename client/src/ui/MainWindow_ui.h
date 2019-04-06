@@ -32,6 +32,7 @@ public:
     QtMaterialRaisedButton *leaderboardPushBotton;
     QtMaterialRaisedButton *logoutPushBotton;
     QtMaterialRaisedButton *buildWordPushButton;
+    QtMaterialRaisedButton *searchPushButton;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -44,7 +45,7 @@ public:
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         personalInfoTableView = new QTableView(centralwidget);
         personalInfoTableView->setObjectName(QStringLiteral("personalInfoTableView"));
-        personalInfoTableView->setGeometry(QRect(60, 120, 231, 221));
+        personalInfoTableView->setGeometry(QRect(60, 100, 231, 221));
         personalInfoTableView->setFrameShape(QFrame::NoFrame);
         personalInfoTableView->setFrameShadow(QFrame::Plain);
         personalInfoTableView->setLineWidth(0);
@@ -52,18 +53,21 @@ public:
         personalInfoTableView->setGridStyle(Qt::DotLine);
         gamePushButton = new QtMaterialRaisedButton(centralwidget);
         gamePushButton->setObjectName(QStringLiteral("gamePushButton"));
-        gamePushButton->setGeometry(QRect(300, 70, 191, 40));
+        gamePushButton->setGeometry(QRect(300, 140, 191, 40));
         leaderboardPushBotton = new QtMaterialRaisedButton(centralwidget);
         leaderboardPushBotton->setObjectName(QStringLiteral("leaderboardPushBotton"));
-        leaderboardPushBotton->setGeometry(QRect(300, 170, 191, 40));
+        leaderboardPushBotton->setGeometry(QRect(300, 210, 191, 40));
         leaderboardPushBotton->setCheckable(false);
         leaderboardPushBotton->setFlat(false);
         logoutPushBotton = new QtMaterialRaisedButton(centralwidget);
         logoutPushBotton->setObjectName(QStringLiteral("logoutPushBotton"));
-        logoutPushBotton->setGeometry(QRect(300, 260, 191, 40));
+        logoutPushBotton->setGeometry(QRect(300, 280, 191, 40));
         buildWordPushButton = new QtMaterialRaisedButton(centralwidget);
         buildWordPushButton->setObjectName(QStringLiteral("buildWordPushButton"));
-        buildWordPushButton->setGeometry(QRect(300, 70, 191, 40));
+        buildWordPushButton->setGeometry(QRect(300, 140, 191, 40));
+        searchPushButton = new QtMaterialRaisedButton(centralwidget);
+        searchPushButton->setObjectName(QStringLiteral("searchPushButton"));
+        searchPushButton->setGeometry(QRect(300, 70, 191, 41));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QStringLiteral("menubar"));
@@ -85,6 +89,7 @@ public:
         leaderboardPushBotton->setText(QApplication::translate("MainWindow", "leaderboard", Q_NULLPTR));
         logoutPushBotton->setText(QApplication::translate("MainWindow", "logout", Q_NULLPTR));
         buildWordPushButton->setText(QApplication::translate("MainWindow", "build new word", Q_NULLPTR));
+        searchPushButton->setText(QApplication::translate("MainWindow", "search", Q_NULLPTR));
     } // retranslateUi
 
 };

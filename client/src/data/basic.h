@@ -18,20 +18,20 @@ struct LoginInfo{
     string pwd;
 };
 
-struct User{
+struct UserInfo{
     int ID;
     string usr;
     int level;
     int exp;
 };
 
-struct WordBuilder : public User{
+struct WordBuilder : public UserInfo{
     int build_word;
     int word_pass;
     int word_fail;
 };
 
-struct Challenger : public User{
+struct Challenger : public UserInfo{
     int currDiff = 0;
     int card_pass;
     int card_fail;

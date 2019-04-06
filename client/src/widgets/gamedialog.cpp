@@ -54,6 +54,8 @@ void GameDialog::countDown(){
     if(cntBar->value() == 0){
         qtimer->stop();
         ui->wordTextBrowser->hide();
+        ui->wordLineEdit->setDisabled(false);
+        ui->wordLineEdit->setFocus();
     }
 }
 
@@ -76,6 +78,7 @@ void GameDialog::gameBegin()
 void GameDialog::nextWord(){
     ui->wordTextBrowser->show();
     ui->wordLineEdit->clear();
+    ui->wordLineEdit->setDisabled(true);
     wordInfo = Word::instance().getWord(3,10);
     string tr = "<center><big><font size=14>"+wordInfo.word+"</big></font></center>";
     QObject::tr(tr.c_str());

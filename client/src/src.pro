@@ -23,7 +23,8 @@ FORMS += \
     ui/logindialog_ui.ui \
     ui/mainwindow.ui \
     ui/registerdialog_ui.ui \
-    ui/buildworddialog_ui.ui
+    ui/buildworddialog_ui.ui \
+    ui/searchdialog_ui.ui
 
 
 
@@ -44,7 +45,9 @@ HEADERS += \
     widgets/BuildWordDialog.h \
     widgets/LeaderBoardDialog.h \
     ui/radiusprogressbar.h \
-    data/user.h
+    data/user.h \
+    ui/SearchDialog_ui.h \
+    widgets/SearchDialog.h
 
 
 
@@ -60,7 +63,8 @@ SOURCES += \
     widgets/BuildWordDialog.cpp \
     widgets/LeaderBoardDialog.cpp \
     ui/radiusprogressbar.cpp \
-    data/user.cpp
+    data/user.cpp \
+    widgets/SearchDialog.cpp
 
 
 SUBDIRS += \

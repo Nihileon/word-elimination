@@ -45,7 +45,7 @@ void LoginDialog::checkPassword(){
     loginInfo.usr = ui->usernameLineEdit->text().toStdString();
     loginInfo.pwd = ui->passwordLineEdit->text().toStdString();
 
-    auto isAccept= Login::instance().isUser(loginInfo);
+    auto isAccept= User::instance().isUser(loginInfo);
     if(isAccept == true){
         QVariant user;
         user.setValue(loginInfo);

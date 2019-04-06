@@ -25,8 +25,8 @@ public slots:
     void reg();
 
 
-public:
-//private:
+//public:
+private:
     Ui::RegisterDialogUi* ui;
 };
 

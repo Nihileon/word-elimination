@@ -1,4 +1,4 @@
-#include "ui/LeaderboardDialog_ui.h"
+    #include "ui/LeaderboardDialog_ui.h"
 #include "LeaderBoardDialog.h"
 #include <QRadioButton>
 #include <qtmaterialradiobutton.h>
@@ -49,9 +49,9 @@ void LeaderboardDialog::showMain()
 void LeaderboardDialog::refreshLeaderboard()
 {
     if(userType == CHALLENGER){
-        Login::instance().getChallengerMakeTable(model);
+        User::instance().getChallengerMakeTable(model);
     }else if(userType == WORD_BUILDER){
-        Login::instance().getWordBuilderMakeTable(model);
+        User::instance().getWordBuilderMakeTable(model);
     }
 
 }

@@ -6,13 +6,13 @@
 #include <QString>
 #include <iostream>
 
-class Login{
+class User{
 private:
 
     QSqlDatabase db;
 
-    static Login *_instance;
-    Login(const string path = "/home/nihileon/word-elimination/build-client-Desktop_Qt_5_12_1_GCC_64bit-Debug/src/user.db"){
+    static User *_instance;
+    User(const string path = "/home/nihileon/word-elimination/build-client-Desktop_Qt_5_12_1_GCC_64bit-Debug/src/user.db"){
         if (QSqlDatabase::contains("qt_sql_default_connection"))
           db = QSqlDatabase::database("qt_sql_default_connection");
         else
@@ -24,10 +24,10 @@ private:
 
     }
 public:
-    ~Login(){
+    ~User(){
         db.close();
     }
-    static Login& instance();
+    static User& instance();
     static void destroy() ;
     typedef enum{
         DEFAULT_STATUS,

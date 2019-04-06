@@ -34,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->buildWordPushButton, &QPushButton::clicked, this, &MainWindow::showBuildWord);
     connect(ui->logoutPushBotton, &QPushButton::clicked, this, &MainWindow::closeAll);
     connect(ui->leaderboardPushBotton, &QPushButton::clicked, this, &MainWindow::showLeaderboard);
+    connect(ui->searchPushButton, &QPushButton::clicked, this,  &MainWindow::showSearch);
 
 
 }
@@ -47,10 +48,10 @@ void MainWindow::setUser(QVariant data){
     //    initWindow();
     loginInfo = data.value<LoginInfo>();
     if(loginInfo.type == LoginInfo::WORD_BUILDER){
-        wordBuilder = Login::instance().getWordBuilder(loginInfo);
+        wordBuilder = User::instance().getWordBuilder(loginInfo);
         initWordBuilderWindow();
     }else if(loginInfo.type == LoginInfo::CHALLENGER){
-        challenger = Login::instance().getChallenger(loginInfo);
+        challenger = User::instance().getChallenger(loginInfo);
         initChallengerWindow();
     }
 }
@@ -59,22 +60,16 @@ void MainWindow::refreshWordBuilderWindow()
 {
     using std::to_string;
     model->item(1,1)->setText(QString::number(wordBuilder.level));
-    //    model->setItem(1,1,new QStandardItem(QString::fromStdString(to_string(wordBuilder.level))));
     model->item(2,1)->setText(QString::number(wordBuilder.exp));
-    //    model->setItem(2,1,new QStandardItem(QString::fromStdString(to_string(wordBuilder.exp))));
     model->item(3,1)->setText(QString::number(wordBuilder.build_word));
-    //    model->setItem(3,1,new QStandardItem(QString::fromStdString(to_string(wordBuilder.build_word))));
 }
 
 void MainWindow::refreshChallengerWindow()
 {
     using std::to_string;
     model->item(1,1)->setText(QString::number(challenger.level));
-    //    model->setItem(1,1,new QStandardItem(QString::fromStdString(to_string(challenger.level))));
     model->item(2,1)->setText(QString::number(challenger.exp));
-    //    model->setItem(2,1,new QStandardItem(QString::fromStdString(to_string(challenger.exp))));
     model->item(3,1)->setText(QString::number(challenger.card_pass));
-    //    model->setItem(3,1,new QStandardItem(QString::fromStdString(to_string(challenger.card_pass))));
 }
 
 void MainWindow::showGame(){
@@ -83,6 +78,12 @@ void MainWindow::showGame(){
     data.setValue(challenger);
     emit sendChallenger(data);
     emit toGame();
+}
+
+void MainWindow::showSearch()
+{
+    this->hide();
+    emit toSearch();
 }
 
 void MainWindow::showBuildWord(){
@@ -105,7 +106,7 @@ void MainWindow::setChallenger(QVariant data)
     refreshChallengerWindow();
     try {
         Delay_MSec_Suspend(50);
-        Login::instance().updateUser(this->challenger);
+        User::instance().updateUser(this->challenger);
 
 
     } catch (QSqlError &e) {
@@ -120,7 +121,7 @@ void MainWindow::setWordBuilder(QVariant data)
     refreshWordBuilderWindow();
     try {
         Delay_MSec_Suspend(50);
-        Login::instance().updateUser(this->wordBuilder);
+        User::instance().updateUser(this->wordBuilder);
     } catch (QSqlError &e) {
         std::cout << "set WordBuilder:" << e.text().toStdString()<<std::endl;
     }
