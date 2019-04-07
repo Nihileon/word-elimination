@@ -10,7 +10,8 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
-    model(new QStandardItemModel)
+    model(new QStandardItemModel),
+    msg(new MaterialMessageBox(this))
 {
     initWindow();
 

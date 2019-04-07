@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QVariant>
 #include <QStandardItemModel>
+#include <materialmessagebox.h>
 #include "data/user.h"
 
 namespace Ui {
@@ -29,6 +30,7 @@ private slots:
 private:
     Ui::SearchDialogUi* ui;
     QStandardItemModel *model;
+    MaterialMessageBox *msg;
     enum USER_TYPE{
         CHALLENGER, WORD_BUILDER
     }userType;

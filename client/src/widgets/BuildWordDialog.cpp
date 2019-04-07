@@ -6,7 +6,8 @@
 
 BuildWordDialog::BuildWordDialog(QWidget* parent):
     QDialog (parent),
-    ui(new Ui::BuildWordDialogUi)
+    ui(new Ui::BuildWordDialogUi),
+    msg(new MaterialMessageBox(this))
 {
     ui->setupUi(this);
     setWindowTitle(tr("BuildWord"));
@@ -45,12 +46,18 @@ void BuildWordDialog::addWord(){
     try {
         Word::instance().insert(w);
         wordBuilder.build_word++;
-        MaterialMessageBox *msg = new MaterialMessageBox(this);
+        wordBuilder.exp += 4;
+        this->setLevel(wordBuilder);
+//        MaterialMessageBox *msg = new MaterialMessageBox(this);
         msg->setText("Your have successfully add a word.");
-        msg->show();
+        msg->showDialog();
     } catch (QSqlError &e) {
-        MaterialMessageBox *msg = new MaterialMessageBox(this);
+//        MaterialMessageBox *msg = new MaterialMessageBox(this);
         msg->setText("Your Word is exist! \nPlease input another one.");
-        msg->show();
+        msg->showDialog();
     }
+}
+
+void BuildWordDialog::setLevel(WordBuilder &wb){
+    wb.level = static_cast<int>(log(static_cast<double>(wb.exp)) / log(1.2));
 }

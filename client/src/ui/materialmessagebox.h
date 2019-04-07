@@ -14,7 +14,7 @@ public:
         dialogWidget = new QWidget;
         QVBoxLayout *dialogWidgetLayout = new QVBoxLayout;
         dialogWidget->setLayout(dialogWidgetLayout);
-        QtMaterialFlatButton *closeButton = new QtMaterialFlatButton("Close");
+        closeButton = new QtMaterialFlatButton("Close");
         qlabel = new QLabel;
         QFont ft;
         ft.setPointSize(14);
@@ -30,12 +30,13 @@ public:
         dialogWidget->setMinimumWidth(300);
         dialogLayout->addWidget(dialogWidget);
         connect(closeButton, SIGNAL(pressed()), this, SLOT(hideDialog()));
-        this->showDialog();
+//        this->showDialog();
     }
 
     ~MaterialMessageBox(){
         delete dialogWidget;
         delete qlabel;
+        delete closeButton;
     }
 
     void setMinimumWidth(int width){
@@ -52,7 +53,7 @@ public:
 
     QWidget *dialogWidget;
     QLabel* qlabel;
-
+    QtMaterialFlatButton * closeButton;
 };
 
 #endif // MATERIALMESSAGEBOX_H

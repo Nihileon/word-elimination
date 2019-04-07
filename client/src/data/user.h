@@ -13,7 +13,7 @@ private:
     QSqlDatabase db;
 
     static User *_instance;
-    User(const string path = "/home/nihileon/word-elimination/build-client-Desktop_Qt_5_12_1_GCC_64bit-Debug/src/user.db"){
+    User(const string path = "./user.db"){
         if (QSqlDatabase::contains("qt_sql_default_connection"))
           db = QSqlDatabase::database("qt_sql_default_connection");
         else

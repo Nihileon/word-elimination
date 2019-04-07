@@ -8,6 +8,7 @@
 #include <QVariant>
 #include <QTimer>
 #include <QMessageBox>
+#include <materialmessagebox.h>
 #include "data/word.h"
 #include "data/user.h"
 
@@ -29,16 +30,20 @@ signals:
     void sendChallenger(QVariant data);
 
 public slots:
-    void showMain();
     void gameBegin();
+    void setChallenger(QVariant data);
+
+private slots:
+    void showMain();
     //count down, update the time, and hide the word when timeout;
     void countDown();
-    void setChallenger(QVariant data);
     void checkCorrect();
+    void getNextWord();
 
 private:
     Ui::GameDialogUi *ui;
     QTimer* qtimer;
+    MaterialMessageBox *msg;
     Challenger challenger;
     int counter;
     WordInfo wordInfo;
@@ -47,18 +52,25 @@ private:
         int cardPassWordNum;
         int wordDisplayTime;
         int exp;
+        // word length from wordLen-3 to wordLen
+        int wordLen;
     }cardInfo;
     int card  = 1;
+    int timePerWord = 0;
 
     CardInfo getCardPassInfo(int card);
     void setLevel();
-    void gameOver();
+    void setLocalChallenger();
     //when pass k words, go to the next card
-    void nextCard();
+    void setCardInfo();
     //when input the correct word, the player can get the next word
-    void nextWord();
-    void setGameOver();
+    void nextWord(int len=5);
+    //fail in this card and replay
+    void cardFail();
+    void gameOver();
     void delayMsecSuspend(int msec);
+    void setCard(int card);
+    int getWordExp();
 };
 
 #endif // GAMEDIALOG_H

@@ -7,7 +7,12 @@
 #include "ui/materialmessagebox.h"
 #include "SearchDialog.h"
 
-SearchDialog::SearchDialog(QWidget* parent):QDialog (parent), ui(new Ui::SearchDialogUi),model(new QStandardItemModel) {
+SearchDialog::SearchDialog(QWidget* parent):
+    QDialog (parent),
+    ui(new Ui::SearchDialogUi),
+    model(new QStandardItemModel),
+    msg(new MaterialMessageBox(this))
+{
     initDialog();
     connect(ui->backPushButton, &QPushButton::clicked, this, &SearchDialog::showMainWindow);
     connect(ui->searchPushButton, &QPushButton::clicked,this, &SearchDialog::search);
@@ -71,9 +76,8 @@ void SearchDialog::searchWordBuilder(){
     try{
         wordBuilder = User::instance().getWordBuilder(li);
     }catch(QSqlError &e){
-        MaterialMessageBox *msg = new MaterialMessageBox(this);
         msg->setText("Not Found");
-        msg->show();
+        msg->showDialog();
         return;
     }
     model->item(0,0)->setText("Username");
@@ -93,9 +97,9 @@ void SearchDialog::searchChallenger(){
     try {
         challenger  = User::instance().getChallenger(li);
     } catch (QSqlError &e) {
-        MaterialMessageBox *msg = new MaterialMessageBox(this);
+//        MaterialMessageBox *msg = new MaterialMessageBox(this);
         msg->setText("Not Found");
-        msg->show();
+        msg->showDialog();
         return;
     }
     model->item(0,0)->setText("Username");

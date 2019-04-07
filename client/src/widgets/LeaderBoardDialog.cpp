@@ -7,7 +7,8 @@
 LeaderboardDialog::LeaderboardDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::LeaderboardDialogUi),/*,reg(new RegisterDialog)*/
-    model(new QSqlQueryModel)
+    model(new QSqlQueryModel),
+    msg(new MaterialMessageBox(this))
 {
     ui->setupUi(this);
     setFixedSize(this->width(), this->height());

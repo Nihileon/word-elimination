@@ -11,7 +11,11 @@
 #include "RegisterDialog.h"
 #include "LoginDialog.h"
 
-RegisterDialog::RegisterDialog(QWidget* parent):QDialog (parent), ui(new Ui::RegisterDialogUi) {
+RegisterDialog::RegisterDialog(QWidget* parent):
+    QDialog (parent),
+    ui(new Ui::RegisterDialogUi),
+    msg(new MaterialMessageBox(this))
+{
     ui->setupUi(this);
     QPalette palette(this->palette());
     palette.setColor(QPalette::Background, Qt::white);
@@ -49,10 +53,10 @@ void RegisterDialog::reg(){
         showMainWindow();
 
     } catch (QSqlError& e) {
-        MaterialMessageBox *msg = new MaterialMessageBox(this);
+//        MaterialMessageBox *msg = new MaterialMessageBox(this);
         msg->setText("Your username has been used!\n"
                      "Please login or change your username.");
-        msg->show();
+        msg->showDialog();
     }
 }
 

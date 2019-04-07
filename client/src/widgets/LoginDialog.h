@@ -35,6 +35,7 @@ private slots:
 private:
     Ui::LoginDialogUi * ui;
     RegisterDialog* reg;
+    MaterialMessageBox *msg;
 };
 
 #endif // LOGINDIALOG_H

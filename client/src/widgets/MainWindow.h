@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QStandardItemModel>
 #include <QVariant>
+#include <materialmessagebox.h>
 #include "data/user.h"
 
 namespace Ui {
@@ -45,6 +46,8 @@ private:
     LoginInfo loginInfo;
     Ui::MainWindow *ui;
     QStandardItemModel* model;
+    MaterialMessageBox *msg;
+
     void refreshWordBuilderWindow();
     void refreshChallengerWindow();
     void initWordBuilderWindow();

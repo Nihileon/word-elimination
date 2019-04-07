@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QVariant>
 #include <QMessageBox>
+#include <materialmessagebox.h>
 #include "data/user.h"
 #include "data/word.h"
 
@@ -32,6 +33,8 @@ private slots:
 private:
     Ui::LeaderboardDialogUi* ui;
     QSqlQueryModel* model;
+    MaterialMessageBox *msg;
+
     enum USER_TYPE{
         CHALLENGER, WORD_BUILDER
     }userType;

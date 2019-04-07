@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QVariant>
+#include <materialmessagebox.h>
 
 namespace Ui {
 class RegisterDialogUi;
@@ -30,6 +31,7 @@ private slots:
     //public:
 private:
     Ui::RegisterDialogUi* ui;
+    MaterialMessageBox *msg;
 };
 
 #endif // REGISTERDIALOG_H

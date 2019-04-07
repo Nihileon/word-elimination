@@ -12,7 +12,8 @@
 
 LoginDialog::LoginDialog(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::LoginDialogUi)/*,reg(new RegisterDialog)*/
+    ui(new Ui::LoginDialogUi),
+    msg(new MaterialMessageBox(this))
 {
     ui->setupUi(this);
     setFixedSize(this->width(), this->height());
@@ -55,9 +56,9 @@ void LoginDialog::checkPassword(){
         emit sendUser(user);
         showMainWindow();
     }else{
-        MaterialMessageBox *msg = new MaterialMessageBox(this);
+//        MaterialMessageBox *msg = new MaterialMessageBox(this);
         msg->setText("Login failed! \nPlease check your password or user type.");
-        msg->show();
+        msg->showDialog();
     }
 }
 

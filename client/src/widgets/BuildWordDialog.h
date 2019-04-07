@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QVariant>
 #include <QMessageBox>
+#include <materialmessagebox.h>
 #include "data/user.h"
 #include "data/word.h"
 
@@ -31,6 +32,8 @@ public slots:
 private:
     WordBuilder wordBuilder;
     Ui::BuildWordDialogUi *ui;
+    MaterialMessageBox *msg;
+    void setLevel(WordBuilder &wb);
 };
 
 #endif // BUILDWORDDIALOG_H

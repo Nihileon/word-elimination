@@ -11,7 +11,7 @@ private:
     static Word *_instance;
     //    Word(const string path = "word.db"):db(path.c_str()){}
     QSqlDatabase db;
-    Word(const string path = "/home/nihileon/word-elimination/build-client-Desktop_Qt_5_12_1_GCC_64bit-Debug/src/word.db"){
+    Word(const string path = "./word.db"){
         if (QSqlDatabase::contains("words_connection"))
             db = QSqlDatabase::database("words_connection");
         else
