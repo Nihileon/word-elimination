@@ -24,6 +24,7 @@ RegisterDialog::RegisterDialog(QWidget* parent):
     ui->challengerRadioButton->setChecked(true);
     ui->registerPushButton->setShortcut(Qt::Key_Enter);
     ui->passwordLineEdit->setLabel("Password");
+    ui->passwordLineEdit->setEchoMode(QLineEdit::Password);
     ui->usernameLineEdit->setLabel("Username");
 
     connect(ui->registerPushButton, &QPushButton::clicked, this, &RegisterDialog::reg);
