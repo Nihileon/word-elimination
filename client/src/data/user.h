@@ -15,9 +15,9 @@ private:
     static User *_instance;
     User(const string path = "./user.db"){
         if (QSqlDatabase::contains("qt_sql_default_connection"))
-          db = QSqlDatabase::database("qt_sql_default_connection");
+            db = QSqlDatabase::database("qt_sql_default_connection");
         else
-          db = QSqlDatabase::addDatabase("QSQLITE");
+            db = QSqlDatabase::addDatabase("QSQLITE");
         db.setDatabaseName(path.c_str());
         if(!db.open()){
             throw db.lastError();
@@ -80,13 +80,13 @@ public:
 
         sqlQuery.exec();
 
-            if (sqlQuery.next()) {
-                int is_exist = sqlQuery.value(0).toInt();
-                string user_pass = sqlQuery.value(1).toString().toStdString();
-                if(is_exist == 1 && user_pass == loginInfo.pwd){
-                    return true;
-                }
+        if (sqlQuery.next()) {
+            int is_exist = sqlQuery.value(0).toInt();
+            string user_pass = sqlQuery.value(1).toString().toStdString();
+            if(is_exist == 1 && user_pass == loginInfo.pwd){
+                return true;
             }
+        }
         return false;
     }
 
@@ -122,7 +122,7 @@ public:
         model->setHeaderData(1, Qt::Horizontal, "Level");
         model->setHeaderData(2, Qt::Horizontal, "Exp");
         model->setHeaderData(3, Qt::Horizontal, "Max Passed");
-//        model->setHeaderData(4, Qt::Horizontal, "Card_fail");
+        //        model->setHeaderData(4, Qt::Horizontal, "Card_fail");
         model->setHeaderData(4, Qt::Horizontal, "Eliminated");
 
     }
@@ -161,6 +161,9 @@ public:
     }
 
     void updateUser(const WordBuilder &wb){
+        if(wb.exp<0) {
+            throw "exp overflow";
+        }
         QString query = QString("UPDATE WordBuilder"
                                 " SET level='%1', exp='%2', build_word='%3'"
                                 " WHERE user_login = '%4';")\
@@ -176,6 +179,9 @@ public:
     }
 
     void updateUser(const Challenger &c){
+        if(c.exp <0){
+            throw "exp overthrow";
+        }
         QString query = QString("UPDATE Challenger"
                                 " SET level='%1', exp='%2', card_pass='%3', card_fail='%4', word_eliminate='%5'"
                                 " WHERE user_login='%6';")\

@@ -58,6 +58,8 @@ void GameDialog::setCard(int card){
 
 int GameDialog::getWordExp(){
     int exp = static_cast<int>(log2(wordInfo.len) * (0.5 * card / (timePerWord+1)));
+    if(exp < 0)
+        throw "getWordExp overflow";
     return exp;
 }
 
@@ -183,7 +185,7 @@ GameDialog::CardInfo GameDialog::getCardPassInfo(int card){
         return static_cast<int>(temp);
     };
     ci.exp = exp(card);
-
+    if(ci.exp < 0) throw "card exp overflow";
     return ci;
 }
 
