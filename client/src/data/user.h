@@ -1,3 +1,9 @@
+/*
+ * @Author: Nihil Eon
+ * @Date: 2019-05-01 18:13:25
+ * @Last Modified by: Nihil Eon
+ * @Last Modified time: 2019-05-01 18:39:18
+ */
 #ifndef LOGIN_H
 #define LOGIN_H
 
@@ -8,16 +14,16 @@
 #include "basic.h"
 
 /**
- * @brief The User class
+ * @brief 用于处理用户信息的类
  */
 class User{
 private:
 
-    QSqlDatabase db;
+    QSqlDatabase db; /// 数据库信息
 
-    static User *_instance;
+    static User *_instance; /// 用户单实例
     /**
-     * @brief User
+     * @brief 构造函数, 由于是单例, 所以将构造函数私有化
      * @param path
      */
     User(const string path = "./user.db"){
@@ -29,14 +35,34 @@ private:
         if(!db.open()){
             throw db.lastError();
         }
-
     }
 public:
+    /**
+     * @brief Destroy the User object
+     *
+     */
     ~User(){
         db.close();
     }
+
+    /**
+     * @brief 单例模式, 获得单实例
+     *
+     * @return User&
+     */
     static User& instance();
+
+    /**
+     * @brief 单例模式, 删除实例
+     *
+     */
     static void destroy() ;
+
+    /**
+     * @brief 获取信息之后的状态
+     * 默认状态(即成功);用户不存在;密码错误;登陆成功(未使用);未知状态(未使用)
+     *
+     */
     typedef enum{
         DEFAULT_STATUS,
         USR_NOT_EXIST,
@@ -46,8 +72,8 @@ public:
     }Status;
 
     /**
-     * @brief insert
-     * @param li
+     * @brief 插入用户信息, 即注册出题人或玩家
+     * @param li 登陆信息LoginInfo
      */
     void insert(const LoginInfo &li){
         switch (li.type) {
@@ -76,8 +102,8 @@ public:
         }
     }
     /**
-     * @brief isUser
-     * @param loginInfo
+     * @brief 判断用户是否在数据库中
+     * @param loginInfo 登陆信息
      */
     auto isUser(const LoginInfo &loginInfo){
         string userType;
@@ -86,15 +112,13 @@ public:
         }else if(loginInfo.type == LoginInfo::CHALLENGER){
             userType = "Challenger";
         }
+
         QString query = QString("SELECT COUNT(*), user_pass FROM '%1' WHERE user_login='%2';")\
                 .arg(QString::fromStdString(userType))\
                 .arg(QString::fromStdString(loginInfo.usr));
-
         QSqlQuery sqlQuery;
         sqlQuery.prepare(query);
-
         sqlQuery.exec();
-
         if (sqlQuery.next()) {
             int is_exist = sqlQuery.value(0).toInt();
             string user_pass = sqlQuery.value(1).toString().toStdString();
@@ -106,8 +130,8 @@ public:
     }
 
     /**
-     * @brief getWordBuilder
-     * @param loginInfo
+     * @brief 获得出题人信息
+     * @param loginInfo 登陆信息
      */
     auto getWordBuilder(const LoginInfo &loginInfo){
         WordBuilder wb;
@@ -134,8 +158,8 @@ public:
     }
 
     /**
-     * @brief getChallengerMakeTable
-     * @param model
+     * @brief 获得构建玩家排行榜的模型
+     * @param model 用于构造排行榜的模型
      */
     void getChallengerMakeTable(QSqlQueryModel* model){
         model->setQuery("SELECT user_login, level, exp, card_pass, word_eliminate "
@@ -149,8 +173,8 @@ public:
 
     }
     /**
-     * @brief getWordBuilderMakeTable
-     * @param model
+     * @brief 获得构建出题人排行榜的模型
+     * @param model 用于构建排行榜的模型
      */
     void getWordBuilderMakeTable(QSqlQueryModel* model){
         model->setQuery("SELECT user_login, level, exp, build_word "
@@ -162,8 +186,8 @@ public:
     }
 
     /**
-     * @brief getChallenger
-     * @param loginInfo
+     * @brief 获得玩家信息
+     * @param loginInfo 登录信息
      */
     auto getChallenger(const LoginInfo &loginInfo){
         Challenger c;
@@ -189,6 +213,11 @@ public:
         return c;
     }
 
+    /**
+     * @brief 更新出题人信息
+     *
+     * @param wb 出题人信息
+     */
     void updateUser(const WordBuilder &wb){
         if(wb.exp<0) {
             throw "exp overflow";
@@ -207,6 +236,11 @@ public:
         }
     }
 
+    /**
+     * @brief 更新玩家信息
+     *
+     * @param 玩家信息
+     */
     void updateUser(const Challenger &c){
         if(c.exp <0){
             throw "exp overthrow";
@@ -227,7 +261,6 @@ public:
         }
     }
 };
-
 
 
 #endif // LOGIN_H

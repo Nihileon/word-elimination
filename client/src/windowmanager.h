@@ -1,3 +1,9 @@
+/*
+ * @Author: Nihil Eon
+ * @Date: 2019-05-01 20:17:09
+ * @Last Modified by:   Nihil Eon
+ * @Last Modified time: 2019-05-01 20:17:09
+ */
 #ifndef WINDOWMANAGER_H
 #define WINDOWMANAGER_H
 
@@ -10,8 +16,12 @@
 #include "widgets/BuildWordDialog.h"
 #include "widgets/LeaderBoardDialog.h"
 #include "widgets/SearchDialog.h"
-
+/**
+ * @brief 窗口管理者类, 对所有窗口的交互进行管理
+ *
+ */
 class Manager{
+    //\TODO 将窗口构造函数变为私有化
 public:
     MainWindow* mw;
     LoginDialog* l;

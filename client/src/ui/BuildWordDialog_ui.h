@@ -22,6 +22,10 @@
 
 QT_BEGIN_NAMESPACE
 
+/**
+ * @brief 出题界面的ui
+ *
+ */
 class Ui_BuildWordDialogUi
 {
 public:

@@ -5,12 +5,21 @@
 #include <QtSql>
 #include "basic.h"
 
+/**
+ * @brief 单词信息类
+ *
+ */
 class Word{
 private:
     //    sqlite::database db;
-    static Word *_instance;
+    static Word *_instance;/// 单词单实例
     //    Word(const string path = "word.db"):db(path.c_str()){}
-    QSqlDatabase db;
+    QSqlDatabase db; /// 数据库
+    /**
+     * @brief 私有化单例构造函数
+     *
+     * @param path 路径
+     */
     Word(const string path = "./word.db"){
         if (QSqlDatabase::contains("words_connection"))
             db = QSqlDatabase::database("words_connection");
@@ -22,9 +31,23 @@ private:
         }
     }
 public:
+    /**
+     * @brief 获得单实例
+     *
+     * @return Word& 返回实例
+     */
     static Word& instance();
+    /**
+     * @brief 删除实例
+     *
+     */
     static void destroy();
 
+    /**
+     * @brief 插入新单词
+     *
+     * @param wi 单词信息
+     */
     void insert(const WordInfo &wi){
         auto query = QString("INSERT INTO Word (word,builder,len) VALUES ('%1','%2','%3');")
                 .arg(QString::fromStdString(wi.word))
@@ -39,6 +62,13 @@ public:
         //           << wi.word << wi.builder << wi.len;
     }
 
+    /**
+     * @brief Get the Word object
+     *
+     * @param min 最小长度
+     * @param max 最大长度
+     * @return auto 单词信息
+     */
     auto getWord(int min, int max){
         WordInfo wi;
         QString query = QString("SELECT word, builder, fail_time, pass_time "
@@ -56,19 +86,14 @@ public:
                 wi.pass_time = sqlQuery.value(3).toInt();
             }
         }
-        //        db << "SELECT word, builder, fail_time, pass_time "
-        //              "FROM Word WHERE (len>=? and len<=?) "
-        //              "ORDER BY RANDOM() LIMIT 1; "
-        //           << min << max
-        //           >> [&](string word, string builder, int fail_time, int pass_time){
-        //            wi.word = word;
-        //            wi.builder = builder;
-        //            wi.fail_time = fail_time;
-        //            wi.pass_time = pass_time;
-        //        };
         return wi;
     }
 
+    /**
+     * @brief 更新数据库的单词信息
+     *
+     * @param wordInfo 单词信息
+     */
     void updateWord(WordInfo &wordInfo){
         QString query = QString("UPDATE Word "
                                 "SET fail_time='%1', pass_time='%2' "
@@ -81,12 +106,12 @@ public:
         if(!sqlQuery.exec()){
             throw sqlQuery.lastError();
         }
-        //        db << "UPDATE Word "
-        //              "SET fail_time=?, pass_time=? "
-        //              "WHERE word=?; "
-        //           << wordInfo.fail_time << wordInfo.pass_time << wordInfo.word;
     }
 
+    /**
+     * @brief 初始化单词, 仅在未建立数据库时使用
+     *
+     */
     void _initWord(){
         using namespace std;
         fstream fp;
@@ -104,13 +129,12 @@ public:
                         QSqlQuery sqlQuery("words_connection",db);
                         sqlQuery.prepare(query);
                         sqlQuery.exec();
-                        //                        db << "INSERT INTO Word (word,len) VALUES (?,?); "
-                        //                           << s << s.length();
-                    }catch(QSqlError &e){}
+                    }catch(QSqlError &e){
+                        // 插入过慢出现的错误可以忽略
+                    }
                 }
             }
         }
-
     }
 };
 

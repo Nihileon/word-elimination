@@ -1,3 +1,9 @@
+/*
+ * @Author: Nihil Eon
+ * @Date: 2019-05-01 18:49:29
+ * @Last Modified by: Nihil Eon
+ * @Last Modified time: 2019-05-01 19:00:26
+ */
 #include <QLabel>
 #include <qtmaterialdialog.h>
 #include "ui/BuildWordDialog_ui.h"

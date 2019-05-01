@@ -1,3 +1,9 @@
+/*
+ * @Author: Nihil Eon
+ * @Date: 2019-05-01 20:16:38
+ * @Last Modified by:   Nihil Eon
+ * @Last Modified time: 2019-05-01 20:16:38
+ */
 #include <QObject>
 #include <QDesktopWidget>
 #include <QStandardItemModel>

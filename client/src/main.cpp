@@ -1,3 +1,9 @@
+/*
+ * @Author: Nihil Eon
+ * @Date: 2019-05-01 20:17:01
+ * @Last Modified by:   Nihil Eon
+ * @Last Modified time: 2019-05-01 20:17:01
+ */
 #include "windowmanager.h"
 #include "data/word.h"
 #include <QObject>

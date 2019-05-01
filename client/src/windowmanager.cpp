@@ -1,3 +1,9 @@
+/*
+ * @Author: Nihil Eon
+ * @Date: 2019-05-01 20:17:04
+ * @Last Modified by:   Nihil Eon
+ * @Last Modified time: 2019-05-01 20:17:04
+ */
 #include "windowmanager.h"
 
 Manager* Manager::_instance = nullptr;

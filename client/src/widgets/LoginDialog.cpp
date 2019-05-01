@@ -1,3 +1,9 @@
+/*
+ * @Author: Nihil Eon
+ * @Date: 2019-05-01 20:16:30
+ * @Last Modified by:   Nihil Eon
+ * @Last Modified time: 2019-05-01 20:16:30
+ */
 #include <QLabel>
 #include <QMessageBox>
 #include <QObject>
@@ -36,7 +42,7 @@ LoginDialog::LoginDialog(QWidget *parent) :
 
 LoginDialog::~LoginDialog(){
     delete ui;
-    delete reg;
+    delete msg;
 }
 
 void LoginDialog::checkPassword(){

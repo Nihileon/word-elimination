@@ -1,3 +1,9 @@
+/*
+ * @Author: Nihil Eon
+ * @Date: 2019-05-01 19:03:16
+ * @Last Modified by:   Nihil Eon
+ * @Last Modified time: 2019-05-01 19:03:16
+ */
 #include <cmath>
 #include <QLabel>
 #include <qtmaterialdialog.h>
