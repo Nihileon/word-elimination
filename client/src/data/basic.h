@@ -27,7 +27,10 @@ struct LoginInfo {
  * @brief 基本用户信息
  */
 struct UserInfo {
-    //\TODO 默认构造器
+    UserInfo() {
+        ID = 0;
+        usr = "NULL";
+    }
     int ID; /// 用户id
     string usr; /// 用户名
     int level; /// 等级

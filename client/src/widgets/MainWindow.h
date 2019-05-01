@@ -109,7 +109,9 @@ private slots:
      *
      */
     void showGame();
-    /** 隐藏当前窗口, 显示搜索界面
+    /**
+     * @brief 隐藏当前窗口, 显示搜索界面
+     */
     void showSearch();
     /**
      * @brief 隐藏当前窗口, 显示出题界面

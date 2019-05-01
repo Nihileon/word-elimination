@@ -21,7 +21,16 @@
  *
  */
 class Manager{
-    //\TODO 将窗口构造函数变为私有化
+private:
+    static Manager *_instance;
+    Manager():mw(new MainWindow),
+                l(new LoginDialog),
+                r(new RegisterDialog),
+                g(new GameDialog),
+                b(new BuildWordDialog),
+                lb(new LeaderboardDialog),
+                s(new SearchDialog){}
+
 public:
     MainWindow* mw;
     LoginDialog* l;
@@ -30,15 +39,6 @@ public:
     BuildWordDialog* b;
     LeaderboardDialog* lb;
     SearchDialog* s;
-    static Manager *_instance;
-
-    Manager():mw(new MainWindow),
-        l(new LoginDialog),
-        r(new RegisterDialog),
-        g(new GameDialog),
-        b(new BuildWordDialog),
-        lb(new LeaderboardDialog),
-        s(new SearchDialog){}
 
     ~Manager(){
         delete mw;
@@ -53,7 +53,6 @@ public:
     static Manager& instance();
     static void destroy();
     void init();
-
 };
 
 #endif // WINDOWMANAGER_H
