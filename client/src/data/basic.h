@@ -1,45 +1,46 @@
 #ifndef BASIC_H
 #define BASIC_H
 
-#include <string>
 #include <QMetaType>
 #include <QTime>
+#include <string>
 
 using std::string;
 
-
-//登陆所需的信息
-struct LoginInfo{
-    typedef enum{
-        WORD_BUILDER,
-        CHALLENGER
-    }UserType;
+/**
+ * @brief 登陆所需的信息
+ */
+struct LoginInfo {
+    typedef enum { WORD_BUILDER, CHALLENGER } UserType;
     string usr;
     UserType type;
     string pwd;
 };
 
-struct UserInfo{
+/**
+ * @brief
+ */
+struct UserInfo {
     int ID;
     string usr;
     int level;
     int exp;
 };
 
-struct WordBuilder : public UserInfo{
+struct WordBuilder : public UserInfo {
     int build_word;
     int word_pass;
     int word_fail;
 };
 
-struct Challenger : public UserInfo{
+struct Challenger : public UserInfo {
     int currDiff = 0;
     int card_pass;
     int card_fail;
     int word_eliminate;
 };
 
-struct WordInfo{
+struct WordInfo {
     int ID;
     string word;
     int user_id;
@@ -48,7 +49,6 @@ struct WordInfo{
     int pass_time;
     int len;
 };
-
 
 Q_DECLARE_METATYPE(WordBuilder);
 Q_DECLARE_METATYPE(Challenger);

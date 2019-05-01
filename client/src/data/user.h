@@ -7,12 +7,19 @@
 #include <QString>
 #include "basic.h"
 
+/**
+ * @brief The User class
+ */
 class User{
 private:
 
     QSqlDatabase db;
 
     static User *_instance;
+    /**
+     * @brief User
+     * @param path
+     */
     User(const string path = "./user.db"){
         if (QSqlDatabase::contains("qt_sql_default_connection"))
             db = QSqlDatabase::database("qt_sql_default_connection");
@@ -38,6 +45,10 @@ public:
         UNKNOWN
     }Status;
 
+    /**
+     * @brief insert
+     * @param li
+     */
     void insert(const LoginInfo &li){
         switch (li.type) {
         case LoginInfo::WORD_BUILDER:{
@@ -64,6 +75,10 @@ public:
         }
         }
     }
+    /**
+     * @brief isUser
+     * @param loginInfo
+     */
     auto isUser(const LoginInfo &loginInfo){
         string userType;
         if(loginInfo.type == LoginInfo::WORD_BUILDER){
@@ -90,7 +105,10 @@ public:
         return false;
     }
 
-
+    /**
+     * @brief getWordBuilder
+     * @param loginInfo
+     */
     auto getWordBuilder(const LoginInfo &loginInfo){
         WordBuilder wb;
         wb.usr = loginInfo.usr;
@@ -115,6 +133,10 @@ public:
         return wb;
     }
 
+    /**
+     * @brief getChallengerMakeTable
+     * @param model
+     */
     void getChallengerMakeTable(QSqlQueryModel* model){
         model->setQuery("SELECT user_login, level, exp, card_pass, word_eliminate "
                         "FROM Challenger ORDER BY exp DESC;",db);
@@ -126,7 +148,10 @@ public:
         model->setHeaderData(4, Qt::Horizontal, "Eliminated");
 
     }
-
+    /**
+     * @brief getWordBuilderMakeTable
+     * @param model
+     */
     void getWordBuilderMakeTable(QSqlQueryModel* model){
         model->setQuery("SELECT user_login, level, exp, build_word "
                         "FROM WordBuilder ORDER BY build_word DESC;");
@@ -136,6 +161,10 @@ public:
         model->setHeaderData(3, Qt::Horizontal, "Word Built");
     }
 
+    /**
+     * @brief getChallenger
+     * @param loginInfo
+     */
     auto getChallenger(const LoginInfo &loginInfo){
         Challenger c;
         c.usr = loginInfo.usr;
