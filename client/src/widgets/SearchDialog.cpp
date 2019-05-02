@@ -1,118 +1,162 @@
-#include <QStandardItemModel>
-#include <QObject>
+/*
+ * @Author: Nihil Eon
+ * @Date: 2019-05-01 20:16:51
+ * @Last Modified by:   Nihil Eon
+ * @Last Modified time: 2019-05-01 20:16:51
+ */
 #include <QDesktopWidget>
-#include <qtmaterialdialog.h>
 #include <QLabel>
+#include <QObject>
+#include <QStandardItemModel>
+#include <qtmaterialdialog.h>
+#include "SearchDialog.h"
 #include "ui/SearchDialog_ui.h"
 #include "ui/materialmessagebox.h"
-#include "SearchDialog.h"
 
-SearchDialog::SearchDialog(QWidget* parent):QDialog (parent), ui(new Ui::SearchDialogUi),model(new QStandardItemModel) {
+
+SearchDialog::SearchDialog(QWidget *parent)
+    : QDialog(parent), ui(new Ui::SearchDialogUi), model(new QSqlQueryModel),
+      msg(new MaterialMessageBox(this)) {
     initDialog();
-    connect(ui->backPushButton, &QPushButton::clicked, this, &SearchDialog::showMainWindow);
-    connect(ui->searchPushButton, &QPushButton::clicked,this, &SearchDialog::search);
+    connect(ui->backPushButton, &QPushButton::clicked, this,
+            &SearchDialog::showMainWindow);
+    connect(ui->searchPushButton, &QPushButton::clicked, this,
+            &SearchDialog::search);
+    connect(ui->challengerRadioButton, &QtMaterialRadioButton::toggled, this,
+            &SearchDialog::refreshFilterComboBox);
+    connect(ui->wordRadioButton, &QtMaterialRadioButton::toggled, this,
+            &SearchDialog::refreshFilterComboBox);
 }
 
-void SearchDialog::initDialog(){
+void SearchDialog::initDialog() {
     ui->setupUi(this);
+    QDesktopWidget *desktop = QApplication::desktop();
+    move((desktop->width() - this->width()) / 2,
+         (desktop->height() - this->height()) / 2);
     QPalette palette(this->palette());
     palette.setColor(QPalette::Background, Qt::white);
     this->setPalette(palette);
-    QDesktopWidget* desktop = QApplication::desktop();
-    move((desktop->width()- this->width())/2, (desktop->height() - this->height())/2);
 
-    ui->userLineEdit->setLabel("username");
+    ui->searchLineEdit->setLabel("username");
     ui->challengerRadioButton->setChecked(true);
-    ui->userTableView->setStyleSheet("border: none;background:white;"
-                                     "QTableCornerButton::section{border: none;background:white;}"
-                                     "QHeaderView{ border: none; background:white; }"
-                                     );
-    ui->userTableView->horizontalHeader()->setStyleSheet("QHeaderView::section {"
-                                                         " border: none;background-color:#ffffff;}");
-    ui->userTableView->verticalHeader()->setStyleSheet("QHeaderView::section {"
-                                                       " border: none;background-color:#ffffff;}");
+    ui->userTableView->setStyleSheet(
+        "border: none;background:white;"
+        "QTableCornerButton::section{border: none;background:white;}"
+        "QHeaderView{ border: none; background:white; }");
+    ui->userTableView->horizontalHeader()->setStyleSheet(
+        "QHeaderView::section {"
+        " border: none;background-color:#ffffff;}");
+    ui->userTableView->verticalHeader()->setStyleSheet(
+        "QHeaderView::section {"
+        " border: none;background-color:#ffffff;}");
     ui->userTableView->verticalHeader()->hide();
     ui->userTableView->horizontalHeader()->setDefaultSectionSize(140);
     ui->userTableView->verticalHeader()->setDefaultSectionSize(40);
     ui->userTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->userTableView->setSelectionMode(QAbstractItemView::NoSelection);
     ui->userTableView->setDragDropMode(QAbstractItemView::NoDragDrop);
+    ui->userTableView->setSortingEnabled(true);
     ui->userTableView->setUpdatesEnabled(true);
     ui->userTableView->setShowGrid(false);
-    ui->userTableView->setModel(model);
-    userType = CHALLENGER;
-    for(int i=0;i<4;i++)
-        for(int j=0;j<2;j++)
-            model->setItem(i,j, new QStandardItem());
-    QFont ft;
-    ft.setPointSize(14);
-    for(int i=0;i<4;i++){
-        model->item(i,0) ->setTextAlignment(Qt::AlignCenter);
-        model->item(i,1) ->setTextAlignment(Qt::AlignCenter);
-        model->item(i,0)->setFont(ft);
-        model->item(i,1)->setFont(ft);
+    ui->userTableView->horizontalHeader()->setSectionResizeMode(
+        QHeaderView::Stretch);
+    QSortFilterProxyModel *proxy = new QSortFilterProxyModel(this);
+    proxy->setSourceModel(model);
+    ui->userTableView->setModel(proxy);
+
+    ui->wordFilterComboBox->setStyleSheet(
+        "QComboBox {border: 1px solid gray;border-radius: 3px;padding: 1px 2px 1px 2px;min-width: 9em;}"
+        "QComboBox::drop-down {subcontrol-origin: padding;subcontrol-position: top "
+        "right;width: 20px;"
+        "border-left-width: 1px;border-left-color: white;border-left-style:f;"
+        "border-top-right-radius: 3px;"
+        "border-bottom-right-radius: 3px;}");
+    ui->wordFilterComboBox->addItem("Username");
+    ui->wordFilterComboBox->addItem("Level");
+    ui->wordFilterComboBox->addItem("Exp");
+    ui->wordFilterComboBox->addItem("Word Build");
+
+    ui->challengerFilterComboBox->setStyleSheet(
+        "QComboBox {border: 1px solid gray;border-radius: 3px;padding: 1px 2px 1px 2px;min-width: 9em;}"
+        "QComboBox::drop-down {subcontrol-origin: padding;subcontrol-position: top "
+        "right;width: 20px;"
+        "border-left-width: 1px;border-left-color: white;border-left-style:f;"
+        "border-top-right-radius: 3px;"
+        "border-bottom-right-radius: 3px;}");
+    ui->challengerFilterComboBox->addItem("Username");
+    ui->challengerFilterComboBox->addItem("Level");
+    ui->challengerFilterComboBox->addItem("Exp");
+    ui->challengerFilterComboBox->addItem("Max Passed");
+    ui->challengerFilterComboBox->addItem("Eliminated");
+    ui->challengerFilterComboBox->show();
+    ui->wordFilterComboBox->hide();
+}
+
+void SearchDialog::refreshFilterComboBox() {
+    if (ui->wordRadioButton->isChecked()) {
+        ui->wordFilterComboBox->show();
+        ui->challengerFilterComboBox->hide();
+    } else if (ui->challengerRadioButton->isChecked()) {
+        ui->challengerFilterComboBox->show();
+        ui->wordFilterComboBox->hide();
     }
 }
 
-SearchDialog::~SearchDialog(){
+SearchDialog::~SearchDialog() {
     delete ui;
     delete model;
 }
-void SearchDialog::showMainWindow()
-{
+void SearchDialog::showMainWindow() {
     this->hide();
     emit toMainWindow();
 }
 
-void SearchDialog::searchWordBuilder(){
-    LoginInfo li;
-    li.usr = ui->userLineEdit->text().toStdString();
-    WordBuilder wordBuilder;
-    try{
-        wordBuilder = User::instance().getWordBuilder(li);
-    }catch(QSqlError &e){
-        MaterialMessageBox *msg = new MaterialMessageBox(this);
-        msg->setText("Not Found");
-        msg->show();
-        return;
+void SearchDialog::searchWordBuilder() {
+    std::string searchType;
+    switch (ui->wordFilterComboBox->currentIndex()) {
+    case 0:
+        searchType = "user_login";
+        break;
+    case 1:
+        searchType = "level";
+        break;
+    case 2:
+        searchType = "exp";
+        break;
+    case 3:
+        searchType = "build_word";
+        break;
     }
-    model->item(0,0)->setText("Username");
-    model->item(0,1)->setText(QString::fromStdString(wordBuilder.usr));
-    //level, exp, build_word
-    model->item(1,0)->setText("level");
-    model->item(1,1)->setText(QString::number(wordBuilder.level));
-    model->item(2,0)->setText("exp");
-    model->item(2,1)->setText(QString::number(wordBuilder.exp));
-    model->item(3,0)->setText("num of build");
-    model->item(3,1)->setText(QString::number(wordBuilder.build_word));
-}
-void SearchDialog::searchChallenger(){
-    LoginInfo li;
-    li.usr = ui->userLineEdit->text().toStdString();
-    Challenger challenger;
-    try {
-        challenger  = User::instance().getChallenger(li);
-    } catch (QSqlError &e) {
-        MaterialMessageBox *msg = new MaterialMessageBox(this);
-        msg->setText("Not Found");
-        msg->show();
-        return;
-    }
-    model->item(0,0)->setText("Username");
-    model->item(0,1)->setText(QString::fromStdString(challenger.usr));
-    //level, exp, card_pass, card_fail, word_eliminate
-    model->item(1,0)->setText("level");
-    model->item(1,1)->setText(QString::number(challenger.level));
-    model->item(2,0)->setText("exp");
-    model->item(2,1)->setText(QString::number(challenger.exp));
-    model->item(3,0)->setText("max card");
-    model->item(3,1)->setText(QString::number(challenger.card_pass));
+    User::instance().getSearchWordBuilderMakeTable(
+        model, searchType, ui->searchLineEdit->text().toStdString());
 }
 
-void SearchDialog::search(){
-    if(ui->wordRadioButton->isChecked()){
+void SearchDialog::searchChallenger() {
+    std::string searchType;
+    switch (ui->challengerFilterComboBox->currentIndex()) {
+    case 0:
+        searchType = "user_login";
+        break;
+    case 1:
+        searchType = "level";
+        break;
+    case 2:
+        searchType = "exp";
+        break;
+    case 3:
+        searchType = "card_pass";
+        break;
+    case 4:
+        searchType = "word_eliminate";
+    }
+    User::instance().getSearchChallengerMakeTable(
+        model, searchType, ui->searchLineEdit->text().toStdString());
+}
+
+void SearchDialog::search() {
+    if (ui->wordRadioButton->isChecked()) {
         searchWordBuilder();
-    }else if(ui->challengerRadioButton->isChecked()){
+    } else if (ui->challengerRadioButton->isChecked()) {
         searchChallenger();
     }
 }

@@ -131,17 +131,9 @@ void GameDialog::checkCorrect(){
 
 GameDialog::CardInfo GameDialog::getCardPassInfo(int card){
     CardInfo ci;
-    auto passWordNum = [&](int card){double temp=1.2; for(int i=1;i<card;i++) temp*=1.2; return static_cast<int>(temp);};
-    ci.cardPassWordNum = passWordNum(card);
-    auto time = [&](int card){
-        if(card < 3) return 5;
-        else if(card<6) return 4;
-        else if(card<9) return 3;
-        else if(card<11) return 2;
-        else return 1;};
-    ci.wordDisplayTime = time(card);
-    auto exp = [&](int card){double temp=1.7; for(int i=1;i<card;i++) temp*=1.7; return static_cast<int>(temp);};
-    ci.exp = exp(card);
+    ci.cardPassWordNum = 1;
+    ci.wordDisplayTime = 4;
+    ci.exp = 3*card;
     return ci;
 }
 
