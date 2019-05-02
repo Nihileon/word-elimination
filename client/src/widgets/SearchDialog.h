@@ -52,7 +52,8 @@ private slots:
     //public:
 private:
     Ui::SearchDialogUi* ui; /// ui
-    QStandardItemModel *model; /// 表格模型
+    //    QStandardItemModel *model; // 表格模型
+    QSqlQueryModel *model; ///sqlModel
     MaterialMessageBox *msg; /// 消息窗口
     /**
      * @brief 用户类型
@@ -67,6 +68,10 @@ private:
      *
      */
     void initDialog();
+    /**
+     * @brief refreshFilterComboBox
+     */
+    void refreshFilterComboBox();
     /**
      * @brief 搜索玩家, 并在表格中显示
      *

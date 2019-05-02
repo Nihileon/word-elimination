@@ -22,23 +22,27 @@ LeaderboardDialog::LeaderboardDialog(QWidget *parent) :
     palette.setColor(QPalette::Background, Qt::white);
     this->setPalette(palette);
 
-    ui->leaderboardTableView->setStyleSheet("border: none;background:white;"
-                                            "QTableCornerButton::section{border: none;background:white;}"
-                                            "QHeaderView{ border: none; background:white; }"
-                                            );
-    ui->leaderboardTableView->horizontalHeader()->setStyleSheet("QHeaderView::section {"
-                                                                " border: none;background-color:#ffffff;}");
-    ui->leaderboardTableView->verticalHeader()->setStyleSheet("QHeaderView::section {"
-                                                              " border: none;background-color:#ffffff;}");
-    ui->leaderboardTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    ui->leaderboardTableView->setStyleSheet(
+        "border: none;background:white;"
+        "QTableCornerButton::section{border: none;background:white;}"
+        "QHeaderView{ border: none; background:white; }");
+    ui->leaderboardTableView->horizontalHeader()->setStyleSheet(
+        "QHeaderView::section {"
+        " border: none;background-color:#ffffff;}");
+    ui->leaderboardTableView->verticalHeader()->setStyleSheet(
+        "QHeaderView::section {"
+        " border: none;background-color:#ffffff;}");
+    ui->leaderboardTableView->horizontalHeader()->setSectionResizeMode(
+        QHeaderView::ResizeToContents);
     ui->leaderboardTableView->verticalHeader()->hide();
-    ui->leaderboardTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->leaderboardTableView->setEditTriggers(
+        QAbstractItemView::NoEditTriggers);
     ui->leaderboardTableView->setSelectionMode(QAbstractItemView::NoSelection);
     ui->leaderboardTableView->setDragDropMode(QAbstractItemView::NoDragDrop);
     ui->leaderboardTableView->setSortingEnabled(true);
     ui->leaderboardTableView->setShowGrid(false);
     ui->leaderboardTableView->horizontalHeader()->setSectionResizeMode(
-                QHeaderView::Stretch);
+        QHeaderView::Stretch);
     userType = CHALLENGER;
     refreshLeaderboard();
     QSortFilterProxyModel* proxy = new QSortFilterProxyModel(this);

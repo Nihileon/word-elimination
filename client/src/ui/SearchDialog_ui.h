@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
@@ -32,18 +33,20 @@ public:
     QtMaterialRadioButton *challengerRadioButton;
     QtMaterialRadioButton *wordRadioButton;
     QTableView *userTableView;
-    QtMaterialTextField *userLineEdit;
+    QtMaterialTextField *searchLineEdit;
     QtMaterialRaisedButton *backPushButton;
     QtMaterialRaisedButton *searchPushButton;
+    QComboBox *wordFilterComboBox;
+    QComboBox *challengerFilterComboBox;
 
     void setupUi(QDialog *SearchDialogUi)
     {
         if (SearchDialogUi->objectName().isEmpty())
             SearchDialogUi->setObjectName(QStringLiteral("SearchDialogUi"));
-        SearchDialogUi->resize(500, 400);
+        SearchDialogUi->resize(600, 500);
         layoutWidget = new QWidget(SearchDialogUi);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(100, 70, 281, 41));
+        layoutWidget->setGeometry(QRect(80, 80, 261, 41));
         horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
@@ -59,16 +62,25 @@ public:
 
         userTableView = new QTableView(SearchDialogUi);
         userTableView->setObjectName(QStringLiteral("userTableView"));
-        userTableView->setGeometry(QRect(110, 130, 280, 210));
-        userLineEdit = new QtMaterialTextField(SearchDialogUi);
-        userLineEdit->setObjectName(QStringLiteral("userLineEdit"));
-        userLineEdit->setGeometry(QRect(100, 10, 241, 51));
+        userTableView->setGeometry(QRect(70, 140, 461, 251));
+        userTableView->setStyleSheet(QLatin1String("border: none;background:white;\n"
+"QTableCornerButton::section{border: none;background:white;}\n"
+"QHeaderView{ border: none; background:white; }"));
+        searchLineEdit = new QtMaterialTextField(SearchDialogUi);
+        searchLineEdit->setObjectName(QStringLiteral("searchLineEdit"));
+        searchLineEdit->setGeometry(QRect(120, 10, 241, 51));
         backPushButton = new QtMaterialRaisedButton(SearchDialogUi);
         backPushButton->setObjectName(QStringLiteral("backPushButton"));
-        backPushButton->setGeometry(QRect(130, 340, 211, 41));
+        backPushButton->setGeometry(QRect(190, 430, 211, 41));
         searchPushButton = new QtMaterialRaisedButton(SearchDialogUi);
         searchPushButton->setObjectName(QStringLiteral("searchPushButton"));
-        searchPushButton->setGeometry(QRect(370, 20, 81, 41));
+        searchPushButton->setGeometry(QRect(380, 20, 121, 41));
+        wordFilterComboBox = new QComboBox(SearchDialogUi);
+        wordFilterComboBox->setObjectName(QStringLiteral("wordFilterComboBox"));
+        wordFilterComboBox->setGeometry(QRect(380, 80, 149, 31));
+        challengerFilterComboBox = new QComboBox(SearchDialogUi);
+        challengerFilterComboBox->setObjectName(QStringLiteral("challengerFilterComboBox"));
+        challengerFilterComboBox->setGeometry(QRect(380, 80, 149, 31));
 
         retranslateUi(SearchDialogUi);
 
