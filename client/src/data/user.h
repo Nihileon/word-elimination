@@ -267,11 +267,12 @@ public:
             throw sqlQuery.lastError();
         }
     }
+
     /**
      * @brief getSearchWordBuilderMakeTable
-     * @param model
-     * @param former
-     * @param latter
+     * @param model sql模型
+     * @param former 搜索的类型
+     * @param latter 搜索的值
      */
     void getSearchWordBuilderMakeTable(QSqlQueryModel *model,
                                        std::string former, std::string latter) {
@@ -285,11 +286,12 @@ public:
         model->setHeaderData(2, Qt::Horizontal, "Exp");
         model->setHeaderData(3, Qt::Horizontal, "Word Built");
     }
+
     /**
      * @brief getSearchChallengerMakeTable
-     * @param model
-     * @param former
-     * @param latter
+     * @param model sql模型
+     * @param former 搜索的类型
+     * @param latter 搜索的值
      */
     void getSearchChallengerMakeTable(QSqlQueryModel *model, std::string former,
                                       std::string latter) {

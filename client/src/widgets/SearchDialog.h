@@ -69,16 +69,16 @@ private:
      */
     void initDialog();
     /**
-     * @brief refreshFilterComboBox
+     * @brief 通过radiobutton选择显示出题人或玩家的的combobox
      */
     void refreshFilterComboBox();
     /**
-     * @brief 搜索玩家, 并在表格中显示
+     * @brief 通过属性搜索玩家, 并在表格中显示
      *
      */
     void searchChallenger();
     /**
-     * @brief 搜索出题人, 并在表格中显示
+     * @brief 通过属性搜索出题人, 并在表格中显示
      *
      */
     void searchWordBuilder();
