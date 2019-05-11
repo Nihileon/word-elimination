@@ -16,6 +16,7 @@
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QTableView>
 #include <QtWidgets/QWidget>
 #include <qtmaterialraisedbutton.h>
 #include <qtmaterialtextfield.h>
@@ -30,19 +31,20 @@ public:
     QHBoxLayout *horizontalLayout;
     QtMaterialRaisedButton *backPushButton;
     QtMaterialRaisedButton *confirmPushBotton;
+    QTableView *wordBuildTableView;
 
     void setupUi(QDialog *BuildWordDialogUi)
     {
         if (BuildWordDialogUi->objectName().isEmpty())
             BuildWordDialogUi->setObjectName(QStringLiteral("BuildWordDialogUi"));
-        BuildWordDialogUi->resize(500, 400);
+        BuildWordDialogUi->resize(542, 502);
         BuildWordDialogUi->setSizeGripEnabled(false);
         newWordLineEdit = new QtMaterialTextField(BuildWordDialogUi);
         newWordLineEdit->setObjectName(QStringLiteral("newWordLineEdit"));
-        newWordLineEdit->setGeometry(QRect(120, 150, 261, 51));
+        newWordLineEdit->setGeometry(QRect(130, 270, 261, 51));
         horizontalLayoutWidget = new QWidget(BuildWordDialogUi);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(90, 229, 321, 91));
+        horizontalLayoutWidget->setGeometry(QRect(100, 340, 321, 91));
         horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
@@ -58,6 +60,14 @@ public:
 
         horizontalLayout->addWidget(confirmPushBotton);
 
+        wordBuildTableView = new QTableView(BuildWordDialogUi);
+        wordBuildTableView->setObjectName(QStringLiteral("wordBuildTableView"));
+        wordBuildTableView->setGeometry(QRect(70, 50, 381, 191));
+        wordBuildTableView->setStyleSheet(QLatin1String("border: none;background:white;\n"
+"QTableCornerButton::section{border: none;background:white;}\n"
+"QHeaderView{ border: none; background:white; }"));
+        wordBuildTableView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        wordBuildTableView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
         retranslateUi(BuildWordDialogUi);
 

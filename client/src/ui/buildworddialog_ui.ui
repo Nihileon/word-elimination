@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
-    <height>400</height>
+    <width>542</width>
+    <height>502</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
   <widget class="QtMaterialTextField" name="newWordLineEdit">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>150</y>
+     <x>130</x>
+     <y>270</y>
      <width>261</width>
      <height>51</height>
     </rect>
@@ -29,8 +29,8 @@
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>90</x>
-     <y>229</y>
+     <x>100</x>
+     <y>340</y>
      <width>321</width>
      <height>91</height>
     </rect>
@@ -63,6 +63,27 @@
      </widget>
     </item>
    </layout>
+  </widget>
+  <widget class="QTableView" name="wordBuildTableView">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>50</y>
+     <width>381</width>
+     <height>191</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">border: none;background:white;
+QTableCornerButton::section{border: none;background:white;}
+QHeaderView{ border: none; background:white; }</string>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
+   <property name="horizontalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOff</enum>
+   </property>
   </widget>
  </widget>
  <customwidgets>
