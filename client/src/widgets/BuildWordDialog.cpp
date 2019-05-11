@@ -10,11 +10,10 @@
 #include "ui/materialmessagebox.h"
 #include "BuildWordDialog.h"
 
-BuildWordDialog::BuildWordDialog(QWidget* parent):
-    QDialog (parent),
-    ui(new Ui::BuildWordDialogUi),
-    msg(new MaterialMessageBox(this))
-{
+BuildWordDialog::BuildWordDialog(QWidget *parent)
+    : QDialog(parent), ui(new Ui::BuildWordDialogUi),
+      msg(new MaterialMessageBox(this)),
+      model(new QSqlQueryModel) {
     ui->setupUi(this);
     setWindowTitle(tr("BuildWord"));
     setFixedSize(this->width(), this->height());
@@ -23,6 +22,29 @@ BuildWordDialog::BuildWordDialog(QWidget* parent):
     this->setPalette(palette);
 
     ui->newWordLineEdit->setLabel("Please input your word.");
+    ui->wordBuildTableView->setStyleSheet(
+        "border: none;background:white;"
+        "QTableCornerButton::section{border: none;background:white;}"
+        "QHeaderView{ border: none; background:white; }");
+    ui->wordBuildTableView->horizontalHeader()->setStyleSheet(
+        "QHeaderView::section {"
+        " border: none;background-color:#ffffff;}");
+    ui->wordBuildTableView->verticalHeader()->setStyleSheet(
+        "QHeaderView::section {"
+        " border: none;background-color:#ffffff;}");
+    ui->wordBuildTableView->horizontalHeader()->setSectionResizeMode(
+        QHeaderView::ResizeToContents);
+    ui->wordBuildTableView->verticalHeader()->hide();
+    ui->wordBuildTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->wordBuildTableView->setSelectionMode(QAbstractItemView::NoSelection);
+    ui->wordBuildTableView->setDragDropMode(QAbstractItemView::NoDragDrop);
+    ui->wordBuildTableView->setSortingEnabled(true);
+    ui->wordBuildTableView->setShowGrid(false);
+    ui->wordBuildTableView->horizontalHeader()->setSectionResizeMode(
+        QHeaderView::Stretch);
+    QSortFilterProxyModel* proxy = new QSortFilterProxyModel(this);
+    proxy->setSourceModel(model);
+    ui->wordBuildTableView->setModel(proxy);
 
     connect(ui->backPushButton, &QPushButton::clicked, this,&BuildWordDialog::showMain);
     connect(ui->confirmPushBotton, &QPushButton::clicked, this, &BuildWordDialog::addWord);
@@ -34,6 +56,7 @@ BuildWordDialog::~BuildWordDialog(){
 
 void BuildWordDialog::setWordBuilder(QVariant data){
     this->wordBuilder = data.value<WordBuilder>();
+    Word::instance().getWordMakeTable(model, wordBuilder.usr);
 }
 
 void BuildWordDialog::showMain(){
@@ -62,6 +85,7 @@ void BuildWordDialog::addWord(){
         msg->setText("Your Word is exist! \nPlease input another one.");
         msg->showDialog();
     }
+    Word::instance().getWordMakeTable(model, wordBuilder.usr);
 }
 
 void BuildWordDialog::setLevel(WordBuilder &wb){

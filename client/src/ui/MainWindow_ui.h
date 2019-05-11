@@ -46,6 +46,9 @@ public:
         personalInfoTableView = new QTableView(centralwidget);
         personalInfoTableView->setObjectName(QStringLiteral("personalInfoTableView"));
         personalInfoTableView->setGeometry(QRect(50, 90, 281, 221));
+        personalInfoTableView->setStyleSheet(QLatin1String("border: none;background:white;\n"
+"QTableCornerButton::section{border: none;background:white;}\n"
+"QHeaderView{ border: none; background:white; }"));
         personalInfoTableView->setFrameShape(QFrame::NoFrame);
         personalInfoTableView->setFrameShadow(QFrame::Plain);
         personalInfoTableView->setLineWidth(0);
