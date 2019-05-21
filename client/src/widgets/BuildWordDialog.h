@@ -11,6 +11,7 @@
 #include <QVariant>
 #include <QMessageBox>
 #include <materialmessagebox.h>
+#include <QStandardItemModel>
 #include "data/user.h"
 #include "data/word.h"
 
@@ -64,12 +65,20 @@ public slots:
      * @param data
      */
     void setWordBuilder(QVariant data);
+//    void showThis() {
+//        this->show();
+//        Word::instance().getWordMakeTable(model, wordBuilder.usr);
+//        qDebug() << QString("fuck");
+//        makeTable();
+//    }
 
 private:
     WordBuilder wordBuilder; /// 出题人
     Ui::BuildWordDialogUi *ui; /// ui
     MaterialMessageBox *msg; /// 信息弹框
-    QSqlQueryModel *model;
+    //    QSqlQueryModel *model;
+    QVector<QVector<QString>> model;
+    QStandardItemModel table;
     /**
      * @brief Set the Level object
      * 设置出题人等级
@@ -83,6 +92,7 @@ private:
      *
      */
     void addWord();
+    void makeTable();
 };
 
 #endif // BUILDWORDDIALOG_H

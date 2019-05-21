@@ -14,7 +14,7 @@
 #include <qtmaterialdialog.h>
 
 SearchDialog::SearchDialog(QWidget *parent)
-    : QDialog(parent), ui(new Ui::SearchDialogUi), model(new QSqlQueryModel),
+    : QDialog(parent), ui(new Ui::SearchDialogUi),
       msg(new MaterialMessageBox(this)) {
     initDialog();
     connect(ui->backPushButton, &QPushButton::clicked, this,
@@ -59,9 +59,10 @@ void SearchDialog::initDialog() {
     ui->userTableView->setShowGrid(false);
     ui->userTableView->horizontalHeader()->setSectionResizeMode(
         QHeaderView::Stretch);
-    QSortFilterProxyModel *proxy = new QSortFilterProxyModel(this);
-    proxy->setSourceModel(model);
-    ui->userTableView->setModel(proxy);
+    //    QSortFilterProxyModel *proxy = new QSortFilterProxyModel(this);
+    //    proxy->setSourceModel(model);
+    //    ui->userTableView->setModel(proxy);
+    ui->userTableView->setModel(&table);
 
     ui->wordFilterComboBox->setStyleSheet(
         "QComboBox {border: 1px solid gray;border-radius: 3px;padding: 1px 2px 1px 2px;min-width: 9em;}"
@@ -104,7 +105,6 @@ void SearchDialog::refreshFilterComboBox() {
 
 SearchDialog::~SearchDialog() {
     delete ui;
-    delete model;
 }
 void SearchDialog::showMainWindow() {
     this->hide();
@@ -112,7 +112,6 @@ void SearchDialog::showMainWindow() {
 }
 
 void SearchDialog::searchWordBuilder() {
-    std::string searchType;
     switch (ui->wordFilterComboBox->currentIndex()) {
     case 0:
         searchType = "user_login";
@@ -127,12 +126,10 @@ void SearchDialog::searchWordBuilder() {
         searchType = "build_word";
         break;
     }
-    User::instance().getSearchWordBuilderMakeTable(
-        model, searchType, ui->searchLineEdit->text().toStdString());
+
 }
 
 void SearchDialog::searchChallenger() {
-    std::string searchType;
     switch (ui->challengerFilterComboBox->currentIndex()) {
     case 0:
         searchType = "user_login";
@@ -149,14 +146,47 @@ void SearchDialog::searchChallenger() {
     case 4:
         searchType = "word_eliminate";
     }
-    User::instance().getSearchChallengerMakeTable(
-        model, searchType, ui->searchLineEdit->text().toStdString());
+
 }
 
 void SearchDialog::search() {
+       model.clear();
+       table.clear();
     if (ui->wordRadioButton->isChecked()) {
         searchWordBuilder();
+        table.setColumnCount(4);
+        table.setHeaderData(0, Qt::Horizontal, "Username");
+        table.setHeaderData(1, Qt::Horizontal, "Level");
+        table.setHeaderData(2, Qt::Horizontal, "Exp");
+        table.setHeaderData(3, Qt::Horizontal, "Word Built");
+        qDebug() << "search word builder";
+        User::instance().getSearchWordBuilderMakeTable(
+            model, searchType, ui->searchLineEdit->text().toStdString());
     } else if (ui->challengerRadioButton->isChecked()) {
         searchChallenger();
+        table.setColumnCount(5);
+        table.setHeaderData(0, Qt::Horizontal, "Username");
+        table.setHeaderData(1, Qt::Horizontal, "Level");
+        table.setHeaderData(2, Qt::Horizontal, "Exp");
+        table.setHeaderData(3, Qt::Horizontal, "Max Passed");
+        //        model->setHeaderData(4, Qt::Horizontal, "Card_fail");
+        table.setHeaderData(4, Qt::Horizontal, "Eliminated");
+        qDebug() << "search challenger";
+        User::instance().getSearchChallengerMakeTable(
+            model, searchType, ui->searchLineEdit->text().toStdString());
+    }
+
+    for (int i = 0; i < model.size(); i++) {
+        for (int j = 0; j < model.at(i).size(); j++) {
+            if (j == 0) {
+                table.setItem(i, j, new QStandardItem(model.at(i).at(j)));
+            } else {
+                QStandardItem *item = new QStandardItem;
+                item->setData(QVariant(model.at(i).at(j).toInt()),
+                              Qt::EditRole);
+                table.setItem(i, j, item);
+            }
+        }
     }
 }
+

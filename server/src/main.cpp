@@ -8,7 +8,6 @@ int main(int argc, char *argv[])
     // create MyTcpServer
     // MyTcpServer constructor will create QTcpServer
 
-    MyTcpServer server;
-
+    MyTcpServer::instance().init();
     return a.exec();
 }

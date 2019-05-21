@@ -53,8 +53,11 @@ private slots:
 private:
     Ui::SearchDialogUi* ui; /// ui
     //    QStandardItemModel *model; // 表格模型
-    QSqlQueryModel *model; ///sqlModel
+
+    QVector<QVector<QString>> model;
+    QStandardItemModel table;
     MaterialMessageBox *msg; /// 消息窗口
+    std::string searchType;
     /**
      * @brief 用户类型
      *

@@ -13,7 +13,6 @@
 LeaderboardDialog::LeaderboardDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::LeaderboardDialogUi),/*,reg(new RegisterDialog)*/
-    model(new QSqlQueryModel),
     msg(new MaterialMessageBox(this))
 {
     ui->setupUi(this);
@@ -45,9 +44,10 @@ LeaderboardDialog::LeaderboardDialog(QWidget *parent) :
         QHeaderView::Stretch);
     userType = CHALLENGER;
     refreshLeaderboard();
-    QSortFilterProxyModel* proxy = new QSortFilterProxyModel(this);
-    proxy->setSourceModel(model);
-    ui->leaderboardTableView->setModel(proxy);
+    ui->leaderboardTableView->setModel(&table);
+//    QSortFilterProxyModel* proxy = new QSortFilterProxyModel(this);
+//    proxy->setSourceModel(model);
+//    ui->leaderboardTableView->setModel(proxy);
 
     connect(ui->backPushButton, &QPushButton::clicked, this,&LeaderboardDialog::showMain);
     connect(ui->challengerRadioButton, &QtMaterialRaisedButton::toggled, this, &LeaderboardDialog::refreshChallenger);
@@ -57,7 +57,6 @@ LeaderboardDialog::LeaderboardDialog(QWidget *parent) :
 
 LeaderboardDialog::~LeaderboardDialog(){
     delete  ui;
-    delete model;
 }
 
 void LeaderboardDialog::showMain(){
@@ -71,11 +70,39 @@ void LeaderboardDialog::showThis(){
 }
 
 void LeaderboardDialog::refreshLeaderboard(){
+     model.clear();
+     table.clear();
+     qDebug() << "refresh leaderboard";
     if(userType == CHALLENGER){
         User::instance().getChallengerMakeTable(model);
+        table.setColumnCount(5);
+        table.setHeaderData(0, Qt::Horizontal, "Username");
+        table.setHeaderData(1, Qt::Horizontal, "Level");
+        table.setHeaderData(2, Qt::Horizontal, "Exp");
+        table.setHeaderData(3, Qt::Horizontal, "Max Passed");
+        table.setHeaderData(4, Qt::Horizontal, "Eliminated");
     }else if(userType == WORD_BUILDER){
         User::instance().getWordBuilderMakeTable(model);
+        table.setColumnCount(4);
+        table.setHeaderData(0, Qt::Horizontal, "Username");
+        table.setHeaderData(1, Qt::Horizontal, "Level");
+        table.setHeaderData(2, Qt::Horizontal, "Exp");
+        table.setHeaderData(3, Qt::Horizontal, "Word Built");
     }
+
+    for (int i = 0; i < model.size(); i++) {
+        for (int j = 0; j < model.at(i).size(); j++) {
+            if (j == 0) {
+                table.setItem(i, j, new QStandardItem(model.at(i).at(j)));
+            } else {
+                QStandardItem *item = new QStandardItem;
+                item->setData(QVariant(model.at(i).at(j).toInt()),
+                              Qt::EditRole);
+                table.setItem(i, j, item);
+            }
+        }
+    }
+
 
 }
 

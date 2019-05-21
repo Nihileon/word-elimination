@@ -79,6 +79,7 @@ MainWindow::~MainWindow(){
 
 void MainWindow::setUser(QVariant data){
     loginInfo = data.value<LoginInfo>();
+    qDebug() << "set user";
     if(loginInfo.type == LoginInfo::WORD_BUILDER){
         wordBuilder = User::instance().getWordBuilder(loginInfo);
         initWordBuilderWindow();
@@ -130,24 +131,18 @@ void MainWindow::showLeaderboard(){
 void MainWindow::setChallenger(QVariant data){
     this->challenger = data.value<Challenger>();
     refreshChallengerWindow();
-    try {
         delayMsecSuspend(50);
+        qDebug() << "set challenger";
         User::instance().updateUser(this->challenger);
-    } catch (QSqlError &e) {
-        std::cout << "set Challenger:" << e.text().toStdString()<<std::endl;
-    }
 
 }
 
 void MainWindow::setWordBuilder(QVariant data){
     this->wordBuilder = data.value<WordBuilder>();
     refreshWordBuilderWindow();
-    try {
         delayMsecSuspend(50);
+        qDebug() << "set word builder";
         User::instance().updateUser(this->wordBuilder);
-    } catch (QSqlError &e) {
-        std::cout << "set WordBuilder:" << e.text().toStdString()<<std::endl;
-    }
 
 }
 

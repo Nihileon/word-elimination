@@ -52,14 +52,15 @@ void RegisterDialog::reg(){
     loginInfo.usr = ui->usernameLineEdit->text().toStdString();
     loginInfo.pwd = ui->passwordLineEdit->text().toStdString();
     // \TODO 处理空用户名的问题
-    try {
-        User::instance().insert(loginInfo);
+    qDebug() << "reg";
+    if(User::instance().insert(loginInfo)){
+
         QVariant user;
         user.setValue(loginInfo);
         emit sendUser(user);
         showMainWindow();
 
-    } catch (QSqlError& e) {
+    } else {
 //        MaterialMessageBox *msg = new MaterialMessageBox(this);
         msg->setText("Your username has been used!\n"
                      "Please login or change your username.");

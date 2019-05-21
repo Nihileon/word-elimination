@@ -12,8 +12,7 @@
 
 BuildWordDialog::BuildWordDialog(QWidget *parent)
     : QDialog(parent), ui(new Ui::BuildWordDialogUi),
-      msg(new MaterialMessageBox(this)),
-      model(new QSqlQueryModel) {
+      msg(new MaterialMessageBox(this)){
     ui->setupUi(this);
     setWindowTitle(tr("BuildWord"));
     setFixedSize(this->width(), this->height());
@@ -42,9 +41,9 @@ BuildWordDialog::BuildWordDialog(QWidget *parent)
     ui->wordBuildTableView->setShowGrid(false);
     ui->wordBuildTableView->horizontalHeader()->setSectionResizeMode(
         QHeaderView::Stretch);
-    QSortFilterProxyModel* proxy = new QSortFilterProxyModel(this);
-    proxy->setSourceModel(model);
-    ui->wordBuildTableView->setModel(proxy);
+//    QSortFilterProxyModel* proxy = new QSortFilterProxyModel(this);
+//    proxy->setSourceModel(model);
+//    ui->wordBuildTableView->setModel(proxy);
 
     connect(ui->backPushButton, &QPushButton::clicked, this,&BuildWordDialog::showMain);
     connect(ui->confirmPushBotton, &QPushButton::clicked, this, &BuildWordDialog::addWord);
@@ -56,7 +55,7 @@ BuildWordDialog::~BuildWordDialog(){
 
 void BuildWordDialog::setWordBuilder(QVariant data){
     this->wordBuilder = data.value<WordBuilder>();
-    Word::instance().getWordMakeTable(model, wordBuilder.usr);
+    makeTable();
 }
 
 void BuildWordDialog::showMain(){
@@ -72,20 +71,44 @@ void BuildWordDialog::addWord(){
     w.word = ui->newWordLineEdit->text().toStdString();
     w.len = w.word.length();
     w.builder = wordBuilder.usr;
-    try {
-        Word::instance().insert(w);
+    qDebug() << "add word";
+    if(Word::instance().insert(w)){
         wordBuilder.build_word++;
         wordBuilder.exp += 4;
         this->setLevel(wordBuilder);
 //        MaterialMessageBox *msg = new MaterialMessageBox(this);
         msg->setText("Your have successfully add a word.");
         msg->showDialog();
-    } catch (QSqlError &e) {
+    } else {
 //        MaterialMessageBox *msg = new MaterialMessageBox(this);
         msg->setText("Your Word is exist! \nPlease input another one.");
         msg->showDialog();
     }
+    makeTable();
+}
+
+void BuildWordDialog::makeTable() {
+    model.clear();
+    qDebug() << "make table";
     Word::instance().getWordMakeTable(model, wordBuilder.usr);
+    table.clear();
+    table.setColumnCount(3);
+    table.setHeaderData(0, Qt::Horizontal, "Word");
+    table.setHeaderData(1, Qt::Horizontal, "Fail Time");
+    table.setHeaderData(2, Qt::Horizontal, "Pass Time");
+    for (int i = 0; i < model.size(); i++) {
+        for (int j = 0; j < model.at(i).size(); j++) {
+            if (j == 0) {
+                table.setItem(i, j, new QStandardItem(model.at(i).at(j)));
+            } else {
+                QStandardItem *item = new QStandardItem;
+                item->setData(QVariant(model.at(i).at(j).toInt()),
+                              Qt::EditRole);
+                table.setItem(i, j, item);
+            }
+        }
+    }
+    ui->wordBuildTableView->setModel(&table);
 }
 
 void BuildWordDialog::setLevel(WordBuilder &wb){

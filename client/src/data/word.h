@@ -1,7 +1,8 @@
 #ifndef WORD_H
 #define WORD_H
 
-#include "basic.h"
+#include "../tcpclient.h"
+#include "basicInfo.h"
 #include <QtSql>
 #include <fstream>
 
@@ -9,9 +10,8 @@
  * @brief 单词信息类
  *
  */
-class Word
-{
-  private:
+class Word {
+private:
     //    sqlite::database db;
     static Word *_instance; /// 单词单实例
     //    Word(const string path = "word.db"):db(path.c_str()){}
@@ -21,19 +21,20 @@ class Word
      *
      * @param path 路径
      */
-    Word(const string path = "./word.db")
-    {
-        if (QSqlDatabase::contains("words_connection"))
-            db = QSqlDatabase::database("words_connection");
-        else
-            db = QSqlDatabase::addDatabase("QSQLITE", "words_onnection");
-        db.setDatabaseName(path.c_str());
-        if (!db.open()) {
-            throw db.lastError();
-        }
-    }
+    //    Word(const string path = "./word.db")
+    //    {
+    //        if (QSqlDatabase::contains("words_connection"))
+    //            db = QSqlDatabase::database("words_connection");
+    //        else
+    //            db = QSqlDatabase::addDatabase("QSQLITE", "words_onnection");
+    //        db.setDatabaseName(path.c_str());
+    //        if (!db.open()) {
+    //            throw db.lastError();
+    //        }
+    //    }
+    Word() = default;
 
-  public:
+public:
     /**
      * @brief 获得单实例
      *
@@ -51,21 +52,34 @@ class Word
      *
      * @param wi 单词信息
      */
-    void insert(const WordInfo &wi)
-    {
-        auto query =
-            QString(
-                "INSERT INTO Word (word,builder,len) VALUES ('%1','%2','%3');")
-                .arg(QString::fromStdString(wi.word))
-                .arg(QString::fromStdString(wi.builder))
-                .arg(QString::fromStdString(std::to_string(wi.len)));
-        QSqlQuery sqlQuery("words_connection", db);
-        sqlQuery.prepare(query);
-        if (!sqlQuery.exec()) {
-            throw sqlQuery.lastError();
+    //    void insert(const WordInfo &wi)
+    //    {
+    //        auto query =
+    //            QString(
+    //                "INSERT INTO Word (word,builder,len) VALUES
+    //                ('%1','%2','%3');") .arg(QString::fromStdString(wi.word))
+    //                .arg(QString::fromStdString(wi.builder))
+    //                .arg(QString::fromStdString(std::to_string(wi.len)));
+    //        QSqlQuery sqlQuery("words_connection", db);
+    //        sqlQuery.prepare(query);
+    //        if (!sqlQuery.exec()) {
+    //            throw sqlQuery.lastError();
+    //        }
+    //        //        db << "INSERT INTO Word (word,builder,len) VALUES
+    //        (?,?,?); "
+    //        //           << wi.word << wi.builder << wi.len;
+    //    }
+
+    bool insert(const WordInfo &wi) {
+        string data = "INSERT_WORD|";
+        data.append(wi.word + "," + wi.builder + "," + std::to_string(wi.len));
+        TCPClient::instance().sendMessage(data);
+        QVector<QVector<QString>> result = TCPClient::instance().readMessage();
+        if (result.empty() || result.at(0).at(0) != "INSERT_SUCCEEDED") {
+            qDebug() << "insert failed";
+            return false;
         }
-        //        db << "INSERT INTO Word (word,builder,len) VALUES (?,?,?); "
-        //           << wi.word << wi.builder << wi.len;
+        return true;
     }
 
     /**
@@ -75,23 +89,42 @@ class Word
      * @param max 最大长度
      * @return auto 单词信息
      */
-    auto getWord(int min, int max)
-    {
+    //    auto getWord(int min, int max)
+    //    {
+    //        WordInfo wi;
+    //        QString query = QString("SELECT word, builder, fail_time,
+    //        pass_time "
+    //                                "FROM Word WHERE (len>='%1' and len<=%2) "
+    //                                "ORDER BY RANDOM() LIMIT 1; ")
+    //                            .arg(QString::number(min))
+    //                            .arg(QString::number(max));
+    //        QSqlQuery sqlQuery("words_connection", db);
+    //        sqlQuery.prepare(query);
+    //        if (sqlQuery.exec()) {
+    //            if (sqlQuery.next()) {
+    //                wi.word = sqlQuery.value(0).toString().toStdString();
+    //                wi.builder = sqlQuery.value(1).toString().toStdString();
+    //                wi.fail_time = sqlQuery.value(2).toInt();
+    //                wi.pass_time = sqlQuery.value(3).toInt();
+    //            }
+    //        }
+    //        return wi;
+    //    }
+
+    auto getWord(int min, int max) {
         WordInfo wi;
-        QString query = QString("SELECT word, builder, fail_time, pass_time "
-                                "FROM Word WHERE (len>='%1' and len<=%2) "
-                                "ORDER BY RANDOM() LIMIT 1; ")
-                            .arg(QString::number(min))
-                            .arg(QString::number(max));
-        QSqlQuery sqlQuery("words_connection", db);
-        sqlQuery.prepare(query);
-        if (sqlQuery.exec()) {
-            if (sqlQuery.next()) {
-                wi.word = sqlQuery.value(0).toString().toStdString();
-                wi.builder = sqlQuery.value(1).toString().toStdString();
-                wi.fail_time = sqlQuery.value(2).toInt();
-                wi.pass_time = sqlQuery.value(3).toInt();
-            }
+        string data = "GET_WORD|";
+        data.append(std::to_string(min) + "," + std::to_string(max));
+        TCPClient::instance().sendMessage(data);
+        QVector<QVector<QString>> result = TCPClient::instance().readMessage();
+        if (result.empty() || result.at(0).at(0) != "WORD") {
+            qDebug() << "get w failed";
+        } else {
+            qDebug() << "get w succeeded";
+            wi.word = result.at(1).at(0).toStdString();
+            wi.builder = result.at(1).at(1).toStdString();
+            wi.fail_time = result.at(1).at(2).toInt();
+            wi.pass_time = result.at(1).at(3).toInt();
         }
         return wi;
     }
@@ -102,15 +135,37 @@ class Word
      * @param model 查询模型
      * @param username 要查询的用户名
      */
-    void getWordMakeTable(QSqlQueryModel *model, std::string username)
-    {
-        QString query = QString("SELECT word,fail_time,pass_time "
-                                "FROM Word WHERE builder='%1' ORDER BY ID;")
-                            .arg(QString::fromStdString(username));
-        model->setQuery(query, db);
-        model->setHeaderData(0, Qt::Horizontal, "Word");
-        model->setHeaderData(1, Qt::Horizontal, "Fail Time");
-        model->setHeaderData(2, Qt::Horizontal, "Pass Time");
+    //    void getWordMakeTable(QVector<QVector<QString>> &model, string
+    //    username) {
+    //        QString query = QString("SELECT word,fail_time,pass_time "
+    //                                "FROM Word WHERE builder='%1' ORDER BY
+    //                                ID;")
+    //                            .arg(QString::fromStdString(username));
+    //        QSqlQuery qry("words_connection", db);
+    //        qry.prepare(query);
+    //        if (qry.exec()) {
+    //            while (qry.next()) {
+    //                QVector<QString> line;
+    //                line.push_back(qry.value(0).toString());
+    //                line.push_back(qry.value(1).toString());
+    //                line.push_back(qry.value(2).toString());
+    //                model.push_back(line);
+    //            }
+    //        }
+    //    }
+
+    void getWordMakeTable(QVector<QVector<QString>> &model, string username) {
+        string data = "GET_WORD_TABLE|";
+        data.append(username);
+        TCPClient::instance().sendMessage(data);
+        QVector<QVector<QString>> result = TCPClient::instance().readMessage();
+        if (result.empty() || result.at(0).at(0) != "WORD_TABLE") {
+            qDebug() << "get w table failed";
+        } else {
+            qDebug() << "get w table succeeded";
+            result.erase(result.begin());
+            model = result;
+        }
     }
 
     /**
@@ -118,49 +173,30 @@ class Word
      *
      * @param wordInfo 单词信息
      */
-    void updateWord(WordInfo &wordInfo)
-    {
-        QString query = QString("UPDATE Word "
-                                "SET fail_time='%1', pass_time='%2' "
-                                "WHERE word='%3';")
-                            .arg(wordInfo.fail_time)
-                            .arg(wordInfo.pass_time)
-                            .arg(QString(wordInfo.word.c_str()));
-        QSqlQuery sqlQuery("words_connection", db);
-        sqlQuery.prepare(query);
-        if (!sqlQuery.exec()) {
-            throw sqlQuery.lastError();
-        }
-    }
+    //    void updateWord(WordInfo &worINSERT_SUCCEEDdInfo) {
+    //        QString query = QString("UPDATE Word "
+    //                                "SET fail_time='%1', pass_time='%2' "
+    //                                "WHERE word='%3';")
+    //                            .arg(wordInfo.fail_time)
+    //                            .arg(wordInfo.pass_time)
+    //                            .arg(QString(wordInfo.word.c_str()));
+    //        QSqlQuery sqlQuery("words_connection", db);
+    //        sqlQuery.prepare(query);
+    //        if (!sqlQuery.exec()) {
+    //            throw sqlQuery.lastError();
+    //        }
+    //    }
 
-    /**
-     * @brief 初始化单词, 仅在未建立数据库时使用
-     *
-     */
-    void _initWord()
-    {
-        using namespace std;
-        fstream fp;
-        fp.open("./COCA_20000.txt", ios::in);
-        int count[35] = {0};
-        string s;
-        for (; !fp.eof();) {
-            fp >> s;
-            if (s.length() > 3) {
-                if (count[s.length()]++ < 35) {
-                    try {
-                        auto query = QString("INSERT INTO Word (word,len) "
-                                             "VALUES ('%1','%2');")
-                                         .arg(QString::fromStdString(s))
-                                         .arg(QString::number(s.length()));
-                        QSqlQuery sqlQuery("words_connection", db);
-                        sqlQuery.prepare(query);
-                        sqlQuery.exec();
-                    } catch (QSqlError &e) {
-                        // 插入过慢出现的错误可以忽略
-                    }
-                }
-            }
+    void updateWord(WordInfo &wordInfo) {
+        string data = "UPDATE_WORD|";
+        data.append(std::to_string(wordInfo.fail_time) + "," +
+                    std::to_string(wordInfo.pass_time) + "," + wordInfo.word);
+        TCPClient::instance().sendMessage(data);
+        QVector<QVector<QString>> result = TCPClient::instance().readMessage();
+        if (result.empty() || result.at(0).at(0) != "UPDATE_SUCCEEDED") {
+            qDebug() << "update failed";
+        } else {
+            qDebug() << "update succeeded";
         }
     }
 };

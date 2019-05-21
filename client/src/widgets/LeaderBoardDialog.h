@@ -11,6 +11,7 @@
 #include <QVariant>
 #include <QMessageBox>
 #include <materialmessagebox.h>
+#include <qstandarditemmodel.h>
 #include "data/user.h"
 #include "data/word.h"
 
@@ -64,7 +65,8 @@ private slots:
 
 private:
     Ui::LeaderboardDialogUi* ui; /// ui
-    QSqlQueryModel* model; /// 查询模型
+    QVector<QVector<QString>> model;
+    QStandardItemModel table;
     MaterialMessageBox *msg; /// 消息弹窗
 
     /**

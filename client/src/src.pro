@@ -1,4 +1,4 @@
-QT += core gui widgets sql
+QT += core gui widgets sql network
 TEMPLATE = app
 CONFIG += c++17
 
@@ -29,7 +29,9 @@ FORMS += \
 
 
 HEADERS += \
-    data/basic.h \
+    data/basicInfo.h \
+    data/transformation.h \
+    tcpclient.h \
     data/word.h \
     ui/GameDialog_ui.h \
     ui/LeaderboardDialog_ui.h \
@@ -53,6 +55,7 @@ HEADERS += \
 
 
 SOURCES += \
+    tcpclient.cpp \
     data/words.cpp \
     widgets/LoginDialog.cpp \
     main.cpp \
