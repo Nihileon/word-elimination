@@ -117,8 +117,11 @@ public:
             break;
         }
         data.append(li.usr + "," + li.pwd);
+        qDebug() << "insert user";
         TCPClient::instance().sendMessage(data);
         QVector<QVector<QString>> result = TCPClient::instance().readMessage();
+
+
         if (result.empty() || result.at(0).at(0) != "INSERT_SUCCEEDED") {
             qDebug() << "insert failed";
             return false;
@@ -165,6 +168,7 @@ public:
                         ",");
         }
         data.append(loginInfo.usr + "," + loginInfo.pwd);
+        qDebug() << "is user";
         TCPClient::instance().sendMessage(data);
         QVector<QVector<QString>> result = TCPClient::instance().readMessage();
         if (result.empty() || result.at(0).at(0) != "USER") {
@@ -207,6 +211,7 @@ public:
         wb.usr = loginInfo.usr;
         string data = "GET_WORDBUILDER|";
         data.append(loginInfo.usr);
+        qDebug() << "getWordBuilder";
         TCPClient::instance().sendMessage(data);
         QVector<QVector<QString>> result = TCPClient::instance().readMessage();
         if (result.empty() || result.at(0).at(0) != "WORDBUILDER") {
@@ -258,6 +263,7 @@ public:
 
         string data = "GET_CHALLENGER|";
         data.append(loginInfo.usr);
+        qDebug() << "getchallenger";
         TCPClient::instance().sendMessage(data);
         QVector<QVector<QString>> result = TCPClient::instance().readMessage();
         if (result.empty() || result.at(0).at(0) != "CHALLENGER") {
@@ -298,7 +304,7 @@ public:
 
     void getChallengerMakeTable(QVector<QVector<QString>> &model) {
         string data = "GET_CHALLENGER_TABLE";
-
+        qDebug() << "getchallengertable";
         TCPClient::instance().sendMessage(data);
         QVector<QVector<QString>> result = TCPClient::instance().readMessage();
         if (result.empty() || result.at(0).at(0) != "CHALLENGER_TABLE") {
@@ -316,7 +322,7 @@ public:
      */
     void getWordBuilderMakeTable(QVector<QVector<QString>> &model) {
         string data = "GET_WORDBUILDER_TABLE";
-
+qDebug() << "getwbtable";
         TCPClient::instance().sendMessage(data);
         QVector<QVector<QString>> result = TCPClient::instance().readMessage();
         if (result.empty() || result.at(0).at(0) != "WORDBUILDER_TABLE") {
@@ -358,6 +364,7 @@ public:
         string data = "UPDATE_WORDBUILDER|";
         data.append(std::to_string(wb.level) + "," + std::to_string(wb.exp) +
                     "," + std::to_string(wb.build_word) + "," + wb.usr);
+        qDebug() << "updateuser";
         TCPClient::instance().sendMessage(data);
         QVector<QVector<QString>> result = TCPClient::instance().readMessage();
         if (result.empty() || result.at(0).at(0) != "UPDATE_SUCCEEDED") {
@@ -402,6 +409,7 @@ public:
                     "," + std::to_string(c.card_pass) + "," +
                     std::to_string(c.card_fail) + "," +
                     std::to_string(c.word_eliminate) + "," + c.usr);
+        qDebug() << "update challenger";
         TCPClient::instance().sendMessage(data);
         QVector<QVector<QString>> result = TCPClient::instance().readMessage();
         if (result.empty() || result.at(0).at(0) != "UPDATE_SUCCEEDED") {
@@ -442,6 +450,7 @@ public:
                                        std::string former, std::string latter) {
         string data = "GET_SEARCH_WORDBUILDER|";
         data.append(former + "," + latter);
+        qDebug() << "getsearchwbtable";
         TCPClient::instance().sendMessage(data);
         QVector<QVector<QString>> result = TCPClient::instance().readMessage();
         if (result.empty() || result.at(0).at(0) != "SEARCH_WORDBUILDER") {
@@ -487,6 +496,7 @@ public:
                                       std::string former, std::string latter) {
         string data = "GET_SEARCH_CHALLENGER|";
         data.append(former + "," + latter);
+        qDebug() << "getsearchchallengertable";
         TCPClient::instance().sendMessage(data);
         QVector<QVector<QString>> result = TCPClient::instance().readMessage();
         if (result.empty() || result.at(0).at(0) != "SEARCH_CHALLENGER") {

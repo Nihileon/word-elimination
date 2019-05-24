@@ -22,6 +22,7 @@ FORMS += \
     ui/leaderboarddialog_ui.ui \
     ui/logindialog_ui.ui \
     ui/mainwindow.ui \
+    ui/multiplayergame.ui \
     ui/registerdialog_ui.ui \
     ui/buildworddialog_ui.ui \
     ui/searchdialog_ui.ui

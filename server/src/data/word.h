@@ -78,7 +78,7 @@ class Word
     auto getWord(int min, int max)
     {
         WordInfo wi;
-        QString query = QString("SELECT word, builder, fail_time, pass_time "
+        QString query = QString("SELECT word, builder, fail_time, pass_time, len "
                                 "FROM Word WHERE (len>='%1' and len<=%2) "
                                 "ORDER BY RANDOM() LIMIT 1; ")
                             .arg(QString::number(min))
@@ -91,6 +91,7 @@ class Word
                 wi.builder = sqlQuery.value(1).toString().toStdString();
                 wi.fail_time = sqlQuery.value(2).toInt();
                 wi.pass_time = sqlQuery.value(3).toInt();
+                wi.len = sqlQuery.value(4).toInt();
             }
         }
         return wi;

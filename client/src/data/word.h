@@ -73,6 +73,7 @@ public:
     bool insert(const WordInfo &wi) {
         string data = "INSERT_WORD|";
         data.append(wi.word + "," + wi.builder + "," + std::to_string(wi.len));
+        qDebug() << "insert word";
         TCPClient::instance().sendMessage(data);
         QVector<QVector<QString>> result = TCPClient::instance().readMessage();
         if (result.empty() || result.at(0).at(0) != "INSERT_SUCCEEDED") {
@@ -115,6 +116,7 @@ public:
         WordInfo wi;
         string data = "GET_WORD|";
         data.append(std::to_string(min) + "," + std::to_string(max));
+        qDebug() << "get word";
         TCPClient::instance().sendMessage(data);
         QVector<QVector<QString>> result = TCPClient::instance().readMessage();
         if (result.empty() || result.at(0).at(0) != "WORD") {
@@ -125,6 +127,7 @@ public:
             wi.builder = result.at(1).at(1).toStdString();
             wi.fail_time = result.at(1).at(2).toInt();
             wi.pass_time = result.at(1).at(3).toInt();
+            wi.len = result.at(1).at(4).toInt();
         }
         return wi;
     }
@@ -157,6 +160,7 @@ public:
     void getWordMakeTable(QVector<QVector<QString>> &model, string username) {
         string data = "GET_WORD_TABLE|";
         data.append(username);
+        qDebug() << "getwordtable";
         TCPClient::instance().sendMessage(data);
         QVector<QVector<QString>> result = TCPClient::instance().readMessage();
         if (result.empty() || result.at(0).at(0) != "WORD_TABLE") {
@@ -191,6 +195,7 @@ public:
         string data = "UPDATE_WORD|";
         data.append(std::to_string(wordInfo.fail_time) + "," +
                     std::to_string(wordInfo.pass_time) + "," + wordInfo.word);
+        qDebug() << "update word";
         TCPClient::instance().sendMessage(data);
         QVector<QVector<QString>> result = TCPClient::instance().readMessage();
         if (result.empty() || result.at(0).at(0) != "UPDATE_SUCCEEDED") {

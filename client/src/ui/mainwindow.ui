@@ -17,10 +17,10 @@
    <widget class="QTableView" name="personalInfoTableView">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>90</y>
-      <width>281</width>
-      <height>221</height>
+      <x>30</x>
+      <y>30</y>
+      <width>301</width>
+      <height>141</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -113,6 +113,36 @@ QHeaderView{ border: none; background:white; }</string>
     </property>
     <property name="text">
      <string>search</string>
+    </property>
+   </widget>
+   <widget class="QTableView" name="currentOnlineTableView">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>200</y>
+      <width>301</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border: none;background:white;
+QTableCornerButton::section{border: none;background:white;}
+QHeaderView{ border: none; background:white; }</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <property name="lineWidth">
+     <number>0</number>
+    </property>
+    <property name="showGrid">
+     <bool>false</bool>
+    </property>
+    <property name="gridStyle">
+     <enum>Qt::DotLine</enum>
     </property>
    </widget>
   </widget>

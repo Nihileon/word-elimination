@@ -1,4 +1,4 @@
-QT += core network sql
+    QT += core network sql
 QT -= gui
 CONFIG += c++17
 
@@ -12,7 +12,8 @@ SOURCES += \
     data/user.cpp \
     data/words.cpp \
     main.cpp \
-    mytcpserver.cpp
+    mysocket.cpp \
+    mytcpserver.cpp \
 
 
 HEADERS += \
@@ -20,4 +21,5 @@ HEADERS += \
     data/basic.h \
     data/user.h \
     data/word.h \
-    mytcpserver.h
+    mysocket.h \
+    mytcpserver.h \

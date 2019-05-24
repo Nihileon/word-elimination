@@ -63,7 +63,8 @@ void GameDialog::setCard(int card) { this->card = card; }
 
 int GameDialog::getWordExp() {
     int exp =
-        static_cast<int>(log2(wordInfo.len) * (0.5 * card / (timePerWord + 1)));
+        static_cast<int>(log2(wordInfo.len+1) * (0.5 * card / (timePerWord + 1)));
+    qDebug() << wordInfo.len;
     if (exp < 0)
         throw "getWordExp overflow";
     return exp;
@@ -108,10 +109,11 @@ void GameDialog::gameBegin() {
 }
 
 void GameDialog::nextWord(int len) {
+    qDebug() << "4";
     ui->wordTextBrowser->show();
     ui->wordLineEdit->clear();
     ui->wordLineEdit->setDisabled(true);
-
+    qDebug() << "next word";
     wordInfo = Word::instance().getWord(len - 3, len);
     string tr = "<center><big><font size=14>" + wordInfo.word +
         "</big></font></center>";
@@ -137,14 +139,18 @@ void GameDialog::checkCorrect() {
         delayMsecSuspend(50);
         qDebug() << "check correct";
         Word::instance().updateWord(wordInfo);
+        qDebug() << "1";
         challenger.word_eliminate++;
+        qDebug() << "2";
         challenger.exp += getWordExp();
         cardInfo.cardPassWordNum--;
         if (cardInfo.cardPassWordNum <= 0) {
             card++;
             challenger.exp += cardInfo.exp;
+
             setCardInfo();
         }
+        qDebug() << "3";
         nextWord(cardInfo.wordLen);
     } else {
         gameOver();
@@ -203,7 +209,7 @@ GameDialog::CardInfo GameDialog::getCardPassInfo(int card) {
 
 void GameDialog::setLevel() {
     challenger.level =
-        static_cast<int>(log(static_cast<double>(challenger.exp)) / log(1.3));
+        static_cast<int>(log(static_cast<double>(challenger.exp)+1) / log(1.3));
 }
 
 void GameDialog::setLocalChallenger() {
