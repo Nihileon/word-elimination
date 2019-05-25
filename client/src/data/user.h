@@ -1,11 +1,4 @@
-/*
- * @Author: Nihil Eon
- * @Date: 2019-05-01 18:13:25
- * @Last Modified by: Nihil Eon
- * @Last Modified time: 2019-05-01 18:39:18
- */
-#ifndef LOGIN_H
-#define LOGIN_H
+#pragma once
 
 #include "../tcpclient.h"
 #include "basicInfo.h"
@@ -509,4 +502,3 @@ qDebug() << "getwbtable";
     }
 };
 
-#endif // LOGIN_H

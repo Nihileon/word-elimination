@@ -76,9 +76,8 @@ private:
     WordBuilder wordBuilder; /// 出题人
     Ui::BuildWordDialogUi *ui; /// ui
     MaterialMessageBox *msg; /// 信息弹框
-    //    QSqlQueryModel *model;
     QVector<QVector<QString>> model;
-    QStandardItemModel table;
+    QStandardItemModel tableModel;
     /**
      * @brief Set the Level object
      * 设置出题人等级

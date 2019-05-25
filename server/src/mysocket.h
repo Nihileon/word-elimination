@@ -29,7 +29,11 @@ public:
         }
     }
 
+    void setUserName(std::string name) { this->username = name; }
+    std::string getUserName() { return username;
+    }
 private:
+    std::string username;
     qintptr _handle;
     QString userType = "";
 signals:

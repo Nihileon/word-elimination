@@ -44,7 +44,7 @@ LeaderboardDialog::LeaderboardDialog(QWidget *parent) :
         QHeaderView::Stretch);
     userType = CHALLENGER;
     refreshLeaderboard();
-    ui->leaderboardTableView->setModel(&table);
+    ui->leaderboardTableView->setModel(&tableModel);
 //    QSortFilterProxyModel* proxy = new QSortFilterProxyModel(this);
 //    proxy->setSourceModel(model);
 //    ui->leaderboardTableView->setModel(proxy);
@@ -71,34 +71,34 @@ void LeaderboardDialog::showThis(){
 
 void LeaderboardDialog::refreshLeaderboard(){
      model.clear();
-     table.clear();
+     tableModel.clear();
      qDebug() << "refresh leaderboard";
     if(userType == CHALLENGER){
         User::instance().getChallengerMakeTable(model);
-        table.setColumnCount(5);
-        table.setHeaderData(0, Qt::Horizontal, "Username");
-        table.setHeaderData(1, Qt::Horizontal, "Level");
-        table.setHeaderData(2, Qt::Horizontal, "Exp");
-        table.setHeaderData(3, Qt::Horizontal, "Max Passed");
-        table.setHeaderData(4, Qt::Horizontal, "Eliminated");
+        tableModel.setColumnCount(5);
+        tableModel.setHeaderData(0, Qt::Horizontal, "Username");
+        tableModel.setHeaderData(1, Qt::Horizontal, "Level");
+        tableModel.setHeaderData(2, Qt::Horizontal, "Exp");
+        tableModel.setHeaderData(3, Qt::Horizontal, "Max Passed");
+        tableModel.setHeaderData(4, Qt::Horizontal, "Eliminated");
     }else if(userType == WORD_BUILDER){
         User::instance().getWordBuilderMakeTable(model);
-        table.setColumnCount(4);
-        table.setHeaderData(0, Qt::Horizontal, "Username");
-        table.setHeaderData(1, Qt::Horizontal, "Level");
-        table.setHeaderData(2, Qt::Horizontal, "Exp");
-        table.setHeaderData(3, Qt::Horizontal, "Word Built");
+        tableModel.setColumnCount(4);
+        tableModel.setHeaderData(0, Qt::Horizontal, "Username");
+        tableModel.setHeaderData(1, Qt::Horizontal, "Level");
+        tableModel.setHeaderData(2, Qt::Horizontal, "Exp");
+        tableModel.setHeaderData(3, Qt::Horizontal, "Word Built");
     }
 
     for (int i = 0; i < model.size(); i++) {
         for (int j = 0; j < model.at(i).size(); j++) {
             if (j == 0) {
-                table.setItem(i, j, new QStandardItem(model.at(i).at(j)));
+                tableModel.setItem(i, j, new QStandardItem(model.at(i).at(j)));
             } else {
                 QStandardItem *item = new QStandardItem;
                 item->setData(QVariant(model.at(i).at(j).toInt()),
                               Qt::EditRole);
-                table.setItem(i, j, item);
+                tableModel.setItem(i, j, item);
             }
         }
     }

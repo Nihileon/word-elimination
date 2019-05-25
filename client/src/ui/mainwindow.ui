@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>616</width>
-    <height>411</height>
+    <height>432</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,10 +17,10 @@
    <widget class="QTableView" name="personalInfoTableView">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>30</y>
+      <x>50</x>
+      <y>100</y>
       <width>301</width>
-      <height>141</height>
+      <height>241</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -115,35 +115,31 @@ QHeaderView{ border: none; background:white; }</string>
      <string>search</string>
     </property>
    </widget>
-   <widget class="QTableView" name="currentOnlineTableView">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>200</y>
-      <width>301</width>
-      <height>141</height>
+      <x>50</x>
+      <y>50</y>
+      <width>291</width>
+      <height>41</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true">border: none;background:white;
-QTableCornerButton::section{border: none;background:white;}
-QHeaderView{ border: none; background:white; }</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Plain</enum>
-    </property>
-    <property name="lineWidth">
-     <number>0</number>
-    </property>
-    <property name="showGrid">
-     <bool>false</bool>
-    </property>
-    <property name="gridStyle">
-     <enum>Qt::DotLine</enum>
-    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QtMaterialRadioButton" name="singleModeRadioButton">
+       <property name="text">
+        <string>single mode</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QtMaterialRadioButton" name="doubleModeRadioButton">
+       <property name="text">
+        <string>double player mode</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -159,6 +155,11 @@ QHeaderView{ border: none; background:white; }</string>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>QtMaterialRadioButton</class>
+   <extends>QRadioButton</extends>
+   <header location="global">qtmaterialradiobutton.h</header>
+  </customwidget>
   <customwidget>
    <class>QtMaterialRaisedButton</class>
    <extends>QPushButton</extends>

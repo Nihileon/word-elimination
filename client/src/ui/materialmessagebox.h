@@ -15,12 +15,17 @@ public:
         QVBoxLayout *dialogWidgetLayout = new QVBoxLayout;
         dialogWidget->setLayout(dialogWidgetLayout);
         closeButton = new QtMaterialFlatButton("Close");
+        anotherButton  = new QtMaterialFlatButton("Agree");
         qlabel = new QLabel;
         QFont ft;
         ft.setPointSize(14);
         qlabel->setFont(ft);
         dialogWidgetLayout->addWidget(qlabel);
         dialogWidgetLayout->setAlignment(qlabel, Qt::AlignBottom| Qt::AlignCenter);
+        dialogWidgetLayout->addWidget(anotherButton);
+        dialogWidgetLayout->setAlignment(anotherButton,
+                                         Qt::AlignBottom | Qt::AlignCenter);
+        this->anotherButton->hide();
         dialogWidgetLayout->addWidget(closeButton);
         dialogWidgetLayout->setAlignment(closeButton, Qt::AlignBottom| Qt::AlignCenter);
         closeButton->setMaximumWidth(150);
@@ -30,6 +35,7 @@ public:
         dialogWidget->setMinimumWidth(300);
         dialogLayout->addWidget(dialogWidget);
         connect(closeButton, SIGNAL(pressed()), this, SLOT(hideDialog()));
+        connect(anotherButton, SIGNAL(pressed()), this, SLOT(hideDialog()));
 //        this->showDialog();
     }
 
@@ -54,6 +60,7 @@ public:
     QWidget *dialogWidget;
     QLabel* qlabel;
     QtMaterialFlatButton * closeButton;
+    QtMaterialFlatButton * anotherButton;
 };
 
 #endif // MATERIALMESSAGEBOX_H

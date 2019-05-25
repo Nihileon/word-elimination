@@ -18,11 +18,12 @@ PRE_TARGETDEPS = \
     ../../libs/qt-material-widgets/components/$(OBJECTS_DIR)/libcomponents.a
 
 FORMS += \
+    ui/doubleplayerdialog_ui.ui \
     ui/gamedialog_ui.ui \
     ui/leaderboarddialog_ui.ui \
     ui/logindialog_ui.ui \
     ui/mainwindow.ui \
-    ui/multiplayergame.ui \
+    ui/multiplayerMatchdialog_ui.ui \
     ui/registerdialog_ui.ui \
     ui/buildworddialog_ui.ui \
     ui/searchdialog_ui.ui
@@ -40,6 +41,8 @@ HEADERS += \
     ui/MainWindow_ui.h \
     ui/RegisterDialog_ui.h \
     widgets/LoginDialog.h \
+    widgets/doubleplayerdialog.h \
+    widgets/multiplayermatchdialog.h \
     windowmanager.h \
     ui/BuildWordDialog_ui.h \
     widgets/BuildWordDialog.h \
@@ -51,7 +54,9 @@ HEADERS += \
     widgets/RegisterDialog.h \
     widgets/MainWindow.h \
     ui/radiusprogressbar.h \
-    ui/materialmessagebox.h
+    ui/materialmessagebox.h \
+    ui/MultiPlayerMatchDialog_ui.h \
+    ui/DoublePlayerDialog_ui.h
 
 
 
@@ -60,6 +65,8 @@ SOURCES += \
     data/words.cpp \
     widgets/LoginDialog.cpp \
     main.cpp \
+    widgets/doubleplayerdialog.cpp \
+    widgets/multiplayermatchdialog.cpp \
     windowmanager.cpp \
     widgets/BuildWordDialog.cpp \
     widgets/LeaderBoardDialog.cpp \

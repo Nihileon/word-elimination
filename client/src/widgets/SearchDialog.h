@@ -55,7 +55,7 @@ private:
     //    QStandardItemModel *model; // 表格模型
 
     QVector<QVector<QString>> model;
-    QStandardItemModel table;
+    QStandardItemModel tableModel;
     MaterialMessageBox *msg; /// 消息窗口
     std::string searchType;
     /**

@@ -66,7 +66,7 @@ private slots:
 private:
     Ui::LeaderboardDialogUi* ui; /// ui
     QVector<QVector<QString>> model;
-    QStandardItemModel table;
+    QStandardItemModel tableModel;
     MaterialMessageBox *msg; /// 消息弹窗
 
     /**

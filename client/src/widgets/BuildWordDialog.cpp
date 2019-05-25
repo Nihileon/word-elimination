@@ -91,24 +91,24 @@ void BuildWordDialog::makeTable() {
     model.clear();
     qDebug() << "make table";
     Word::instance().getWordMakeTable(model, wordBuilder.usr);
-    table.clear();
-    table.setColumnCount(3);
-    table.setHeaderData(0, Qt::Horizontal, "Word");
-    table.setHeaderData(1, Qt::Horizontal, "Fail Time");
-    table.setHeaderData(2, Qt::Horizontal, "Pass Time");
+    tableModel.clear();
+    tableModel.setColumnCount(3);
+    tableModel.setHeaderData(0, Qt::Horizontal, "Word");
+    tableModel.setHeaderData(1, Qt::Horizontal, "Fail Time");
+    tableModel.setHeaderData(2, Qt::Horizontal, "Pass Time");
     for (int i = 0; i < model.size(); i++) {
         for (int j = 0; j < model.at(i).size(); j++) {
             if (j == 0) {
-                table.setItem(i, j, new QStandardItem(model.at(i).at(j)));
+                tableModel.setItem(i, j, new QStandardItem(model.at(i).at(j)));
             } else {
                 QStandardItem *item = new QStandardItem;
                 item->setData(QVariant(model.at(i).at(j).toInt()),
                               Qt::EditRole);
-                table.setItem(i, j, item);
+                tableModel.setItem(i, j, item);
             }
         }
     }
-    ui->wordBuildTableView->setModel(&table);
+    ui->wordBuildTableView->setModel(&tableModel);
 }
 
 void BuildWordDialog::setLevel(WordBuilder &wb){

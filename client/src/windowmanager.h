@@ -16,6 +16,9 @@
 #include "widgets/BuildWordDialog.h"
 #include "widgets/LeaderBoardDialog.h"
 #include "widgets/SearchDialog.h"
+#include "widgets/doubleplayerdialog.h"
+#include "widgets/multiplayermatchdialog.h"
+#include "tcpclient.h"
 /**
  * @brief 窗口管理者类, 对所有窗口的交互进行管理
  *
@@ -29,7 +32,10 @@ private:
                 g(new GameDialog),
                 b(new BuildWordDialog),
                 lb(new LeaderboardDialog),
-                s(new SearchDialog){}
+                s(new SearchDialog),
+                d(new DoublePlayerDialog),
+                mm(new MultiPlayerMatchDialog)
+                {}
 
 public:
     MainWindow* mw;
@@ -39,8 +45,9 @@ public:
     BuildWordDialog* b;
     LeaderboardDialog* lb;
     SearchDialog* s;
-
-    ~Manager(){
+    DoublePlayerDialog *d;
+    MultiPlayerMatchDialog *mm;
+     ~Manager(){
         delete mw;
         delete l;
         delete r;
@@ -48,6 +55,8 @@ public:
         delete b;
         delete lb;
         delete s;
+        delete d;
+        delete mm;
     }
 
     static Manager& instance();

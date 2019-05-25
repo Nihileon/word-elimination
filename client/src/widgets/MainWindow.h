@@ -44,11 +44,12 @@ signals:
      * @brief 显示游戏窗口的信号
      *
      */
-    void toGame();
+    void toSingleGame();
     /**
      * @brief 显示出题界面的信号
      *
      */
+    void toMatching();
     void toBuildWord();
     /**
      * @brief 显示排行榜的信号
@@ -102,16 +103,24 @@ public slots:
      *
      */
     void closeAll();
+    void refreshAfterDoubleGame() {
+        LoginInfo li;
+        li.usr = challenger.usr;
+        challenger = User::instance().getChallenger(li);
 
+        refreshChallengerWindow();
+        this->show();
+    }
 private slots:
     /**
      * @brief 隐藏当前窗口, 显示游戏界面
      *
      */
-    void showGame();
+    void showSingleGame();
     /**
      * @brief 隐藏当前窗口, 显示搜索界面
      */
+    void showDoubleGame();
     void showSearch();
     /**
      * @brief 隐藏当前窗口, 显示出题界面

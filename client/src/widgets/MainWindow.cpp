@@ -21,11 +21,17 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     initWindow();
 
-    connect(ui->gamePushButton, &QPushButton::clicked, this, &MainWindow::showGame);
+    connect(ui->gamePushButton, &QPushButton::clicked, [&]() {
+        if (ui->singleModeRadioButton->isChecked()) {
+            showSingleGame();
+        } else {
+            showDoubleGame();
+        }
+    });
     connect(ui->buildWordPushButton, &QPushButton::clicked, this, &MainWindow::showBuildWord);
     connect(ui->logoutPushBotton, &QPushButton::clicked, this, &MainWindow::closeAll);
     connect(ui->leaderboardPushBotton, &QPushButton::clicked, this, &MainWindow::showLeaderboard);
-    connect(ui->searchPushButton, &QPushButton::clicked, this,  &MainWindow::showSearch);
+    connect(ui->searchPushButton, &QPushButton::clicked, this,  &MainWindow::showSearch);    
 }
 
 void MainWindow::initWindow(){
@@ -101,14 +107,21 @@ void MainWindow::refreshChallengerWindow(){
     model->item(3,1)->setText(QString::number(challenger.card_pass));
 }
 
-void MainWindow::showGame(){
+void MainWindow::showSingleGame(){
     this->hide();
     QVariant data;
     data.setValue(challenger);
     emit sendChallenger(data);
-    emit toGame();
+    emit toSingleGame();
 }
 
+void MainWindow::showDoubleGame() {
+    this->hide();
+    QVariant data;
+    data.setValue(challenger);
+    emit sendChallenger(data);
+    emit toMatching();
+}
 void MainWindow::showSearch()
 {
     this->hide();
@@ -171,6 +184,8 @@ void MainWindow::initWordBuilderWindow(){
     model->item(3,0)->setText("num of build");
     model->item(3,1)->setText(QString::number(wordBuilder.build_word));
     ui->gamePushButton->hide();
+    ui->singleModeRadioButton->hide();
+    ui->doubleModeRadioButton->hide();
     ui->buildWordPushButton->setDefault(true);
     ui->buildWordPushButton->setShortcut(Qt::Key_Enter);
 }
@@ -188,5 +203,6 @@ void MainWindow::initChallengerWindow(){
     ui->buildWordPushButton->hide();
     ui->gamePushButton->setDefault(true);
     ui->gamePushButton->setShortcut(Qt::Key_Enter);
+    ui->doubleModeRadioButton->click();
 }
 
