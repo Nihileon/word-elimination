@@ -7,7 +7,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = client
 TEMPLATE = subdirs
-SUBDIRS = src ../libs/qt-material-widgets/components
+SUBDIRS = ../libs/qt-material-widgets/components src
 CONFIG += ordered
 
 # The following define makes your compiler emit warnings if you use
@@ -16,5 +16,3 @@ CONFIG += ordered
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
 
-RESOURCES += \
-#    assets.qrc \

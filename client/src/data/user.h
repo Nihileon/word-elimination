@@ -4,7 +4,6 @@
 #include "basicInfo.h"
 #include <QString>
 #include <QVariant>
-#include <QtSql>
 #include <iostream>
 
 /**

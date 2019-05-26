@@ -36,19 +36,18 @@ public:
     RadiusProgressBar *countdownProgressBar;
     QtMaterialTextField *wordLineEdit;
     QTextBrowser *wordTextBrowser;
-    QTextBrowser *cardTextBrowser;
 
     void setupUi(QDialog *DoublePlayerDialog)
     {
         if (DoublePlayerDialog->objectName().isEmpty())
             DoublePlayerDialog->setObjectName(QStringLiteral("DoublePlayerDialog"));
-        DoublePlayerDialog->resize(565, 546);
+        DoublePlayerDialog->resize(565, 445);
         countdownLcdNumber = new QLCDNumber(DoublePlayerDialog);
         countdownLcdNumber->setObjectName(QStringLiteral("countdownLcdNumber"));
-        countdownLcdNumber->setGeometry(QRect(220, 130, 151, 41));
+        countdownLcdNumber->setGeometry(QRect(240, 40, 151, 41));
         horizontalLayoutWidget = new QWidget(DoublePlayerDialog);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(90, 400, 351, 80));
+        horizontalLayoutWidget->setGeometry(QRect(110, 310, 351, 80));
         horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
@@ -66,17 +65,14 @@ public:
 
         countdownProgressBar = new RadiusProgressBar(DoublePlayerDialog);
         countdownProgressBar->setObjectName(QStringLiteral("countdownProgressBar"));
-        countdownProgressBar->setGeometry(QRect(160, 170, 201, 41));
+        countdownProgressBar->setGeometry(QRect(180, 80, 201, 41));
         countdownProgressBar->setValue(24);
         wordLineEdit = new QtMaterialTextField(DoublePlayerDialog);
         wordLineEdit->setObjectName(QStringLiteral("wordLineEdit"));
-        wordLineEdit->setGeometry(QRect(90, 300, 351, 71));
+        wordLineEdit->setGeometry(QRect(110, 210, 351, 71));
         wordTextBrowser = new QTextBrowser(DoublePlayerDialog);
         wordTextBrowser->setObjectName(QStringLiteral("wordTextBrowser"));
-        wordTextBrowser->setGeometry(QRect(100, 220, 331, 61));
-        cardTextBrowser = new QTextBrowser(DoublePlayerDialog);
-        cardTextBrowser->setObjectName(QStringLiteral("cardTextBrowser"));
-        cardTextBrowser->setGeometry(QRect(50, 50, 421, 71));
+        wordTextBrowser->setGeometry(QRect(120, 130, 331, 61));
 
         retranslateUi(DoublePlayerDialog);
 

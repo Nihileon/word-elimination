@@ -7,11 +7,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "data/user.h"
 #include <QMainWindow>
 #include <QStandardItemModel>
 #include <QVariant>
 #include <materialmessagebox.h>
-#include "data/user.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,17 +21,16 @@ class MainWindow;
  * @brief 主窗口类
  *
  */
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
     /**
      * @brief Construct a new Main Window object
      *
-   * 构造时需要初始化ui并连接信号与槽
-   * @param parent 继承上一个窗口
-   */
+     * 构造时需要初始化ui并连接信号与槽
+     * @param parent 继承上一个窗口
+     */
     explicit MainWindow(QWidget *parent = nullptr);
     /**
      * @brief Destroy the Main Window object
@@ -85,7 +84,7 @@ public slots:
      * 接受并设置用户信息
      * @param data
      */
-    void setUser(QVariant data );
+    void setUser(QVariant data);
     /**
      * @brief Set the Challenger object
      * 更新数据库中的玩家信息
@@ -103,14 +102,7 @@ public slots:
      *
      */
     void closeAll();
-    void refreshAfterDoubleGame() {
-        LoginInfo li;
-        li.usr = challenger.usr;
-        challenger = User::instance().getChallenger(li);
-
-        refreshChallengerWindow();
-        this->show();
-    }
+    void refreshAfterDoubleGame();
 private slots:
     /**
      * @brief 隐藏当前窗口, 显示游戏界面
@@ -134,12 +126,12 @@ private slots:
     void showLeaderboard();
 
 private:
-    WordBuilder wordBuilder; /// 出题者信息
-    Challenger challenger; /// 玩家信息
-    LoginInfo loginInfo; /// 登陆信息
-    Ui::MainWindow *ui; /// ui
-    QStandardItemModel* model; /// 表格模型
-    MaterialMessageBox *msg; /// 消息窗口
+    WordBuilder wordBuilder;   /// 出题者信息
+    Challenger challenger;     /// 玩家信息
+    LoginInfo loginInfo;       /// 登陆信息
+    Ui::MainWindow *ui;        /// ui
+    QStandardItemModel *model; /// 表格模型
+    MaterialMessageBox *msg;   /// 消息窗口
 
     /**
      * @brief 更新出题人的窗口

@@ -62,8 +62,8 @@ void GameDialog::delayMsecSuspend(int msec) {
 void GameDialog::setCard(int card) { this->card = card; }
 
 int GameDialog::getWordExp() {
-    int exp =
-        static_cast<int>(log2(wordInfo.len+1) * (0.5 * card / (timePerWord + 1)));
+    int exp = static_cast<int>(log2(wordInfo.len + 1) *
+                               (0.5 * card / (timePerWord + 1)));
     qDebug() << wordInfo.len;
     if (exp < 0)
         throw "getWordExp overflow";
@@ -207,8 +207,8 @@ GameDialog::CardInfo GameDialog::getCardPassInfo(int card) {
 }
 
 void GameDialog::setLevel() {
-    challenger.level =
-        static_cast<int>(log(static_cast<double>(challenger.exp)+1) / log(1.3));
+    challenger.level = static_cast<int>(
+        log(static_cast<double>(challenger.exp) + 1) / log(1.3));
 }
 
 void GameDialog::setLocalChallenger() {

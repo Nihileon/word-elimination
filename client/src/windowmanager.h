@@ -7,47 +7,42 @@
 #ifndef WINDOWMANAGER_H
 #define WINDOWMANAGER_H
 
-#include <QApplication>
-#include <QObject>
+#include "tcpclient.h"
+#include "widgets/BuildWordDialog.h"
+#include "widgets/GameDialog.h"
+#include "widgets/LeaderBoardDialog.h"
 #include "widgets/LoginDialog.h"
 #include "widgets/MainWindow.h"
 #include "widgets/RegisterDialog.h"
-#include "widgets/GameDialog.h"
-#include "widgets/BuildWordDialog.h"
-#include "widgets/LeaderBoardDialog.h"
 #include "widgets/SearchDialog.h"
 #include "widgets/doubleplayerdialog.h"
 #include "widgets/multiplayermatchdialog.h"
-#include "tcpclient.h"
+#include <QApplication>
+#include <QObject>
 /**
  * @brief 窗口管理者类, 对所有窗口的交互进行管理
  *
  */
-class Manager{
+class Manager {
 private:
     static Manager *_instance;
-    Manager():mw(new MainWindow),
-                l(new LoginDialog),
-                r(new RegisterDialog),
-                g(new GameDialog),
-                b(new BuildWordDialog),
-                lb(new LeaderboardDialog),
-                s(new SearchDialog),
-                d(new DoublePlayerDialog),
-                mm(new MultiPlayerMatchDialog)
-                {}
+    Manager()
+        : mw(new MainWindow), l(new LoginDialog), r(new RegisterDialog),
+          g(new GameDialog), b(new BuildWordDialog), lb(new LeaderboardDialog),
+          s(new SearchDialog), d(new DoublePlayerDialog),
+          mm(new MultiPlayerMatchDialog) {}
 
 public:
-    MainWindow* mw;
-    LoginDialog* l;
-    RegisterDialog* r;
-    GameDialog* g;
-    BuildWordDialog* b;
-    LeaderboardDialog* lb;
-    SearchDialog* s;
+    MainWindow *mw;
+    LoginDialog *l;
+    RegisterDialog *r;
+    GameDialog *g;
+    BuildWordDialog *b;
+    LeaderboardDialog *lb;
+    SearchDialog *s;
     DoublePlayerDialog *d;
     MultiPlayerMatchDialog *mm;
-     ~Manager(){
+    ~Manager() {
         delete mw;
         delete l;
         delete r;
@@ -59,7 +54,7 @@ public:
         delete mm;
     }
 
-    static Manager& instance();
+    static Manager &instance();
     static void destroy();
     void init();
 };

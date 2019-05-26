@@ -7,8 +7,7 @@
 #include "windowmanager.h"
 
 Manager *Manager::_instance = nullptr;
-Manager &Manager::instance()
-{
+Manager &Manager::instance() {
     if (_instance == nullptr) {
         _instance = new Manager();
     }
@@ -17,8 +16,7 @@ Manager &Manager::instance()
 
 void Manager::destroy() { delete _instance; }
 
-void Manager::init()
-{
+void Manager::init() {
     l->show();
     r->hide();
     mw->hide();

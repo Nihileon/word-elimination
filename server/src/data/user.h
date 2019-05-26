@@ -204,7 +204,6 @@ public:
         }
     }
 
-
     /**
      * @brief 获得玩家信息
      * @param loginInfo 登录信息
@@ -308,7 +307,6 @@ public:
             }
         }
     }
-
 
     /**
      * @brief getSearchChallengerMakeTable

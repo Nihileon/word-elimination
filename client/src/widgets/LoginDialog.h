@@ -7,11 +7,11 @@
 #ifndef LOGINDIALOG_H
 #define LOGINDIALOG_H
 
-#include <QDialog>
-#include <QObject>
-#include <QMetaObject>
-#include <QVariant>
 #include "RegisterDialog.h"
+#include <QDialog>
+#include <QMetaObject>
+#include <QObject>
+#include <QVariant>
 namespace Ui {
 class LoginDialogUi;
 };
@@ -20,18 +20,17 @@ class LoginDialogUi;
  * @brief 登陆界面类
  *
  */
-class LoginDialog: public QDialog
-{
+class LoginDialog : public QDialog {
     Q_OBJECT
 
 public:
     /**
      * @brief Construct a new Login Dialog object
      *
-   * 构造时需要初始化ui并连接信号与槽
-   * @param parent 继承上一个窗口
-   */
-    explicit LoginDialog(QWidget* parent = nullptr);
+     * 构造时需要初始化ui并连接信号与槽
+     * @param parent 继承上一个窗口
+     */
+    explicit LoginDialog(QWidget *parent = nullptr);
     /**
      * @brief Destroy the Login Dialog object
      *
@@ -58,7 +57,6 @@ signals:
 
 public slots:
 
-
 private slots:
     /**
      * @brief 检查登陆密码是否正确
@@ -78,7 +76,7 @@ private slots:
     void showMainWindow();
 
 private:
-    Ui::LoginDialogUi * ui; /// ui
+    Ui::LoginDialogUi *ui;   /// ui
     MaterialMessageBox *msg; /// 消息弹窗
 };
 

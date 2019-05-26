@@ -7,24 +7,23 @@
 #ifndef BUILDWORDDIALOG_H
 #define BUILDWORDDIALOG_H
 
-#include <QDialog>
-#include <QVariant>
-#include <QMessageBox>
-#include <materialmessagebox.h>
-#include <QStandardItemModel>
 #include "data/user.h"
 #include "data/word.h"
+#include <QDialog>
+#include <QMessageBox>
+#include <QStandardItemModel>
+#include <QVariant>
+#include <materialmessagebox.h>
 
 namespace Ui {
-class  BuildWordDialogUi;
+class BuildWordDialogUi;
 }
 
 /**
  * @brief 出题窗口类
  *
  */
-class BuildWordDialog: public QDialog
-{
+class BuildWordDialog : public QDialog {
     Q_OBJECT
 
 public:
@@ -33,7 +32,7 @@ public:
      * 构造时需要初始化ui并连接信号与槽
      * @param parent 继承上一个窗口
      */
-    explicit BuildWordDialog(QWidget* parent = nullptr);
+    explicit BuildWordDialog(QWidget *parent = nullptr);
     /**
      * @brief Destroy the Build Word Dialog object
      *
@@ -67,9 +66,9 @@ public slots:
     void setWordBuilder(QVariant data);
 
 private:
-    WordBuilder wordBuilder; /// 出题人
+    WordBuilder wordBuilder;   /// 出题人
     Ui::BuildWordDialogUi *ui; /// ui
-    MaterialMessageBox *msg; /// 信息弹框
+    MaterialMessageBox *msg;   /// 信息弹框
     QVector<QVector<QString>> model;
     QStandardItemModel tableModel;
     /**

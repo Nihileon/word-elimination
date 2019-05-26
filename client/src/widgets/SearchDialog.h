@@ -7,25 +7,25 @@
 #ifndef SEARCHDIALOG_H
 #define SEARCHDIALOG_H
 
-#include <QDialog>
-#include <QVariant>
-#include <QStandardItemModel>
-#include <materialmessagebox.h>
 #include "data/user.h"
+#include <QDialog>
+#include <QStandardItemModel>
+#include <QVariant>
+#include <materialmessagebox.h>
 
 namespace Ui {
 class SearchDialogUi;
 }
 
-class SearchDialog: public QDialog{
+class SearchDialog : public QDialog {
     Q_OBJECT
 public:
     /**
      * @brief Construct a new Search Dialog object
      *
-   * 构造时需要初始化ui并连接信号与槽
-   * @param parent 继承上一个窗口
-   */
+     * 构造时需要初始化ui并连接信号与槽
+     * @param parent 继承上一个窗口
+     */
     explicit SearchDialog(QWidget *parent = nullptr);
     /**
      * @brief Destroy the Search Dialog object
@@ -49,10 +49,8 @@ private slots:
      */
     void showMainWindow();
 
-    //public:
 private:
-    Ui::SearchDialogUi* ui; /// ui
-    //    QStandardItemModel *model; // 表格模型
+    Ui::SearchDialogUi *ui; /// ui
 
     QVector<QVector<QString>> model;
     QStandardItemModel tableModel;
@@ -62,9 +60,7 @@ private:
      * @brief 用户类型
      *
      */
-    enum USER_TYPE{
-        CHALLENGER, WORD_BUILDER
-    }userType;
+    enum USER_TYPE { CHALLENGER, WORD_BUILDER } userType;
 
     /**
      * @brief 初始化窗口和表格

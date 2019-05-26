@@ -7,34 +7,32 @@
 #ifndef LEADERBOARDDIALOG_H
 #define LEADERBOARDDIALOG_H
 
-#include <QDialog>
-#include <QVariant>
-#include <QMessageBox>
-#include <materialmessagebox.h>
-#include <qstandarditemmodel.h>
 #include "data/user.h"
 #include "data/word.h"
-
+#include <QDialog>
+#include <QMessageBox>
+#include <QVariant>
+#include <materialmessagebox.h>
+#include <qstandarditemmodel.h>
 
 namespace Ui {
-class  LeaderboardDialogUi;
+class LeaderboardDialogUi;
 }
 
 /**
  * @brief 排行榜类
  *
  */
-class LeaderboardDialog: public QDialog
-{
+class LeaderboardDialog : public QDialog {
     Q_OBJECT
 
 public:
     /**
-   * @brief Construct a new Leaderboard Dialog object
-   *
-   * 构造时需要初始化ui并连接信号与槽
-   * @param parent 继承上一个窗口
-   */
+     * @brief Construct a new Leaderboard Dialog object
+     *
+     * 构造时需要初始化ui并连接信号与槽
+     * @param parent 继承上一个窗口
+     */
     explicit LeaderboardDialog(QWidget *parent = nullptr);
     /**
      * @brief Destroy the Leaderboard Dialog object
@@ -64,7 +62,7 @@ private slots:
     void showMain();
 
 private:
-    Ui::LeaderboardDialogUi* ui; /// ui
+    Ui::LeaderboardDialogUi *ui; /// ui
     QVector<QVector<QString>> model;
     QStandardItemModel tableModel;
     MaterialMessageBox *msg; /// 消息弹窗
@@ -73,9 +71,7 @@ private:
      * @brief 用户类型
      *
      */
-    enum USER_TYPE{
-        CHALLENGER, WORD_BUILDER
-    }userType;
+    enum USER_TYPE { CHALLENGER, WORD_BUILDER } userType;
 
     /**
      * @brief 初始化排行榜

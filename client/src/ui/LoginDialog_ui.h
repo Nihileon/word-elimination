@@ -29,21 +29,21 @@ class Ui_LoginDialogUi
 public:
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
-    QtMaterialTextField *usernameLineEdit;
-    QtMaterialTextField *passwordLineEdit;
     QHBoxLayout *horizontalLayout_2;
     QtMaterialRaisedButton *loginPushBotton;
     QtMaterialRaisedButton *registerPushButton;
+    QtMaterialTextField *passwordLineEdit;
     QHBoxLayout *horizontalLayout;
     QtMaterialRadioButton *wordRadioButton;
     QtMaterialRadioButton *challengerRadioButton;
+    QtMaterialTextField *usernameLineEdit;
 
     void setupUi(QDialog *LoginDialogUi)
     {
         if (LoginDialogUi->objectName().isEmpty())
             LoginDialogUi->setObjectName(QStringLiteral("LoginDialogUi"));
         LoginDialogUi->setWindowModality(Qt::WindowModal);
-        LoginDialogUi->resize(500, 400);
+        LoginDialogUi->resize(511, 400);
 #ifndef QT_NO_STATUSTIP
         LoginDialogUi->setStatusTip(QStringLiteral(""));
 #endif // QT_NO_STATUSTIP
@@ -58,29 +58,6 @@ public:
         gridLayout = new QGridLayout(gridLayoutWidget);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        usernameLineEdit = new QtMaterialTextField(gridLayoutWidget);
-        usernameLineEdit->setObjectName(QStringLiteral("usernameLineEdit"));
-        QSizePolicy sizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
-        sizePolicy.setHorizontalStretch(29);
-        sizePolicy.setVerticalStretch(29);
-        sizePolicy.setHeightForWidth(usernameLineEdit->sizePolicy().hasHeightForWidth());
-        usernameLineEdit->setSizePolicy(sizePolicy);
-        usernameLineEdit->setMinimumSize(QSize(4, 50));
-
-        gridLayout->addWidget(usernameLineEdit, 1, 0, 1, 1);
-
-        passwordLineEdit = new QtMaterialTextField(gridLayoutWidget);
-        passwordLineEdit->setObjectName(QStringLiteral("passwordLineEdit"));
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Maximum);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(passwordLineEdit->sizePolicy().hasHeightForWidth());
-        passwordLineEdit->setSizePolicy(sizePolicy1);
-        passwordLineEdit->setMinimumSize(QSize(0, 50));
-        passwordLineEdit->setAutoFillBackground(true);
-
-        gridLayout->addWidget(passwordLineEdit, 2, 0, 1, 1);
-
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         loginPushBotton = new QtMaterialRaisedButton(gridLayoutWidget);
@@ -98,6 +75,18 @@ public:
 
         gridLayout->addLayout(horizontalLayout_2, 4, 0, 1, 1);
 
+        passwordLineEdit = new QtMaterialTextField(gridLayoutWidget);
+        passwordLineEdit->setObjectName(QStringLiteral("passwordLineEdit"));
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Maximum);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(passwordLineEdit->sizePolicy().hasHeightForWidth());
+        passwordLineEdit->setSizePolicy(sizePolicy);
+        passwordLineEdit->setMinimumSize(QSize(0, 50));
+        passwordLineEdit->setAutoFillBackground(true);
+
+        gridLayout->addWidget(passwordLineEdit, 2, 0, 1, 1);
+
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         wordRadioButton = new QtMaterialRadioButton(gridLayoutWidget);
@@ -112,6 +101,17 @@ public:
 
 
         gridLayout->addLayout(horizontalLayout, 3, 0, 1, 1);
+
+        usernameLineEdit = new QtMaterialTextField(gridLayoutWidget);
+        usernameLineEdit->setObjectName(QStringLiteral("usernameLineEdit"));
+        QSizePolicy sizePolicy1(QSizePolicy::MinimumExpanding, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(29);
+        sizePolicy1.setVerticalStretch(29);
+        sizePolicy1.setHeightForWidth(usernameLineEdit->sizePolicy().hasHeightForWidth());
+        usernameLineEdit->setSizePolicy(sizePolicy1);
+        usernameLineEdit->setMinimumSize(QSize(4, 50));
+
+        gridLayout->addWidget(usernameLineEdit, 1, 0, 1, 1);
 
 
         retranslateUi(LoginDialogUi);

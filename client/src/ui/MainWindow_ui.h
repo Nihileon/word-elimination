@@ -46,12 +46,12 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(616, 432);
+        MainWindow->resize(616, 404);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         personalInfoTableView = new QTableView(centralwidget);
         personalInfoTableView->setObjectName(QStringLiteral("personalInfoTableView"));
-        personalInfoTableView->setGeometry(QRect(50, 100, 301, 241));
+        personalInfoTableView->setGeometry(QRect(50, 110, 301, 241));
         personalInfoTableView->setStyleSheet(QLatin1String("border: none;background:white;\n"
 "QTableCornerButton::section{border: none;background:white;}\n"
 "QHeaderView{ border: none; background:white; }"));
@@ -62,24 +62,24 @@ public:
         personalInfoTableView->setGridStyle(Qt::DotLine);
         gamePushButton = new QtMaterialRaisedButton(centralwidget);
         gamePushButton->setObjectName(QStringLiteral("gamePushButton"));
-        gamePushButton->setGeometry(QRect(370, 70, 191, 40));
+        gamePushButton->setGeometry(QRect(370, 80, 191, 40));
         leaderboardPushBotton = new QtMaterialRaisedButton(centralwidget);
         leaderboardPushBotton->setObjectName(QStringLiteral("leaderboardPushBotton"));
-        leaderboardPushBotton->setGeometry(QRect(370, 210, 191, 40));
+        leaderboardPushBotton->setGeometry(QRect(370, 220, 191, 40));
         leaderboardPushBotton->setCheckable(false);
         leaderboardPushBotton->setFlat(false);
         logoutPushBotton = new QtMaterialRaisedButton(centralwidget);
         logoutPushBotton->setObjectName(QStringLiteral("logoutPushBotton"));
-        logoutPushBotton->setGeometry(QRect(370, 280, 191, 40));
+        logoutPushBotton->setGeometry(QRect(370, 290, 191, 40));
         buildWordPushButton = new QtMaterialRaisedButton(centralwidget);
         buildWordPushButton->setObjectName(QStringLiteral("buildWordPushButton"));
-        buildWordPushButton->setGeometry(QRect(370, 70, 191, 40));
+        buildWordPushButton->setGeometry(QRect(370, 80, 191, 40));
         searchPushButton = new QtMaterialRaisedButton(centralwidget);
         searchPushButton->setObjectName(QStringLiteral("searchPushButton"));
-        searchPushButton->setGeometry(QRect(370, 140, 191, 40));
+        searchPushButton->setGeometry(QRect(370, 150, 191, 40));
         layoutWidget = new QWidget(centralwidget);
         layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
-        layoutWidget->setGeometry(QRect(50, 50, 291, 41));
+        layoutWidget->setGeometry(QRect(50, 60, 291, 41));
         horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
@@ -116,7 +116,7 @@ public:
         buildWordPushButton->setText(QApplication::translate("MainWindow", "build new word", Q_NULLPTR));
         searchPushButton->setText(QApplication::translate("MainWindow", "search", Q_NULLPTR));
         singleModeRadioButton->setText(QApplication::translate("MainWindow", "single mode", Q_NULLPTR));
-        doubleModeRadioButton->setText(QApplication::translate("MainWindow", "double player mode", Q_NULLPTR));
+        doubleModeRadioButton->setText(QApplication::translate("MainWindow", "double mode", Q_NULLPTR));
     } // retranslateUi
 
 };

@@ -15,15 +15,15 @@ namespace Ui {
 class RegisterDialogUi;
 }
 
-class RegisterDialog: public QDialog{
+class RegisterDialog : public QDialog {
     Q_OBJECT
 public:
     /**
      * @brief Construct a new Register Dialog object
      *
-   * 构造时需要初始化ui并连接信号与槽
-   * @param parent 继承上一个窗口
-   */
+     * 构造时需要初始化ui并连接信号与槽
+     * @param parent 继承上一个窗口
+     */
     explicit RegisterDialog(QWidget *parent = nullptr);
     /**
      * @brief Destroy the Register Dialog object
@@ -69,10 +69,10 @@ private slots:
      */
     void showMainWindow();
 
-    //public:
+    // public:
 private:
-    Ui::RegisterDialogUi* ui; /// ui
-    MaterialMessageBox *msg; /// 信息框
+    Ui::RegisterDialogUi *ui; /// ui
+    MaterialMessageBox *msg;  /// 信息框
 };
 
 #endif // REGISTERDIALOG_H

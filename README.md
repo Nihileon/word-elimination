@@ -8,7 +8,9 @@
 
 ### Linux
 
-1. 直接使用qt编译即可
+1. `git submodule init `
+2. qmake
+3. 构建项目即可
 
 ### Windows
 

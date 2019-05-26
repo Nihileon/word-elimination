@@ -42,7 +42,7 @@ public:
     {
         if (RegisterDialogUi->objectName().isEmpty())
             RegisterDialogUi->setObjectName(QStringLiteral("RegisterDialogUi"));
-        RegisterDialogUi->resize(500, 400);
+        RegisterDialogUi->resize(509, 400);
         gridLayoutWidget = new QWidget(RegisterDialogUi);
         gridLayoutWidget->setObjectName(QStringLiteral("gridLayoutWidget"));
         gridLayoutWidget->setGeometry(QRect(60, 120, 393, 231));

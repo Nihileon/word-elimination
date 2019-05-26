@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
+    <width>511</width>
     <height>400</height>
    </rect>
   </property>
@@ -38,41 +38,6 @@
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0">
-     <widget class="QtMaterialTextField" name="usernameLineEdit">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-        <horstretch>29</horstretch>
-        <verstretch>29</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>4</width>
-        <height>50</height>
-       </size>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QtMaterialTextField" name="passwordLineEdit">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>50</height>
-       </size>
-      </property>
-      <property name="autoFillBackground">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
     <item row="4" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
@@ -103,6 +68,25 @@
       </item>
      </layout>
     </item>
+    <item row="2" column="0">
+     <widget class="QtMaterialTextField" name="passwordLineEdit">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
     <item row="3" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
@@ -121,15 +105,26 @@
       </item>
      </layout>
     </item>
+    <item row="1" column="0">
+     <widget class="QtMaterialTextField" name="usernameLineEdit">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+        <horstretch>29</horstretch>
+        <verstretch>29</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>4</width>
+        <height>50</height>
+       </size>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>QtMaterialRadioButton</class>
-   <extends>QRadioButton</extends>
-   <header location="global">qtmaterialradiobutton.h</header>
-  </customwidget>
   <customwidget>
    <class>QtMaterialRaisedButton</class>
    <extends>QPushButton</extends>
@@ -139,6 +134,11 @@
    <class>QtMaterialTextField</class>
    <extends>QLineEdit</extends>
    <header location="global">qtmaterialtextfield.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QtMaterialRadioButton</class>
+   <extends>QRadioButton</extends>
+   <header location="global">qtmaterialradiobutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

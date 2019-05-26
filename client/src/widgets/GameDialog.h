@@ -7,16 +7,16 @@
 #ifndef GAMEDIALOG_H
 #define GAMEDIALOG_H
 
-#include <cmath>
-#include <QDialog>
-#include <QObject>
-#include <QMetaObject>
-#include <QVariant>
-#include <QTimer>
-#include <QMessageBox>
-#include <materialmessagebox.h>
-#include "data/word.h"
 #include "data/user.h"
+#include "data/word.h"
+#include <QDialog>
+#include <QMessageBox>
+#include <QMetaObject>
+#include <QObject>
+#include <QTimer>
+#include <QVariant>
+#include <cmath>
+#include <materialmessagebox.h>
 
 namespace Ui {
 class GameDialogUi;
@@ -26,8 +26,7 @@ class GameDialogUi;
  * @brief 游戏窗口
  *
  */
-class GameDialog : public QDialog
-{
+class GameDialog : public QDialog {
     Q_OBJECT
 
 public:
@@ -37,7 +36,7 @@ public:
      * 构造时需要初始化ui并连接信号与槽
      * @param parent 继承上一个窗口
      */
-    explicit GameDialog(QWidget* parent = nullptr);
+    explicit GameDialog(QWidget *parent = nullptr);
     /**
      * @brief Destroy the Game Dialog object
      *
@@ -89,8 +88,8 @@ private slots:
     /**
      * @brief 检查输入是否有误
      * 检查单词输入的正确性
-     * 如果输入正确则增加单词的通过次数, 更新单词信息, 获取单词经验, 更新用户信息
-     * 否则游戏结束
+     * 如果输入正确则增加单词的通过次数, 更新单词信息, 获取单词经验,
+     * 更新用户信息 否则游戏结束
      */
     void checkCorrect();
     /**
@@ -100,24 +99,24 @@ private slots:
     void getNextWord();
 
 private:
-    Ui::GameDialogUi *ui; /// ui
-    QTimer* qtimer; /// 定时器
+    Ui::GameDialogUi *ui;    /// ui
+    QTimer *qtimer;          /// 定时器
     MaterialMessageBox *msg; /// 交互消息框
-    Challenger challenger; /// 玩家信息
-    int counter; /// 计数器, 用于计算剩余的时间
-    WordInfo wordInfo; /// 单词信息
-    int wordLen = 5; /// 单词长度
+    Challenger challenger;   /// 玩家信息
+    int counter;             /// 计数器, 用于计算剩余的时间
+    WordInfo wordInfo;       /// 单词信息
+    int wordLen = 5;         /// 单词长度
     /**
      * @brief 关卡信息
      *
      */
-    struct CardInfo{
+    struct CardInfo {
         int cardPassWordNum; /// 通过的关卡数
         int wordDisplayTime; /// 该关卡对应的单词的显示时间
-        int exp; /// 通过该关卡能获得的经验
-        int wordLen; ///word length from wordLen-3 to wordLen
-    }cardInfo;
-    int card  = 1; /// 现在的关卡数, 默认为1
+        int exp;             /// 通过该关卡能获得的经验
+        int wordLen;         /// word length from wordLen-3 to wordLen
+    } cardInfo;
+    int card = 1;        /// 现在的关卡数, 默认为1
     int timePerWord = 0; /// 每个单词的显示时间
 
     /**
@@ -152,7 +151,7 @@ private:
      * @param len 获取的单词长度上限, 默认为5
      *
      */
-    void nextWord(int len=5);
+    void nextWord(int len = 5);
     /**
      * @brief 闯关失败时
      * 停止定时器, 更新单词信息, 显示失败对话框, 最后初始化关卡

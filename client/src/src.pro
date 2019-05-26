@@ -1,34 +1,18 @@
-QT += core gui widgets sql network
+QT += core gui widgets network
 TEMPLATE = app
 CONFIG += c++17
 
 TARGET = client
 
 LIBS += \
-    #../../libs/modern-sqlite/libsqlite3.a \
-    ../../libs/qt-material-widgets/components/$(OBJECTS_DIR)/libcomponents.a
+    ../../libs/qt-material-widgets/components/libcomponents.a
 
 INCLUDEPATH += \
-    $$top_srcdir/components/ \
-    ../../libs/modern-sqlite \
     ../../libs/qt-material-widgets/components \
     ./ui
 
 PRE_TARGETDEPS = \
-    ../../libs/qt-material-widgets/components/$(OBJECTS_DIR)/libcomponents.a
-
-FORMS += \
-    ui/doubleplayerdialog_ui.ui \
-    ui/gamedialog_ui.ui \
-    ui/leaderboarddialog_ui.ui \
-    ui/logindialog_ui.ui \
-    ui/mainwindow.ui \
-    ui/multiplayerMatchdialog_ui.ui \
-    ui/registerdialog_ui.ui \
-    ui/buildworddialog_ui.ui \
-    ui/searchdialog_ui.ui
-
-
+    ../../libs/qt-material-widgets/components/libcomponents.a
 
 HEADERS += \
     data/basicInfo.h \
@@ -84,7 +68,3 @@ RESOURCES += \
     ../../libs/qt-material-widgets/components/resources.qrc \
     ./customprogressbar.qrc
 
-unix: CONFIG += link_pkgconfig
-unix: PKGCONFIG += sqlite3
-
-DISTFILES +=

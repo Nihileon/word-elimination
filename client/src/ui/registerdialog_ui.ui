@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
+    <width>509</width>
     <height>400</height>
    </rect>
   </property>
@@ -111,11 +111,6 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>QtMaterialRadioButton</class>
-   <extends>QRadioButton</extends>
-   <header location="global">qtmaterialradiobutton.h</header>
-  </customwidget>
-  <customwidget>
    <class>QtMaterialRaisedButton</class>
    <extends>QPushButton</extends>
    <header location="global">qtmaterialraisedbutton.h</header>
@@ -124,6 +119,11 @@
    <class>QtMaterialTextField</class>
    <extends>QLineEdit</extends>
    <header location="global">qtmaterialtextfield.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QtMaterialRadioButton</class>
+   <extends>QRadioButton</extends>
+   <header location="global">qtmaterialradiobutton.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

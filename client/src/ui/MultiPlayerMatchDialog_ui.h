@@ -17,8 +17,6 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QTableView>
 #include <qtmaterialraisedbutton.h>
-#include "data/user.h"
-#include "data/word.h"
 
 QT_BEGIN_NAMESPACE
 

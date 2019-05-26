@@ -17,10 +17,13 @@ using std::string;
  * @brief 登陆所需的信息
  */
 struct LoginInfo {
-    typedef enum { WORD_BUILDER, CHALLENGER } UserType; /// 用户类型: 出题者和玩家
-    string usr; /// 用户名
+    typedef enum {
+        WORD_BUILDER,
+        CHALLENGER
+    } UserType;    /// 用户类型: 出题者和玩家
+    string usr;    /// 用户名
     UserType type; /// 用户类型
-    string pwd; /// 用户密码
+    string pwd;    /// 用户密码
 };
 
 /**
@@ -31,10 +34,10 @@ struct UserInfo {
         ID = 0;
         usr = "NULL";
     }
-    int ID; /// 用户id
+    int ID;     /// 用户id
     string usr; /// 用户名
-    int level; /// 等级
-    int exp; /// 经验
+    int level;  /// 等级
+    int exp;    /// 经验
 };
 
 /**
@@ -43,8 +46,8 @@ struct UserInfo {
  */
 struct WordBuilder : public UserInfo {
     int build_word; /// 所出的单词数
-    int word_pass; // 暂未使用
-    int word_fail; // 暂未使用
+    int word_pass;  // 暂未使用
+    int word_fail;  // 暂未使用
 };
 
 /**
@@ -52,9 +55,9 @@ struct WordBuilder : public UserInfo {
  *
  */
 struct Challenger : public UserInfo {
-    int currDiff = 0; // 暂未使用
-    int card_pass; /// 通过的关卡
-    int card_fail; // 暂未使用
+    int currDiff = 0;   // 暂未使用
+    int card_pass;      /// 通过的关卡
+    int card_fail;      // 暂未使用
     int word_eliminate; /// 已经消除的单词数
 };
 
@@ -63,13 +66,13 @@ struct Challenger : public UserInfo {
  *
  */
 struct WordInfo {
-    int ID; /// 单词ID
-    string word; /// 单词全拼
-    int user_id; // 暂未使用, 出题人的id
+    int ID;         /// 单词ID
+    string word;    /// 单词全拼
+    int user_id;    // 暂未使用, 出题人的id
     string builder; /// 出题人的用户名
-    int fail_time; /// 该单词的失败次数
-    int pass_time; /// 该单词的通过次数
-    int len; /// 单词长度
+    int fail_time;  /// 该单词的失败次数
+    int pass_time;  /// 该单词的通过次数
+    int len;        /// 单词长度
 };
 
 /**

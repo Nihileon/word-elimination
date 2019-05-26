@@ -4,15 +4,16 @@
  * @Last Modified by: Nihil Eon
  * @Last Modified time: 2019-05-01 19:00:26
  */
-#include <QLabel>
-#include <qtmaterialdialog.h>
+#include "BuildWordDialog.h"
 #include "ui/BuildWordDialog_ui.h"
 #include "ui/materialmessagebox.h"
-#include "BuildWordDialog.h"
+#include <QLabel>
+#include <cmath>
+#include <qtmaterialdialog.h>
 
 BuildWordDialog::BuildWordDialog(QWidget *parent)
     : QDialog(parent), ui(new Ui::BuildWordDialogUi),
-      msg(new MaterialMessageBox(this)){
+      msg(new MaterialMessageBox(this)) {
     ui->setupUi(this);
     setWindowTitle(tr("BuildWord"));
     setFixedSize(this->width(), this->height());
@@ -42,21 +43,20 @@ BuildWordDialog::BuildWordDialog(QWidget *parent)
     ui->wordBuildTableView->horizontalHeader()->setSectionResizeMode(
         QHeaderView::Stretch);
 
-
-    connect(ui->backPushButton, &QPushButton::clicked, this,&BuildWordDialog::showMain);
-    connect(ui->confirmPushBotton, &QPushButton::clicked, this, &BuildWordDialog::addWord);
+    connect(ui->backPushButton, &QPushButton::clicked, this,
+            &BuildWordDialog::showMain);
+    connect(ui->confirmPushBotton, &QPushButton::clicked, this,
+            &BuildWordDialog::addWord);
 }
 
-BuildWordDialog::~BuildWordDialog(){
-    delete ui;
-}
+BuildWordDialog::~BuildWordDialog() { delete ui; }
 
-void BuildWordDialog::setWordBuilder(QVariant data){
+void BuildWordDialog::setWordBuilder(QVariant data) {
     this->wordBuilder = data.value<WordBuilder>();
     makeTable();
 }
 
-void BuildWordDialog::showMain(){
+void BuildWordDialog::showMain() {
     QVariant data;
     data.setValue(wordBuilder);
     emit sendWordBuilder(data);
@@ -64,13 +64,13 @@ void BuildWordDialog::showMain(){
     emit toMain();
 }
 
-void BuildWordDialog::addWord(){
+void BuildWordDialog::addWord() {
     WordInfo w;
     w.word = ui->newWordLineEdit->text().toStdString();
     w.len = w.word.length();
     w.builder = wordBuilder.usr;
     qDebug() << "add word";
-    if(Word::instance().insert(w)){
+    if (Word::instance().insert(w)) {
         wordBuilder.build_word++;
         wordBuilder.exp += 4;
         this->setLevel(wordBuilder);
@@ -107,6 +107,6 @@ void BuildWordDialog::makeTable() {
     ui->wordBuildTableView->setModel(&tableModel);
 }
 
-void BuildWordDialog::setLevel(WordBuilder &wb){
+void BuildWordDialog::setLevel(WordBuilder &wb) {
     wb.level = static_cast<int>(log(static_cast<double>(wb.exp)) / log(1.2));
 }

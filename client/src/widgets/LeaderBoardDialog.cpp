@@ -4,17 +4,16 @@
  * @Last Modified by:   Nihil Eon
  * @Last Modified time: 2019-05-01 20:16:24
  */
+#include "LeaderBoardDialog.h"
+#include "ui/LeaderboardDialog_ui.h"
 #include <QRadioButton>
 #include <qtmaterialradiobutton.h>
 #include <qtmaterialraisedbutton.h>
-#include "ui/LeaderboardDialog_ui.h"
-#include "LeaderBoardDialog.h"
 
-LeaderboardDialog::LeaderboardDialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::LeaderboardDialogUi),/*,reg(new RegisterDialog)*/
-    msg(new MaterialMessageBox(this))
-{
+LeaderboardDialog::LeaderboardDialog(QWidget *parent)
+    : QDialog(parent),
+      ui(new Ui::LeaderboardDialogUi), /*,reg(new RegisterDialog)*/
+      msg(new MaterialMessageBox(this)) {
     ui->setupUi(this);
     setFixedSize(this->width(), this->height());
     QPalette palette(this->palette());
@@ -45,35 +44,35 @@ LeaderboardDialog::LeaderboardDialog(QWidget *parent) :
     userType = CHALLENGER;
     refreshLeaderboard();
     ui->leaderboardTableView->setModel(&tableModel);
-//    QSortFilterProxyModel* proxy = new QSortFilterProxyModel(this);
-//    proxy->setSourceModel(model);
-//    ui->leaderboardTableView->setModel(proxy);
+    //    QSortFilterProxyModel* proxy = new QSortFilterProxyModel(this);
+    //    proxy->setSourceModel(model);
+    //    ui->leaderboardTableView->setModel(proxy);
 
-    connect(ui->backPushButton, &QPushButton::clicked, this,&LeaderboardDialog::showMain);
-    connect(ui->challengerRadioButton, &QtMaterialRaisedButton::toggled, this, &LeaderboardDialog::refreshChallenger);
-    connect(ui->wordRadioButton, &QtMaterialRaisedButton::toggled, this, &LeaderboardDialog::refreshWordBuilder);
-
+    connect(ui->backPushButton, &QPushButton::clicked, this,
+            &LeaderboardDialog::showMain);
+    connect(ui->challengerRadioButton, &QtMaterialRaisedButton::toggled, this,
+            &LeaderboardDialog::refreshChallenger);
+    connect(ui->wordRadioButton, &QtMaterialRaisedButton::toggled, this,
+            &LeaderboardDialog::refreshWordBuilder);
 }
 
-LeaderboardDialog::~LeaderboardDialog(){
-    delete  ui;
-}
+LeaderboardDialog::~LeaderboardDialog() { delete ui; }
 
-void LeaderboardDialog::showMain(){
+void LeaderboardDialog::showMain() {
     this->hide();
     emit toMain();
 }
 
-void LeaderboardDialog::showThis(){
+void LeaderboardDialog::showThis() {
     refreshLeaderboard();
     this->show();
 }
 
-void LeaderboardDialog::refreshLeaderboard(){
-     model.clear();
-     tableModel.clear();
-     qDebug() << "refresh leaderboard";
-    if(userType == CHALLENGER){
+void LeaderboardDialog::refreshLeaderboard() {
+    model.clear();
+    tableModel.clear();
+    qDebug() << "refresh leaderboard";
+    if (userType == CHALLENGER) {
         User::instance().getChallengerMakeTable(model);
         tableModel.setColumnCount(5);
         tableModel.setHeaderData(0, Qt::Horizontal, "Username");
@@ -81,7 +80,7 @@ void LeaderboardDialog::refreshLeaderboard(){
         tableModel.setHeaderData(2, Qt::Horizontal, "Exp");
         tableModel.setHeaderData(3, Qt::Horizontal, "Max Passed");
         tableModel.setHeaderData(4, Qt::Horizontal, "Eliminated");
-    }else if(userType == WORD_BUILDER){
+    } else if (userType == WORD_BUILDER) {
         User::instance().getWordBuilderMakeTable(model);
         tableModel.setColumnCount(4);
         tableModel.setHeaderData(0, Qt::Horizontal, "Username");
@@ -102,17 +101,14 @@ void LeaderboardDialog::refreshLeaderboard(){
             }
         }
     }
-
-
 }
 
-void LeaderboardDialog::refreshChallenger(){
+void LeaderboardDialog::refreshChallenger() {
     userType = CHALLENGER;
     refreshLeaderboard();
 }
 
-void LeaderboardDialog::refreshWordBuilder(){
+void LeaderboardDialog::refreshWordBuilder() {
     userType = WORD_BUILDER;
     refreshLeaderboard();
 }
-

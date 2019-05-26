@@ -1,8 +1,7 @@
-#include <QCoreApplication>
 #include "mytcpserver.h"
+#include <QCoreApplication>
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
     auto server = new MyTcpServer;
     if (server->listen(QHostAddress::Any, 8899)) {

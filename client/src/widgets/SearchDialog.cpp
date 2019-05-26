@@ -65,8 +65,10 @@ void SearchDialog::initDialog() {
     ui->userTableView->setModel(&tableModel);
 
     ui->wordFilterComboBox->setStyleSheet(
-        "QComboBox {border: 1px solid gray;border-radius: 3px;padding: 1px 2px 1px 2px;min-width: 9em;}"
-        "QComboBox::drop-down {subcontrol-origin: padding;subcontrol-position: top "
+        "QComboBox {border: 1px solid gray;border-radius: 3px;padding: 1px 2px "
+        "1px 2px;min-width: 9em;}"
+        "QComboBox::drop-down {subcontrol-origin: padding;subcontrol-position: "
+        "top "
         "right;width: 20px;"
         "border-left-width: 1px;border-left-color: white;border-left-style:f;"
         "border-top-right-radius: 3px;"
@@ -77,8 +79,10 @@ void SearchDialog::initDialog() {
     ui->wordFilterComboBox->addItem("Word Build");
 
     ui->challengerFilterComboBox->setStyleSheet(
-        "QComboBox {border: 1px solid gray;border-radius: 3px;padding: 1px 2px 1px 2px;min-width: 9em;}"
-        "QComboBox::drop-down {subcontrol-origin: padding;subcontrol-position: top "
+        "QComboBox {border: 1px solid gray;border-radius: 3px;padding: 1px 2px "
+        "1px 2px;min-width: 9em;}"
+        "QComboBox::drop-down {subcontrol-origin: padding;subcontrol-position: "
+        "top "
         "right;width: 20px;"
         "border-left-width: 1px;border-left-color: white;border-left-style:f;"
         "border-top-right-radius: 3px;"
@@ -103,9 +107,7 @@ void SearchDialog::refreshFilterComboBox() {
     }
 }
 
-SearchDialog::~SearchDialog() {
-    delete ui;
-}
+SearchDialog::~SearchDialog() { delete ui; }
 void SearchDialog::showMainWindow() {
     this->hide();
     emit toMainWindow();
@@ -126,7 +128,6 @@ void SearchDialog::searchWordBuilder() {
         searchType = "build_word";
         break;
     }
-
 }
 
 void SearchDialog::searchChallenger() {
@@ -146,12 +147,11 @@ void SearchDialog::searchChallenger() {
     case 4:
         searchType = "word_eliminate";
     }
-
 }
 
 void SearchDialog::search() {
-       model.clear();
-       tableModel.clear();
+    model.clear();
+    tableModel.clear();
     if (ui->wordRadioButton->isChecked()) {
         searchWordBuilder();
         tableModel.setColumnCount(4);
@@ -189,4 +189,3 @@ void SearchDialog::search() {
         }
     }
 }
-

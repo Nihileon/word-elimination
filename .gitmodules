@@ -1,0 +1,3 @@
+[submodule "libs/qt-material-widgets"]
+	path = libs/qt-material-widgets
+	url = https://github.com/laserpants/qt-material-widgets.git

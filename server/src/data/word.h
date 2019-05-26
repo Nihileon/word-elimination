@@ -9,9 +9,8 @@
  * @brief 单词信息类
  *
  */
-class Word
-{
-  private:
+class Word {
+private:
     //    sqlite::database db;
     static Word *_instance; /// 单词单实例
     //    Word(const string path = "word.db"):db(path.c_str()){}
@@ -21,8 +20,7 @@ class Word
      *
      * @param path 路径
      */
-    Word(const string path = "./word.db")
-    {
+    Word(const string path = "./word.db") {
         if (QSqlDatabase::contains("words_connection"))
             db = QSqlDatabase::database("words_connection");
         else
@@ -33,7 +31,7 @@ class Word
         }
     }
 
-  public:
+public:
     /**
      * @brief 获得单实例
      *
@@ -51,8 +49,7 @@ class Word
      *
      * @param wi 单词信息
      */
-    void insert(const WordInfo &wi)
-    {
+    void insert(const WordInfo &wi) {
         auto query =
             QString(
                 "INSERT INTO Word (word,builder,len) VALUES ('%1','%2','%3');")
@@ -75,14 +72,14 @@ class Word
      * @param max 最大长度
      * @return auto 单词信息
      */
-    auto getWord(int min, int max)
-    {
+    auto getWord(int min, int max) {
         WordInfo wi;
-        QString query = QString("SELECT word, builder, fail_time, pass_time, len "
-                                "FROM Word WHERE (len>='%1' and len<=%2) "
-                                "ORDER BY RANDOM() LIMIT 1; ")
-                            .arg(QString::number(min))
-                            .arg(QString::number(max));
+        QString query =
+            QString("SELECT word, builder, fail_time, pass_time, len "
+                    "FROM Word WHERE (len>='%1' and len<=%2) "
+                    "ORDER BY RANDOM() LIMIT 1; ")
+                .arg(QString::number(min))
+                .arg(QString::number(max));
         QSqlQuery sqlQuery("words_connection", db);
         sqlQuery.prepare(query);
         if (sqlQuery.exec()) {
@@ -117,7 +114,6 @@ class Word
                 line.push_back(qry.value(2).toString());
                 model.push_back(line);
             }
-
         }
     }
 
@@ -126,8 +122,7 @@ class Word
      *
      * @param wordInfo 单词信息
      */
-    void updateWord(WordInfo &wordInfo)
-    {
+    void updateWord(WordInfo &wordInfo) {
         QString query = QString("UPDATE Word "
                                 "SET fail_time='%1', pass_time='%2' "
                                 "WHERE word='%3';")
@@ -145,8 +140,7 @@ class Word
      * @brief 初始化单词, 仅在未建立数据库时使用
      *
      */
-    void _initWord()
-    {
+    void _initWord() {
         using namespace std;
         fstream fp;
         fp.open("./COCA_20000.txt", ios::in);

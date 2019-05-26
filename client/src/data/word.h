@@ -3,7 +3,6 @@
 
 #include "../tcpclient.h"
 #include "basicInfo.h"
-#include <QtSql>
 #include <fstream>
 
 /**
@@ -13,7 +12,6 @@
 class Word {
 private:
     static Word *_instance; /// 单词单实例
-    QSqlDatabase db; /// 数据库
     /**
      * @brief 私有化单例构造函数
      *

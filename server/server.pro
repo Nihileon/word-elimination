@@ -3,7 +3,7 @@ TARGET = Server
 
 
 TEMPLATE = subdirs
-CONFIG += ordered
+CONFIG += ordered static
 
 
 SUBDIRS += \
