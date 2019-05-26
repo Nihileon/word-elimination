@@ -4,15 +4,18 @@ CONFIG += c++17
 
 TARGET = client
 
+unix:OBJECTS_DIR = ../../libs/qt-material-widgets/components/
+win32:OBJECTS_DIR = ../../libs/qt-material-widgets/components/release/
+
 LIBS += \
-    ../../libs/qt-material-widgets/components/libcomponents.a
+    $(OBJECTS_DIR)libcomponents.a
 
 INCLUDEPATH += \
     ../../libs/qt-material-widgets/components \
     ./ui
 
 PRE_TARGETDEPS = \
-    ../../libs/qt-material-widgets/components/libcomponents.a
+    $(OBJECTS_DIR)libcomponents.a
 
 HEADERS += \
     data/basicInfo.h \
@@ -24,9 +27,9 @@ HEADERS += \
     ui/LoginDialog_ui.h \
     ui/MainWindow_ui.h \
     ui/RegisterDialog_ui.h \
+    widgets/DoubleplayerDialog.h \
     widgets/LoginDialog.h \
-    widgets/doubleplayerdialog.h \
-    widgets/multiplayermatchdialog.h \
+    widgets/MultiplayerMatchingDialog.h \
     windowmanager.h \
     ui/BuildWordDialog_ui.h \
     widgets/BuildWordDialog.h \
@@ -47,10 +50,10 @@ HEADERS += \
 SOURCES += \
     tcpclient.cpp \
     data/words.cpp \
+    widgets/DoubleplayerDialog.cpp \
     widgets/LoginDialog.cpp \
     main.cpp \
-    widgets/doubleplayerdialog.cpp \
-    widgets/multiplayermatchdialog.cpp \
+    widgets/MultiplayerMatchingDialog.cpp \
     windowmanager.cpp \
     widgets/BuildWordDialog.cpp \
     widgets/LeaderBoardDialog.cpp \

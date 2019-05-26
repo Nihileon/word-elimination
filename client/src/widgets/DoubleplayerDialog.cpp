@@ -1,4 +1,4 @@
-#include "doubleplayerdialog.h"
+#include "DoubleplayerDialog.h"
 
 DoublePlayerDialog::DoublePlayerDialog(QWidget *parent)
     : QDialog(parent), ui(new Ui::DoublePlayerDialog),

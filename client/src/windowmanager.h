@@ -15,8 +15,8 @@
 #include "widgets/MainWindow.h"
 #include "widgets/RegisterDialog.h"
 #include "widgets/SearchDialog.h"
-#include "widgets/doubleplayerdialog.h"
-#include "widgets/multiplayermatchdialog.h"
+#include "widgets/DoubleplayerDialog.h"
+#include "widgets/MultiplayerMatchingDialog.h"
 #include <QApplication>
 #include <QObject>
 /**

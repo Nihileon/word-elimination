@@ -1,4 +1,4 @@
-#include "multiplayermatchdialog.h"
+#include "MultiplayerMatchingDialog.h"
 
 MultiPlayerMatchDialog::MultiPlayerMatchDialog(QWidget *parent)
     : QDialog(parent), ui(new Ui::MultiPlayerMatchDialog),

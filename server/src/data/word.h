@@ -29,6 +29,19 @@ private:
         if (!db.open()) {
             throw db.lastError();
         }
+        QSqlQuery sqlQuery("words_connection", db);
+        sqlQuery.prepare("CREATE TABLE IF NOT EXISTS Word("
+                         "ID INTEGER PRIMARY KEY,"
+                         "word VARCHAR NOT NULL,"
+                         "builder VARCHAR DEFAULT \"admin\","
+                         "fail_time INT(11) DEFAULT 0,"
+                         "pass_time INT(11) DEFAULT 0,"
+                         "len INT(11) NOT NULL,"
+                         "UNIQUE(word)"
+                         ");");
+        if (!sqlQuery.exec()) {
+            throw sqlQuery.lastError();
+        }
     }
 
 public:

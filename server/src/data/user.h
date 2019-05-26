@@ -12,7 +12,6 @@
 #include <QVariant>
 #include <QtSql>
 #include <iostream>
-
 /**
  * @brief 用于处理用户信息的类
  */
@@ -33,6 +32,45 @@ private:
         db.setDatabaseName(path.c_str());
         if (!db.open()) {
             throw db.lastError();
+        }
+
+        QSqlQuery sqlQuery;
+        sqlQuery.prepare("CREATE TABLE IF NOT EXISTS Challenger"
+                         "("
+                         "ID INTEGER PRIMARY KEY,"
+                         "user_login VARCHAR(20) NOT NULL,"
+                         "user_pass VARCHAR(300) NOT NULL,"
+                         "pass_salt VARCHAR(129) DEFAULT '0',"
+                         "nick_name VARCHAR ,"
+                         "play_time VARCHAR(25) DEFAULT 0,"
+                         "register_time VARCHAR(25) DEFAULT 0,"
+                         "level INT(11) DEFAULT 1,"
+                         "exp INT(11) DEFAULT 0,"
+                         "card_pass INT(11) DEFAULT 0,"
+                         "card_fail INT(11) DEFAULT 0,"
+                         "word_eliminate INT(11) DEFAULT 0,"
+                         "UNIQUE(user_login)"
+                         ");");
+        if (!sqlQuery.exec()) {
+            throw sqlQuery.lastError();
+        }
+        sqlQuery.prepare("CREATE TABLE IF NOT EXISTS WordBuilder"
+                         "("
+                         "ID INTEGER PRIMARY KEY,"
+                         "user_login VARCHAR(20) NOT NULL,"
+                         "user_pass VARCHAR(300) NOT NULL,"
+                         "pass_salt VARCHAR(129) DEFAULT '0',"
+                         "nick_name VARCHAR,"
+                         "register_time VARCHAR(25) DEFAULT 0,"
+                         "level INT(11) DEFAULT 1,"
+                         "exp INT(11) DEFAULT 0,"
+                         "build_word INT(11) DEFAULT 0,"
+                         "word_pass INT(11) DEFAULT 0,"
+                         "word_fail INT(11) DEFAULT 0,"
+                         "UNIQUE(user_login)"
+                         ");");
+        if (!sqlQuery.exec()) {
+            throw sqlQuery.lastError();
         }
     }
 

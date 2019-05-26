@@ -8,12 +8,15 @@
 
 ### Linux
 
-1. `git submodule init `
-2. qmake
+1. `git submodule update --init --recursive`
+2. 执行 qmake
 3. 构建项目即可
 
 ### Windows
 
-1. 将`./libs/qt-material-widgets/compoents/libcomponents.a`放入 `./libs/qt-material-widgets/compoents/release`中
-2. 使用mingw编译
+
+1. `git submodule update --init --recursive`
+2. 执行 qmake
+3. 使用 mingw
+4. 选择 release，构建即可
 
