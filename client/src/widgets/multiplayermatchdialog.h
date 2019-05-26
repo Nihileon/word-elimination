@@ -49,7 +49,6 @@ public:
         ui->tableView->setModel(&tableModel);
         msg->anotherButton->show();
         connect( ui->tableView,&QTableView::clicked,this, &MultiPlayerMatchDialog::competeQuery);
-
         connect(ui->backPushButton, &QPushButton::clicked, [&]() {
             this->hide();
             QVariant qv;
@@ -61,6 +60,11 @@ public:
         msb.addButton("refuse", QMessageBox::RejectRole);
         msb.setStyleSheet("border: none;background-color:#ffffff;");
     }
+
+/**
+ * @brief ????
+ *
+ */
     void matchPlayer() {
         this->show();
         QVariant qv;
@@ -68,9 +72,20 @@ public:
         emit beginMatching(qv);
     }
 
+/**
+ * @brief Set the Challenger object
+ *
+ * @param data
+ */
     void setChallenger(QVariant data) {
         this->challenger = data.value<Challenger>();
     }
+
+    /**
+     * @brief Set the Multi Player Tbale object
+     *
+     * @param table
+     */
     void setMultiPlayerTbale(QVector<QVector<QString>> table) {
         tableModel.clear();
         qDebug() << "refresh multi table";
@@ -91,7 +106,11 @@ public:
             }
         }
     }
-
+/**
+ * @brief ??????????????
+ *
+ * @param index ?????
+ */
     void competeQuery(QModelIndex index) {
         std::string otherSide = index.data().toString().toStdString();
         if (index.column() == 0 && otherSide != this->challenger.usr) {
@@ -101,6 +120,11 @@ public:
         }
     }
 
+/**
+ * @brief ???????, ????????
+ *
+ * @param table
+ */
     void receiveCompeteQuery(const QVector<QVector<QString>> table) {
         tempQuery = table;
         msb.setText("Level " + table.at(0).at(1) + " user\" " +
@@ -112,27 +136,45 @@ public:
         }
     }
 
+/**
+ * @brief ????, ??????
+ *
+ */
     void refuseCompete(){
         qDebug() << "clicked close";
         TCPClient::instance().sendRefuseCompeteQuery(
             QString::fromStdString(transformation::tableToString(tempQuery)));
     }
+/**
+ * @brief ????, ?????????
+ *
+ */
     void agreeCompete(){
         qDebug() << "clicked anotherbutton";
         TCPClient::instance().sendAgreeCompeteQuery(
             QString::fromStdString(transformation::tableToString(tempQuery)));}
 signals:
     void toMain();
+    /**
+     * @brief ????
+     *
+     * @param data
+     */
     void endMatching(QVariant data);
+    /**
+     * @brief ????
+     *
+     * @param data
+     */
     void beginMatching(QVariant data);
 
 private:
     Ui::MultiPlayerMatchDialog *ui;
-    MaterialMessageBox *msg; /// 信杯弹框
+    MaterialMessageBox *msg; /// ??????
     QStandardItemModel tableModel;
-    Challenger challenger;
+    Challenger challenger; /// ????
     QVector<QVector<QString>> tempQuery;
-    QMessageBox msb;
+    QMessageBox msb; /// ???
 };
 
 #endif // MULTIPLAYERMATCHDIALOG_H

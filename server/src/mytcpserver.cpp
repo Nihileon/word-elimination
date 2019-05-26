@@ -180,14 +180,14 @@ void MyTcpServer::parseAndReply(MySocket *socket, QString &result) {
         users.insert(table.at(0).at(2).toInt(), table.at(0).at(0));
         users.insert(table.at(1).at(2).toInt(), table.at(1).at(0));
         renewOnlineTable();
-        delayMsec(100);
+        delayMsec(20);
     } else if (type == "AGREE_COMPETE_QUERY") {
         auto senderHandle = table.at(0).at(2).toInt();
         auto receiverHandle = table.at(1).at(2).toInt();
         competitorPair cp(table.at(0).at(0), senderHandle, table.at(1).at(0),
                           receiverHandle);
         currentOnline.insert(senderHandle, receiverHandle);
-        WordInfo wi = Word::instance().getWord(6, 16);
+        WordInfo wi = Word::instance().getWord(6, 10);
         QString data = "MULTIPALYER_GAME_BEGIN|";
         data.append(QString::fromStdString(wi.word) + "," +
                     QString::number(wi.len) + "," +

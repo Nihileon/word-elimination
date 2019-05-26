@@ -21,22 +21,39 @@ public:
 
     }
 
-
+/**
+ * @brief 断开socket
+ *
+ * @param handle
+ */
     void disconnectSocket(qintptr handle) {
         if (handle == _handle) {
             disconnectFromHost();
         }
     }
 
+/**
+ * @brief Set the User Name object
+ *
+ * @param name
+ */
     void setUserName(std::string name) { this->username = name; }
     std::string getUserName() { return username;
     }
 private:
-    std::string username;
-    qintptr _handle;
-    QString userType = "";
+    std::string username; /// socket对应的用户名
+    qintptr _handle; /// socket的描述符
 signals:
+/**
+ * @brief 给服务器发送的断开信号
+ *
+ */
     void clientDisconnected(qintptr);
+
+    /**
+     * @brief 给服务器发送的连接信号
+     *
+     */
     void clientReadyRead(qintptr);
 };
 

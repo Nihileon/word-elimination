@@ -46,7 +46,11 @@ public:
         connect(ui->backPushBotton, &QPushButton::clicked, this, &DoublePlayerDialog::quitGame);
     }
 
-
+/**
+ * @brief 游戏开始
+ *
+ * @param table 单词信息
+ */
     void beginGame(QVector<QVector<QString>> table) {
         emit hideMultiPlayerMatchWindow();
         this->show();
@@ -71,6 +75,10 @@ public:
         qtimer->start(1000);
     }
 
+/**
+ * @brief 倒计时, 数到0的时候将单词隐藏
+ *
+ */
     void countDown() {
         auto cntBar = ui->countdownProgressBar;
         if (cntBar->value() > 0) {
@@ -83,12 +91,20 @@ public:
         }
     }
 
+/**
+ * @brief 退出游戏, 返回主窗口
+ *
+ */
     void quitGame() { string data = "WORD_QUIT";
         TCPClient::instance().sendMessage(data);
         emit toMain();
         this->hide();
         qtimer->stop();
     }
+    /**
+     * @brief 检查单词是否正确, 不正确不做任何操作, 正确则增加经验并返回主窗口
+     *
+     */
     void checkCorrect() {
         if (word == ui->wordLineEdit->text()) {
             string data = "WORD_CORRECT";
@@ -99,17 +115,28 @@ public:
         }
     }
 signals:
+/**
+ * @brief 隐藏多人游戏匹配窗口
+ *
+ */
     void hideMultiPlayerMatchWindow();
+    /**
+     * @brief 发送拼写正确信号, 让客户端告诉服务器该用户首先拼出了单词
+     *
+     */
     void spellCorrect();
+    /**
+     * @brief 返回主窗口
+     *
+     */
     void toMain();
 private:
-    Ui::DoublePlayerDialog *ui;
+    Ui::DoublePlayerDialog *ui; /// ui信息
     MaterialMessageBox *msg; /// 信息弹框
-    QVector<QVector<QString>> model;
     QTimer *qtimer;        /// 定时器
     Challenger challenger; /// 玩家信息
     int counter;           /// 计数器, 用于计算剩余的时间
-    QString word;
+    QString word; /// 单词信息
 };
 
 #endif // DOUBLEPLAYERDIALOG_H
