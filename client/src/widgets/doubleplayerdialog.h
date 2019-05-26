@@ -41,12 +41,11 @@ public:
         wordBrows->setAlignment(Qt::AlignCenter);
 
         connect(qtimer, &QTimer::timeout, this, &DoublePlayerDialog::countDown);
-        //        connect(ui->backPushBotton, &QPushButton::clicked, this,
-        //                &DoublePlayerDialog::showMain);
         connect(ui->nextPushButton, &QPushButton::clicked, this,
                 &DoublePlayerDialog::checkCorrect);
         connect(ui->backPushBotton, &QPushButton::clicked, this, &DoublePlayerDialog::quitGame);
     }
+
 
     void beginGame(QVector<QVector<QString>> table) {
         emit hideMultiPlayerMatchWindow();
@@ -60,8 +59,6 @@ public:
         ui->wordLineEdit->setDisabled(true);
         word = table.at(0).at(0);
 
-//        msg->setText(table.at(0).at(0));
-//        msg->showDialog();
         string tr = "<center><big><font size=14>" + word.toStdString() +
             "</big></font></center>";
         QObject::tr(tr.c_str());
@@ -79,7 +76,6 @@ public:
         if (cntBar->value() > 0) {
             cntBar->setValue(cntBar->value() - 1);
         } else if (cntBar->value() <= 0) {
-            //        qtimer->stop();
             ui->wordTextBrowser->hide();
             ui->wordLineEdit->setDisabled(false);
             ui->wordLineEdit->setFocus();
@@ -100,8 +96,6 @@ public:
             qDebug() << "check correct";
             TCPClient::instance().gameEnd();
             qtimer->stop();
-        } else {
-
         }
     }
 signals:

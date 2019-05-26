@@ -41,9 +41,7 @@ BuildWordDialog::BuildWordDialog(QWidget *parent)
     ui->wordBuildTableView->setShowGrid(false);
     ui->wordBuildTableView->horizontalHeader()->setSectionResizeMode(
         QHeaderView::Stretch);
-//    QSortFilterProxyModel* proxy = new QSortFilterProxyModel(this);
-//    proxy->setSourceModel(model);
-//    ui->wordBuildTableView->setModel(proxy);
+
 
     connect(ui->backPushButton, &QPushButton::clicked, this,&BuildWordDialog::showMain);
     connect(ui->confirmPushBotton, &QPushButton::clicked, this, &BuildWordDialog::addWord);
@@ -76,11 +74,9 @@ void BuildWordDialog::addWord(){
         wordBuilder.build_word++;
         wordBuilder.exp += 4;
         this->setLevel(wordBuilder);
-//        MaterialMessageBox *msg = new MaterialMessageBox(this);
         msg->setText("Your have successfully add a word.");
         msg->showDialog();
     } else {
-//        MaterialMessageBox *msg = new MaterialMessageBox(this);
         msg->setText("Your Word is exist! \nPlease input another one.");
         msg->showDialog();
     }

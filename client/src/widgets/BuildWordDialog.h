@@ -65,12 +65,6 @@ public slots:
      * @param data
      */
     void setWordBuilder(QVariant data);
-//    void showThis() {
-//        this->show();
-//        Word::instance().getWordMakeTable(model, wordBuilder.usr);
-//        qDebug() << QString("fuck");
-//        makeTable();
-//    }
 
 private:
     WordBuilder wordBuilder; /// 出题人

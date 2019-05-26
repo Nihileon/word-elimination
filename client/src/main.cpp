@@ -32,21 +32,6 @@ int main(int argc, char *argv[]) {
                      Manager::instance().mm,
                      &MultiPlayerMatchDialog::receiveCompeteQuery);
 
-//    QObject::connect(
-//        Manager::instance().mm, &MultiPlayerMatchDialog::refuseCompeteQuery,
-//        &TCPClient::instance(), &TCPClient::sendRefuseCompeteQuery);
-
-//    QObject::connect(Manager::instance().mm,
-//                     &MultiPlayerMatchDialog::agreeCompeteQuery,
-//                     &TCPClient::instance(), &TCPClient::sendAgreeCompeteQuery);
-
-//    QObject::connect(&TCPClient::instance(), &TCPClient::beginMultiPlayerGame,
-//                     [&](QVector<QVector<QString>> table) {
-//                         Manager::instance().mm->hide();
-//                         Manager::instance().d->show();
-//                         Manager::instance().d->beginGame(table);
-//                     });
-
     a.exec();
     return 0;
 }

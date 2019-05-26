@@ -1,34 +1,5 @@
 #include "mytcpserver.h"
 
-// MyTcpServer *MyTcpServer::_instance = nullptr;
-
-// MyTcpServer &MyTcpServer::instance() {
-//    if (_instance == nullptr) {
-//        _instance = new MyTcpServer();
-//    }
-//    return *_instance;
-//}
-
-// void MyTcpServer::destroy() {
-//    if (_instance != nullptr) {
-//        delete _instance;
-//    }
-//    return;
-//}
-
-// void MyTcpServer::init() {
-//    if (!server->listen(QHostAddress::LocalHost, 8899)) {
-//        qDebug() << "Server could not start";
-//    } else {
-//        qDebug() << "Server started!";
-//    }
-//}
-
-// void MyTcpServer::disconnect() {
-//    socket->close();
-//    socket->waitForDisconnected();
-//}
-
 void MyTcpServer::parseAndReply(MySocket *socket, QString &result) {
     auto table = transformation::stringToTable(result.toStdString());
     auto type = table.at(0).at(0);
@@ -258,36 +229,3 @@ void MyTcpServer::parseAndReply(MySocket *socket, QString &result) {
         qDebug() << "parse failed";
     }
 }
-
-// void MyTcpServer::newConnection() {
-//    // need to grab the socket
-//    socket = server->nextPendingConnection();
-//    connect(socket, SIGNAL(readRead()), this, SLOT(readMessage()));
-//    connect(socket, SIGNAL(waitForBytesWritten()), this, SLOT(sendMessage()));
-//    //    socket->write("Hello client\r\n");
-//    //    socket->flush();
-
-//    //    socket->waitForBytesWritten(3000);
-
-//    //    socket->close();
-
-//    //    if (socket->readLine() == "start") {
-//    //        qDebug() << "start";
-//    //        socket->write("start");
-//    //        socket->flush();
-//    //        QString clientmove = "something";
-//    //        while (clientmove != "close") {
-//    //            char move[9];
-//    //            socket->write(move);
-//    //            socket->flush();
-//    //            socket->waitForBytesWritten(1000);
-//    //            socket->waitForReadyRead(10000);
-//    //            clientmove = socket->readLine();
-//    //            qDebug() << clientmove;
-//    //        }
-//    //    }
-//    //    socket->close();
-//    //    socket->waitForDisconnected(10900);
-//    MyTcpServer::instance().run();
-//    MyTcpServer::instance().disconnect();
-//}

@@ -84,7 +84,6 @@ void GameDialog::countDown() {
         cntBar->setValue(cntBar->value() - 1);
         cntLcd->display(cntBar->value());
     } else if (cntBar->value() == 0 && timePerWord == 0) {
-        //        qtimer->stop();
         ui->wordTextBrowser->hide();
         ui->wordLineEdit->setDisabled(false);
         ui->wordLineEdit->setFocus();

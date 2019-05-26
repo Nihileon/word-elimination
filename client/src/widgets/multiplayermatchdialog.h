@@ -57,16 +57,6 @@ public:
             emit endMatching(qv);
             emit toMain();
         });
-        //        connect(msg->closeButton, &QtMaterialFlatButton::pressed,
-        //        this,
-        //                &MultiPlayerMatchDialog::refuseCompete);
-        //        connect(msg->anotherButton, &QtMaterialFlatButton::pressed,
-        //        this,
-        //                &MultiPlayerMatchDialog::agreeCompete);
-        //        QtMaterialRaisedButton agree("agree");
-        //        QtMaterialRaisedButton refuse("refuse");
-        //        msb.addButton(&agree,QMessageBox::AcceptRole);
-        // msb.addButton(&refuse,QMessageBox::RejectRole);
         msb.addButton("yes", QMessageBox::AcceptRole);
         msb.addButton("refuse", QMessageBox::RejectRole);
         msb.setStyleSheet("border: none;background-color:#ffffff;");
@@ -119,13 +109,7 @@ public:
             agreeCompete();
         } else {
             refuseCompete();
-
         }
-
-//        msg->setText("Level " + table.at(0).at(1) + " user\" " +
-//                     table.at(0).at(0) + "\" wants to compete with you");
-//        msg->showDialog();
-
     }
 
     void refuseCompete(){
@@ -135,22 +119,16 @@ public:
     }
     void agreeCompete(){
         qDebug() << "clicked anotherbutton";
-        //            emit
-        //            agreeCompeteQuery(QString::fromStdString(transformation::tableToString(table)));
         TCPClient::instance().sendAgreeCompeteQuery(
             QString::fromStdString(transformation::tableToString(tempQuery)));}
 signals:
     void toMain();
     void endMatching(QVariant data);
     void beginMatching(QVariant data);
-//    void refuseCompeteQuery(QString qs);
-//    void agreeCompeteQuery(QString qs);
-//    void refuseCompeteQuery();
-//     void agreeCompeteQuery();
+
 private:
     Ui::MultiPlayerMatchDialog *ui;
-    MaterialMessageBox *msg; /// 信息弹框
-//    QVector<QVector<QString>> model;
+    MaterialMessageBox *msg; /// 信杯弹框
     QStandardItemModel tableModel;
     Challenger challenger;
     QVector<QVector<QString>> tempQuery;

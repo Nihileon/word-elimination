@@ -35,9 +35,6 @@ class MyTcpServer : public QTcpServer {
     Q_OBJECT
 public:
     explicit MyTcpServer(QObject *parent = 0) : QTcpServer(parent) {
-        // whenever a user connects, it will emit signal
-        //        connect(this, &MyTcpServer::renewOnlineTable, this,
-        //                &MyTcpServer::renewOnlineTableSlot);
     }
     static void destroy();
     void parseAndReply(MySocket *socket, QString &);
@@ -169,7 +166,6 @@ public slots:
 private:
     QMap<qintptr, MySocket *> clients;
     QMap<qintptr, QString> users;
-//    std::set<competitorPair> currentCompetingPairs;
     QMap<qintptr, qintptr> currentOnline;
 };
 

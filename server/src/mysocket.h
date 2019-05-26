@@ -11,7 +11,6 @@ class MySocket:public QTcpSocket
 public:
     MySocket(qintptr handle, QObject *parent = 0)
         : QTcpSocket(parent), _handle(handle) {
-
         this->setSocketDescriptor(_handle);
         connect(this, &MySocket::disconnected, [&]() {
             this->deleteLater();
