@@ -211,7 +211,7 @@ void MyTcpServer::parseAndReply(MySocket *socket, QString &result) {
             sendMessage(clients.value(handleB), data);
             currentOnline.remove(handleB);
         }
-    } else if (type == "WORD_CORRECT") {
+    } else if (type == "WORD_CORRECTGET_CHALLENGER") {
         QString data = "DOUBLE_GAME_END";
         LoginInfo li;
         li.usr = socket->getUserName();
@@ -228,7 +228,7 @@ void MyTcpServer::parseAndReply(MySocket *socket, QString &result) {
             sendMessage(clients.value(handleB), data);
             currentOnline.remove(handleB);
         }
-        qDebug() << "parse failed";
+        qDebug() << "parse succeeded";
     }
 }
 

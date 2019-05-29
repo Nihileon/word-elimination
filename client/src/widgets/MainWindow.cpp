@@ -41,9 +41,9 @@ void MainWindow::initWindow() {
     QPalette palette(this->palette());
     palette.setColor(QPalette::Background, Qt::white);
     this->setPalette(palette);
-    QDesktopWidget *desktop = QApplication::desktop();
-    move((desktop->width() - this->width()) / 2,
-         (desktop->height() - this->height()) / 2);
+//    QDesktopWidget *desktop = QApplication::desktop();
+//    move((desktop->width() - this->width()) / 2,
+//         (desktop->height() - this->height()) / 2);
 
     ui->personalInfoTableView->setStyleSheet(
         "QTableCornerButton::section{border: none;background:white;}"
@@ -164,8 +164,10 @@ void MainWindow::setWordBuilder(QVariant data) {
 void MainWindow::closeAll() { emit sendCloseAll(); }
 
 void MainWindow::refreshAfterDoubleGame() {
+
     LoginInfo li;
     li.usr = challenger.usr;
+    delayMsecSuspend(50);
     challenger = User::instance().getChallenger(li);
 
     refreshChallengerWindow();

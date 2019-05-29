@@ -74,7 +74,7 @@ void DoublePlayerDialog::quitGame() {
 
 void DoublePlayerDialog::checkCorrect() {
     if (word == ui->wordLineEdit->text()) {
-        string data = "WORD_CORRECT";
+        string data = "WORD_CORRECTGET_CHALLENGER";
         TCPClient::instance().sendMessage(data);
         qDebug() << "check correct";
         TCPClient::instance().gameEnd();
