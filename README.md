@@ -2,21 +2,21 @@
 
 ## Introduction
 
-这是一个用来模拟单词消除的小游戏
+Object-oriented  Course Design: a word elimination game.
 
 ## Usage
 
 ### Linux
 
 1. `git submodule update --init --recursive`
-2. 执行 qmake
-3. 构建项目即可
+2. execute qmake
+3. build the project
 
 ### Windows
 
 
 1. `git submodule update --init --recursive`
-2. 执行 qmake
-3. 使用 mingw
-4. 选择 release，构建即可
+2. execute qmake
+3. choose mingw compiler
+4. choose release and build the project
 
